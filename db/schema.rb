@@ -17,8 +17,11 @@ ActiveRecord::Schema.define(:version => 20130406005435) do
     t.string   "name"
     t.string   "kind"
     t.string   "client"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "ordinal",    :default => 0, :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
+
+  add_index "videos", ["ordinal"], :name => "index_videos_on_ordinal"
 
 end

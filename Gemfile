@@ -10,6 +10,10 @@ gem "carrierwave"
 gem "fog"
 gem "zencoder"
 
+group :test do
+  gem 'shoulda-matchers'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
