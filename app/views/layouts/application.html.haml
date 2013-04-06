@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title James Rouse | Director
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %header
+      = image_tag "rouse.png", id: 'logo'
+      %p James Rouse - Director
+    = yield
+    %footer
+      %nav
+        %ul
+          %li= link_to "Awards", "#"
+          %li= link_to "Biography", "#"
+          %li= link_to "Contact", "#"
