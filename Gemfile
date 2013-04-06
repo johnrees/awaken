@@ -4,6 +4,9 @@ gem 'rails', '3.2.13'
 
 group :development, :test do
   gem 'sqlite3'
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem 'dotenv'
 end
 gem 'pg'
 
@@ -25,6 +28,3 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
-gem "rspec-rails", :group => ["development", "test"]
-gem "factory_girl_rails", :group => ["development", "test"]

@@ -43,6 +43,7 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     diff-lcs (1.2.2)
+    dotenv (0.6.0)
     erubis (2.7.0)
     excon (0.20.1)
     execjs (1.4.0)
@@ -161,6 +162,7 @@ PLATFORMS
 DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.1)
+  dotenv
   factory_girl_rails
   fog
   haml-rails
