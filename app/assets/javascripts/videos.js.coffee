@@ -1,5 +1,10 @@
+window.acceleration = 0
+
 scroll = ->
-  TweenLite.to($('.thumbs'), 0.2, {left: $('.thumbs').css('left')});
+  $('.thumbs').css 'left', (index, curValue) ->
+    "#{parseInt(curValue) + window.acceleration}px"
+
+setInterval(scroll, 20)
 
 jQuery ->
 
@@ -8,4 +13,8 @@ jQuery ->
 
   $(document).mousemove (e) ->
     if (e.pageX > $('body').width() - 50)
-      setInterval(scroll, 1000);
+      window.acceleration = -3
+    else if (e.pageX < 50)
+      window.acceleration = 3
+    else
+      window.acceleration = 0
