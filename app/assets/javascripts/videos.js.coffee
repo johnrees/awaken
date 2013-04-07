@@ -1,3 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+scroll = ->
+  TweenLite.to($('.thumbs'), 0.2, {left: $('.thumbs').css('left')});
+
+jQuery ->
+
+  $(window).resize ->
+    $('.text').html 'a'
+
+  $(document).mousemove (e) ->
+    if (e.pageX > $('body').width() - 50)
+      setInterval(scroll, 1000);

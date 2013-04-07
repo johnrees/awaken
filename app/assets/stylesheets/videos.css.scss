@@ -3,6 +3,10 @@ html,body {
   padding: 0;
 }
 
+body {
+  font-family: Helvetica, arial, sans-serif;
+}
+
 header, footer {
   text-align: center;
 }
@@ -17,6 +21,8 @@ footer {
 
 #logo {
   margin-top: 20px;
+  height: 132px;
+  width: 209px;
 }
 
 a {
@@ -24,18 +30,43 @@ a {
   color: #444;
 }
 
-.images {
-  width: 100%;
+.holder {
+  overflow: hidden;
   position: relative;
+}
+
+.thumbs {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  overflow: hidden;
+  display: block;
+  white-space:nowrap;
 }
 
 .thumb {
   background: green;
   height: 250px;
   width: 315px;
+  // display: inline-block;
+  float: left;
+  &:nth-child(even) {
+    background: yellow;
+  }
+}
+
+.left, .right {
+  background: rgba(255,255,255,0.8);
   position: absolute;
-  top: 5px;
-  display: inline-block;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  z-index: 5;
+  left: -162px;
+}
+.right {
+  left: auto;
+  right: -162px;
 }
 
 .polaroid {
@@ -44,10 +75,15 @@ a {
   width: 325px;
   box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.75);
   position: relative;
-  z-index: 2;
+  z-index: 8;
 
   .text {
+    clear: both;
+    display: block;
     padding: 5px;
+    p {
+      margin: 0;
+    }
   }
 
   .side {
@@ -57,12 +93,11 @@ a {
     height: 255px;
     float: left;
   }
+
   .image {
     float: left;
     width: 315px;
     height: 250px;
-    // border: 1px solid #000;
-    // background: black;
   }
 }
 
@@ -74,4 +109,13 @@ ul {
 
 li {
   display: inline-block;
+  border-right: 1px solid #CCC;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+  padding-right: 10px;
+  &:last-child {
+    padding: 0;
+    border: none;
+  }
 }

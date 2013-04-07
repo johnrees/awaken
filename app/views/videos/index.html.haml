@@ -1,4 +1,5 @@
-.images
+.holder
+  .left
   .polaroid
     .side
     .image
@@ -6,7 +7,8 @@
     .text
       %p Viral
       %p Image
+  .right
   .thumbs
-    - 10.times do
-      .thumb
-        a
+    - 10.times do |index|
+      .thumb{data: { number: index }}
+        = index
