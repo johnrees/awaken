@@ -1,0 +1,3 @@
+= link_to "Add Video", new_admin_video_path
+- @videos.each do |video|
+  = link_to video, admin_video_path(video)
