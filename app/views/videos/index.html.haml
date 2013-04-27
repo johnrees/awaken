@@ -9,6 +9,6 @@
       %p Image
   .right
   .thumbs
-    - 10.times do |index|
+    - @videos.each_with_index do |video, index|
       .thumb{data: { number: index }}
         = index
