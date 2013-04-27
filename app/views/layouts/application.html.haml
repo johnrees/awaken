@@ -3,8 +3,9 @@
   %head
     %title James Rouse | Director
 
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/TweenMax.min.js", "application"
+    = stylesheet_link_tag    "application", "http://vjs.zencdn.net/c/video-js.css", :media => "all"
+    = javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/TweenMax.min.js", "http://vjs.zencdn.net/c/video.js", "application"
+
     = csrf_meta_tags
   %body
     %header
