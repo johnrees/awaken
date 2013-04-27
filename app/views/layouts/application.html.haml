@@ -15,6 +15,6 @@
     %footer
       %nav
         %ul
-          %li= link_to "Awards", "#"
-          %li= link_to "Biography", "#"
-          %li= link_to "Contact", "#"
+          %li= link_to "Awards", page_path("awards"), data: { popup: true }
+          %li= link_to "Biography", page_path("biography"), data: { popup: true }
+          %li= link_to "Contact", page_path("contact"), data: { popup: true }

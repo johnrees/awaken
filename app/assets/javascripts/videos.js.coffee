@@ -8,6 +8,11 @@ setInterval(scroll, 20)
 
 jQuery ->
 
+  $('a[data-popup]').colorbox
+    initialWidth: 326
+    width: 360
+    height: 350
+
   $(window).resize ->
     $('.text').html 'a'
 
