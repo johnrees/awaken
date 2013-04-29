@@ -35,7 +35,7 @@ a {
   position: relative;
 }
 
-.thumbs {
+#video-thumbs {
   position: absolute;
   left: 0;
   top: 5px;
@@ -70,6 +70,7 @@ a {
 }
 
 .polaroid {
+  pointer-events: none;
   margin: 0 auto;
   border: 1px solid black;
   width: 325px;

@@ -8,7 +8,9 @@
       %p Viral
       %p Image
   .right
-  .thumbs
+
+  %ul#video-thumbs
     - @videos.each_with_index do |video, index|
-      .thumb{data: { number: index }}
-        = index
+      %li
+        = link_to video do
+          = image_tag video.thumbnail

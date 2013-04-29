@@ -30,7 +30,10 @@ class VideoUploader < CarrierWave::Uploader::Base
         :base_url => base_url,
         :filename => "video.mp4",
         :label => "web",
-        :notifications => [zencoder_callback_url(:protocol => 'http')],
+        :notifications => [
+            # zencoder_callback_url(:protocol => 'http')
+            "http://42vt.localtunnel.com/zencoder-callback"
+        ],
         :video_codec => "h264",
         :audio_codec => "aac",
         :quality => 4,
@@ -38,7 +41,22 @@ class VideoUploader < CarrierWave::Uploader::Base
         :height => 768,
         :format => "mp4",
         :aspect_mode => "preserve",
-        :public => 1
+        :public => 1,
+        :thumbnails => [
+          {
+            :base_url => base_url,
+            :format => "jpg",
+            :label => "thumb",
+            :number => 10,
+            :width => 330,
+            :height => 250,
+            :aspect_mode => "crop",
+            :filename => "thumbnail_{{number}}",
+            # :filename => "poster",
+            # :times => [ params[:time].to_f * 100 ],
+            :public => 1
+          }
+        ]
       }]
     })
 
@@ -47,6 +65,7 @@ class VideoUploader < CarrierWave::Uploader::Base
     zencoder_response.body["outputs"].each do |output|
       if output["label"] == "web"
         @model.zencoder_output_id = output["id"]
+        @model.thumbnail = "http://#{ENV['AWS_S3_BUCKET']}.s3.amazonaws.com/uploads/video/attachment/#{@model.id}/thumbnail_0.jpg"
         @model.processed = false
         @model.save(:validate => false)
       end

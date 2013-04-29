@@ -1,6 +1,7 @@
 class ZencoderCallbackController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
+  layout false
 
   def create
     zencoder_response = ''

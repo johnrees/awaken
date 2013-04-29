@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130427165629) do
     t.string   "client"
     t.integer  "ordinal",            :default => 0,     :null => false
     t.string   "attachment"
+    t.string   "thumbnail"
     t.string   "zencoder_output_id"
     t.boolean  "processed",          :default => false
     t.datetime "created_at",                            :null => false
