@@ -1,0 +1,23 @@
+= form_for [:admin,@video] do |f|
+
+  .input
+    - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
+      %video#my_video_1.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "264", :poster => "my_video_poster.png", :preload => "auto", :width => "640"}
+        %source{:src => "#{@video.attachment.url}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+    - else
+      %p Please be patient while we process this video
+
+
+  .input
+    = f.label :kind
+    = f.text_field :kind
+    = f.label :name
+    = f.text_field :name
+
+  .input
+    = f.label :client
+    = f.text_field :client
+
+
+
+  = f.submit

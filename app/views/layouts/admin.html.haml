@@ -4,7 +4,11 @@
     %title ADMIN : James Rouse
 
     = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "http://vjs.zencdn.net/c/video-js.css"
+    = javascript_include_tag "http://cdnjs.cloudflare.com/ajax/libs/gsap/1.9.3/TweenMax.min.js"
+    = javascript_include_tag "http://vjs.zencdn.net/c/video.js"
     = javascript_include_tag "application"
+
     = csrf_meta_tags
   %body
     %header

@@ -2,4 +2,4 @@
 - @videos.each do |video|
   .video
     / = link_to video, admin_video_path(video)
-    = link_to video.id, admin_video_path(video)
+    = link_to video.id, edit_admin_video_path(video)

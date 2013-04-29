@@ -4,7 +4,7 @@ rvm:
   - 1.9.2
 env:
   - DB=sqlite
-  - DB=mysql
+  # - DB=mysql
   - DB=postgresql
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
@@ -12,5 +12,5 @@ script:
   - bundle exec rake
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database awaken_test'
+  # - mysql -e 'create database awaken_test'
   - psql -c 'create database awaken_test' -U postgres

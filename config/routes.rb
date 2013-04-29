@@ -1,7 +1,9 @@
 Awaken::Application.routes.draw do
   resources :videos, only: [:index, :show]
   namespace :admin do
-    resources :videos
+    resources :videos do
+      get 'thumbnail/:time', :on => :member, :action => 'thumbnail'
+    end
     resources :pages
     root to: 'videos#index'
   end

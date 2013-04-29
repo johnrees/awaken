@@ -21,8 +21,8 @@ class VideoUploader < CarrierWave::Uploader::Base
   private
 
   def zencode(args)
-    input = "s3://#{ENV['AWS_S3_BUCKET']}/uploads/video/attachment/#{@model.id}/video.mp4"
     base_url = "s3://#{ENV['AWS_S3_BUCKET']}/uploads/video/attachment/#{@model.id}"
+    input = "#{base_url}/video.mp4"
 
     zencoder_response = Zencoder::Job.create({
       :input => input,
