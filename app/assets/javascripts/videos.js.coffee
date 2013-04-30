@@ -38,7 +38,7 @@ jQuery ->
   $(document).mousemove (e) ->
     maxSpeed = 12
     xPos = e.pageX
-    width = $('.right').width() - 100
+    width = $('.left').width() * .65
     if (xPos > $('body').width() - width)
       window.acceleration = map(xPos, $('body').width() - width, $('body').width(), 0, -maxSpeed)
     else if (e.pageX < width)
