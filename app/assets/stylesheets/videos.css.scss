@@ -38,28 +38,34 @@ a {
 #video-thumbs {
   position: absolute;
   left: 0;
-  // border-top: 1px solid black;
-  // border-bottom: 1px solid black;
   top: 5px;
   overflow: hidden;
   display: block;
   white-space:nowrap;
+
   &, li, a, img {
     margin: 0;
     padding: 0;
+    padding: 0;
+    border: none;
+  }
+
+  li {
+    float: left;
+  }
+
+  .thumb {
+    overflow: hidden;
+    width: 315px;
+
+    img {
+      width: 315px;
+      height: 250px;
+    }
   }
 }
 
-.thumb {
-  background: green;
-  height: 250px;
-  width: 315px;
-  // display: inline-block;
-  float: left;
-  &:nth-child(even) {
-    background: yellow;
-  }
-}
+
 
 .left, .right {
   background: rgba(255,255,255,0.8);
@@ -84,6 +90,7 @@ a {
     top: 3px;
     left: 4px;
   }
+
   pointer-events: none;
   margin: 0 auto;
   border: 1px solid black;

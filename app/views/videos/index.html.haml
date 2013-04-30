@@ -11,8 +11,8 @@
   .right
 
   %ul#video-thumbs
-    - 10.times do
+    - 5.times do
       - @videos.each_with_index do |video, index|
-        %li
+        %li.thumb
           = link_to video, data: { type: "Viral", title: "Torres", client: "John" } do
             = image_tag video.thumbnail

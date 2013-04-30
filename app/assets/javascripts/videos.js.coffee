@@ -1,10 +1,20 @@
 window.acceleration = 0
 
-scroll = ->
-  $('#video-thumbs').css 'left', (index, curValue) ->
-    "#{parseInt(curValue) + window.acceleration}px"
 
-setInterval(scroll, 20)
+map = (x, in_min, in_max, out_min, out_max) ->
+  (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+scroll = ->
+  if (window.acceleration != 0)
+    currentPosition = parseInt $('#video-thumbs').css('left')
+    newPosition = currentPosition + window.acceleration
+    minLeft = $(window).width()/2 - 315/2 + 1
+    maxLeft = 315
+    newPosition = parseInt Math.min( minLeft, newPosition)
+    # newPosition = parseInt Math.max( maxLeft, newPosition)
+    $('#video-thumbs').css 'left', -> "#{newPosition}px"
+
+setInterval(scroll, 10)
 
 jQuery ->
 
@@ -26,9 +36,12 @@ jQuery ->
     $('.text').html 'a'
 
   $(document).mousemove (e) ->
-    if (e.pageX > $('body').width() - 50)
-      window.acceleration = -3
-    else if (e.pageX < 50)
-      window.acceleration = 3
+    maxSpeed = 12
+    xPos = e.pageX
+    width = $('.right').width() - 100
+    if (xPos > $('body').width() - width)
+      window.acceleration = map(xPos, $('body').width() - width, $('body').width(), 0, -maxSpeed)
+    else if (e.pageX < width)
+      window.acceleration = map(xPos, 0, width, maxSpeed, 0)
     else
       window.acceleration = 0
