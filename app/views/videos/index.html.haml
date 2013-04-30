@@ -1,6 +1,7 @@
 .holder
   .left
   .polaroid
+    .box
     .side
     .image
     .side
@@ -10,7 +11,8 @@
   .right
 
   %ul#video-thumbs
-    - @videos.each_with_index do |video, index|
-      %li
-        = link_to video do
-          = image_tag video.thumbnail
+    - 10.times do
+      - @videos.each_with_index do |video, index|
+        %li
+          = link_to video, data: { type: "Viral", title: "Torres", client: "John" } do
+            = image_tag video.thumbnail

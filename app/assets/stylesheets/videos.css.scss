@@ -38,10 +38,16 @@ a {
 #video-thumbs {
   position: absolute;
   left: 0;
+  // border-top: 1px solid black;
+  // border-bottom: 1px solid black;
   top: 5px;
   overflow: hidden;
   display: block;
   white-space:nowrap;
+  &, li, a, img {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .thumb {
@@ -70,6 +76,14 @@ a {
 }
 
 .polaroid {
+  .box {
+    width: 315px;
+    height: 250px;
+    border: 1px solid black;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+  }
   pointer-events: none;
   margin: 0 auto;
   border: 1px solid black;
