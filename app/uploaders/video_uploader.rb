@@ -32,7 +32,7 @@ class VideoUploader < CarrierWave::Uploader::Base
         :label => "web",
         :notifications => [
             # zencoder_callback_url(:protocol => 'http')
-            "http://42vt.localtunnel.com/zencoder-callback"
+            "http://rouse.johnre.es/zencoder-callback"
         ],
         :video_codec => "h264",
         :audio_codec => "aac",

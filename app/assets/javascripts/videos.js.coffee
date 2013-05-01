@@ -71,9 +71,6 @@ jQuery ->
     width: 810
     height: 460
 
-  $(window).resize ->
-    $('.text').html 'a'
-
   $('.holder').mousemove (e) ->
     TweenLite.killTweensOf($('#video-thumbs'))
     maxSpeed = 10
