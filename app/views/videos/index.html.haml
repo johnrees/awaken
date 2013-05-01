@@ -6,13 +6,17 @@
     .image
     .side
     .text
-      %p Viral
-      %p Image
+      %p
+        %span.kind Kind:
+        %span.name Name
+      %p
+        %span.client Client:
+        %span.client_name Client
   .right
 
   %ul#video-thumbs
-    - 5.times do
+    - 2.times do
       - @videos.each_with_index do |video, index|
         %li.thumb
-          = link_to video, data: { type: "Viral", title: "Torres", client: "John" } do
+          = link_to video, data: { kind: video.kind, name: video.name, client: video.client } do
             = image_tag video.thumbnail
