@@ -12,8 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require underscore
 //= require uploadify/jquery.uploadify
 //= require jquery.colorbox.js
+//= require redactor-rails
 //= require_tree .
 
+
+$(document).foundation();

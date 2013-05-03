@@ -6,14 +6,14 @@
         - @page.errors.full_messages.each do |msg|
           %li= msg
 
+  / .field
+  /   = f.label :name
+  /   = f.text_field :name
+  / .field
+  /   = f.label :permalink
+  /   = f.text_field :permalink
   .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :permalink
-    = f.text_field :permalink
-  .field
-    = f.label :content
-    = f.text_area :content
+    /= f.label :content
+    = f.text_area :content, class: "redactor"
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save Changes', class: 'button large expand'

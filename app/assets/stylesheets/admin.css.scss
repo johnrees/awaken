@@ -1,6 +1,14 @@
-.video {
-  // width: 300px;
-  // height: 200px;
-  // background: red;
-  // margin: 5px;
+@import "foundation_and_overrides";
+@import "redactor-rails";
+
+.actions {
+  margin: 1em 0;
+}
+
+table img {
+  max-width: 100px;
+}
+
+label {
+  font-weight: bold;
 }

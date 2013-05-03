@@ -1,7 +1,9 @@
-%ul
-  - @pages.each do |page|
-    %li
-      = link_to page, edit_admin_page_path(page)
-      = link_to 'Destroy', admin_page_path(page), :method => :delete, :data => { :confirm => 'Are you sure?' }
+.row
+  .large-12.columns
+    %ul
+      - @pages.each do |page|
+        %li
+          = link_to page, edit_admin_page_path(page)
+          = link_to 'Destroy', admin_page_path(page), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Page', new_admin_page_path
+    / = link_to 'New Page', new_admin_page_path

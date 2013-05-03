@@ -5,10 +5,6 @@ class Admin::PagesController < ApplicationController
     @pages = Page.all
   end
 
-  def show
-    @page = Page.find_by_permalink(params[:id])
-  end
-
   def new
     @page = Page.new
   end
@@ -21,7 +17,7 @@ class Admin::PagesController < ApplicationController
     @page = Page.new(params[:page])
 
     if @page.save
-      redirect_to @page, notice: 'Page was successfully created.'
+      redirect_to admin_pages_url, notice: 'Page was successfully created.'
     else
       render action: "new"
     end
@@ -30,7 +26,7 @@ class Admin::PagesController < ApplicationController
   def update
     @page = Page.find_by_permalink(params[:id])
     if @page.update_attributes(params[:page])
-      redirect_to @page, notice: 'Page was successfully updated.'
+      redirect_to admin_pages_url, notice: 'Page was successfully updated.'
     else
       render action: "edit"
     end
@@ -41,7 +37,6 @@ class Admin::PagesController < ApplicationController
     @page.destroy
 
     redirect_to admin_pages_url
-    # format.json { head :no_content }
   end
 
 end

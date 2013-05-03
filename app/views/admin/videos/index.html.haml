@@ -1,7 +1,18 @@
-= link_to "Add Video", new_admin_video_path
-- @videos.each do |video|
-  .video
-    = image_tag video.thumbnail
-    / = link_to video, admin_video_path(video)
-    = link_to video.id, edit_admin_video_path(video)
-    .name= video.name
+.row
+  .large-12.columns
+    %h1 Listing Videos
+    %table
+      %thead
+        %tr
+          %th{colspan: 2} Name
+          %th Kind
+          %th Client
+      %tbody
+        - @videos.each do |video|
+          %tr
+            %td= image_tag video.thumbnail
+            %td= link_to video.id, edit_admin_video_path(video)
+            %td= video.kind
+            %td= video.client
+
+    = link_to "Upload New Video", new_admin_video_path, class: 'button'
