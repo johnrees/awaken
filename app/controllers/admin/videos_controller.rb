@@ -1,6 +1,18 @@
+require 'base64'
+
 class Admin::VideosController < ApplicationController
   skip_before_filter :verify_authenticity_token#, :only => :upload
   layout "admin"
+
+  def screenshot
+    File.open('screenshot1.txt', "w+") do |f|
+      f.write( params[:bitmapdata].split(',')[1] )
+    end
+    File.open('screenshot2.png', "wb") do |f|
+      f.write( Base64.decode64(params[:bitmapdata].split(',')[1]) )
+    end
+    render text: 'done'
+  end
 
   def thumbnail
     base_url = "s3://#{ENV['AWS_S3_BUCKET']}/uploads/video/attachment/#{params[:id]}"

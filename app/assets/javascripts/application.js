@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
 //= require underscore
 //= require uploadify/jquery.uploadify
 //= require jquery.colorbox.js

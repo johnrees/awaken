@@ -41,7 +41,6 @@ checkActive = ->
   $('span.name').text( activeThumb.data('name') )
   $('span.client_name').text( activeThumb.data('client') )
 
-
 setInterval(scroll, 10)
 
 jQuery ->
