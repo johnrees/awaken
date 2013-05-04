@@ -49,15 +49,10 @@ class Admin::VideosController < ApplicationController
 
   def create
     @video = Video.new(params[:video])
-    # if @video.save
-    #   redirect_to admin_videos_path, notice: "Video Created"
-    # else
-    #   render :new
-    # end
     if @video.save
-      render :text =>  "=> true"
+      redirect_to admin_videos_url, notice: "Created Video"
     else
-      render :nothing => true, :status => 400
+      render :new
     end
   end
 

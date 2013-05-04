@@ -17,6 +17,7 @@
 //= require uploadify/jquery.uploadify
 //= require jquery.colorbox.js
 //= require redactor-rails
+//= require rails.validations
 //= require_tree .
 
 

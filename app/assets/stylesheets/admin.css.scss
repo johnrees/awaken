@@ -1,3 +1,4 @@
+@import "normalize";
 @import "foundation_and_overrides";
 @import "redactor-rails";
 
@@ -11,4 +12,17 @@ table img {
 
 label {
   font-weight: bold;
+}
+
+.field_with_errors {
+  label {
+    color: red;
+  }
+  input {
+    border: 1px solid red;
+  }
+}
+
+.redactor_editor {
+  max-height: 500px;
 }

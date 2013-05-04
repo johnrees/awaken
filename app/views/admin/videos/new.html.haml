@@ -3,7 +3,7 @@
     %h2 Upload new Video
     #video_attachment
 
-    = form_for [:admin,@video] do |f|
+    = form_for [:admin,@video], validate: true do |f|
       %fieldset
         %legend Video Details
         .row
