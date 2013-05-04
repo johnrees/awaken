@@ -1,6 +1,7 @@
 .row
   .large-12.columns
     %h1 Editing Video
+    = link_to "Delete Video", [:admin, @video], method: 'delete'
     = form_for [:admin,@video] do |f|
 
       %fieldset

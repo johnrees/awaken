@@ -12,7 +12,8 @@
     = csrf_meta_tags
   %body
     %header
-      = image_tag "rouse.png", id: 'logo'
+      = link_to root_url do
+        = image_tag "rouse.png", id: 'logo'
       %p James Rouse - Director
     = yield
     %footer
