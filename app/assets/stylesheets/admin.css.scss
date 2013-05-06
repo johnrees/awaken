@@ -23,8 +23,15 @@ label {
   }
 }
 
-.redactor_editor {
-  max-height: 500px;
+.redactor_box {
+  // width: 345px;
+
+  .redactor_editor {
+    max-height: 500px;
+    // img {
+    //   max-width: 300px;
+    // }
+  }
 }
 
 body.admin.c_pages.a_index {
