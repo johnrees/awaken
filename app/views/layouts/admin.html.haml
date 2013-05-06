@@ -32,4 +32,12 @@
         %ul.right
           %li.divider
           %li= link_to "Preview Site", root_path
+
+    - flash.each do |name, msg|
+      .row
+        .columns.large-12
+          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+            / %a.close{"data-dismiss" => "alert"} ×
+            = msg
+
     = yield

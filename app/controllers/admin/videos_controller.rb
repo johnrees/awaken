@@ -53,7 +53,7 @@ class Admin::VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     if @video.update_attributes(params[:video])
-      redirect_to admin_videos_path, notice: "Updated Video"
+      redirect_to admin_videos_path, notice: "Video Updated"
     else
       render :edit
     end
@@ -62,7 +62,7 @@ class Admin::VideosController < ApplicationController
   def create
     @video = Video.new(params[:video])
     if @video.save
-      redirect_to admin_videos_url, notice: "Created Video"
+      redirect_to admin_videos_url, notice: "Video Added"
     else
       render :new
     end
@@ -82,7 +82,7 @@ class Admin::VideosController < ApplicationController
   def destroy
     @video = Video.find(params[:id])
     @video.delete
-    redirect_to admin_videos_url, notice: "Deleted Video"
+    redirect_to admin_videos_url, notice: "Video Deleted"
   end
 
 end

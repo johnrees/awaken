@@ -23,6 +23,7 @@ describe "Pages" do
       click_link p
       fill_in :page_content, with: "Testing"
       click_button "Save Changes"
+      page.should have_content "Page Updated"
       visit root_path
       click_link p
       page.should have_content "Testing"
