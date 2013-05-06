@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20130506105547) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
   create_table "redactor_assets", :force => true do |t|
-    t.integer  "user_id"
     t.string   "data_file_name",                  :null => false
     t.string   "data_content_type"
     t.integer  "data_file_size"

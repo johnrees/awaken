@@ -2,6 +2,10 @@ class VideoUploader < CarrierWave::Uploader::Base
   include Rails.application.routes.url_helpers
   Rails.application.routes.default_url_options = ActionMailer::Base.default_url_options
 
+  unless Rails.env.test?
+    config.after :store, :zencode
+  end
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end

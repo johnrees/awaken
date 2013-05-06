@@ -17,3 +17,4 @@
 *.mp4
 screenshot*
 /public/uploads
+/public/system

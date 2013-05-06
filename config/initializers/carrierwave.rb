@@ -3,7 +3,6 @@ CarrierWave.configure do |config|
     config.storage = :file
     config.enable_processing = true
   else
-    config.after :store, :zencode
     config.storage = :fog
     config.fog_credentials = {
       :provider               => 'AWS',
@@ -14,7 +13,7 @@ CarrierWave.configure do |config|
                    # optional, defaults to nil
       # :endpoint               => 'https://s3.example.com:8080' # optional, defaults to nil
     }
-    config.asset_host                   = "http://#{ENV['AWS_S3_BUCKET']}.s3.amazonaws.com"
+    config.asset_host = "http://#{ENV['AWS_S3_BUCKET']}.s3.amazonaws.com"
     config.fog_directory = ENV['AWS_S3_BUCKET']
     config.fog_public     = false
     config.fog_attributes = {

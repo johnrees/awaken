@@ -1,7 +1,7 @@
 class CreateRedactorAssets < ActiveRecord::Migration
   def self.up
     create_table :redactor_assets do |t|
-      t.integer :user_id
+      # t.integer :user_id
       t.string  :data_file_name, :null => false
       t.string  :data_content_type
       t.integer :data_file_size
