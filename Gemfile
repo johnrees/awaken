@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'zencoder'
 gem 'mini_magick'
 gem 'redactor-rails'
-gem 'client_side_validations'
+# gem 'client_side_validations'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -24,6 +24,7 @@ end
 
 group :development do
   gem 'better_errors'
+  gem 'quiet_assets'
 end
 
 group :development, :test do

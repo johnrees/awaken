@@ -10,13 +10,13 @@ class VideoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  def extension_white_list
-    %w(mov avi mp4 mkv wmv mpg flv)
-  end
+  # def extension_white_list
+  #   %w(mov avi mp4 mkv wmv mpg flv)
+  # end
 
-  def filename
-    "video.mp4" if original_filename
-  end
+  # def filename
+  #   "video.mp4" if original_filename
+  # end
 
   private
 

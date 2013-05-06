@@ -60,11 +60,13 @@ class Admin::VideosController < ApplicationController
   end
 
   def create
+
     @video = Video.new(params[:video])
     if @video.save
       redirect_to admin_videos_url, notice: "Video Added"
     else
-      render :new
+      # render :new
+      render text: params.inspect
     end
   end
 

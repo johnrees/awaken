@@ -50,7 +50,6 @@ GEM
       uuidtools
     celluloid (0.13.0)
       timers (>= 1.0.0)
-    client_side_validations (3.2.5)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -141,6 +140,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -244,7 +245,6 @@ DEPENDENCIES
   capybara
   carrierwave
   carrierwave_direct
-  client_side_validations
   coffee-rails (~> 3.2.1)
   database_cleaner
   dotenv-rails
@@ -256,6 +256,7 @@ DEPENDENCIES
   launchy
   mini_magick
   pg
+  quiet_assets
   rails (= 3.2.13)
   redactor-rails
   rspec-rails

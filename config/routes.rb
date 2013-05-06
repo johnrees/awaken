@@ -1,20 +1,25 @@
 Awaken::Application.routes.draw do
-  mount RedactorRails::Engine => '/redactor_rails'
 
   resources :videos, only: [:index, :show]
+
   namespace :admin do
-    resources :videos do
+    resources :videos, except: [:show] do
       member do
         get 'thumbnail/:time', :action => 'thumbnail'
         post 'screenshot'
       end
-      collection { post :sort }
+      collection do
+        post :sort
+      end
     end
     resources :pages
+    mount RedactorRails::Engine => '/redactor_rails'
     root to: 'videos#index'
   end
+
   post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
-  root to: 'videos#index'
   get ':id', to: 'pages#show', as: :page
+
+  root to: 'videos#index'
 
 end

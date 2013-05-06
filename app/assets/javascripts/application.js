@@ -18,7 +18,6 @@
 //= require foundation
 //= require jquery.colorbox
 //= require redactor-rails
-//= require rails.validations
 //= require TweenMax.min
 //= require_tree .
 

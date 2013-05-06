@@ -4,7 +4,11 @@ class Video < ActiveRecord::Base
   validates_presence_of :client, :kind, :name, :attachment
   mount_uploader :attachment, VideoUploader
 
-  before_create :set_position
+  # before_create :set_position
+
+  def ready?
+    zencoder_output_id.present?
+  end
 
   def to_s
     name

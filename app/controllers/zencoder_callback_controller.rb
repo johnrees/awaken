@@ -10,7 +10,10 @@ class ZencoderCallbackController < ActionController::Base
       zencoder_response = key.gsub('\"', '"')
     end
 
+
+
     json = JSON.parse(zencoder_response)
+    Rails.logger.info json["output"]
     output_id = json["output"]["id"]
     job_state = json["output"]["state"]
 

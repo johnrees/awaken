@@ -10,16 +10,19 @@
       %tbody
         - @videos.each do |video|
           %tr
-            %td= image_tag video.thumbnail
-            %td= link_to video.id, edit_admin_video_path(video)
+            %td
+              - if video.ready?
+                = image_tag video.thumbnail
+              - else
+                not ready
+            %td= link_to video.name, edit_admin_video_path(video)
             %td= video.kind
             %td= video.client
-            %td= video.ordinal
 
-    #videos{data: { url: sort_admin_videos_url }}
-      - @videos.each do |video|
-        = content_tag_for :li, video do
-          %span.handle [drag]
-          = link_to video, edit_admin_video_path(video)
+    / #videos{data: { url: sort_admin_videos_url }}
+    /   - @videos.each do |video|
+    /     = content_tag_for :li, video do
+    /       %span.handle [drag]
+    /       = link_to video, edit_admin_video_path(video)
 
     = link_to "Upload New Video", new_admin_video_path, class: 'button'
