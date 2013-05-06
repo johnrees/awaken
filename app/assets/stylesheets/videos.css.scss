@@ -41,14 +41,15 @@ a {
 a {
   outline: none;
 }
+
 #video-thumbs {
   position: absolute;
+  float: left;
   left: 0;
   top: 5px;
   overflow: hidden;
-  display: inline-block;
   white-space:nowrap;
-
+  clear: both;
   &, li, a, img {
     margin: 0;
     padding: 0;
@@ -57,7 +58,6 @@ a {
   }
 
   li {
-    float: left;
     display: inline-block;
   }
 

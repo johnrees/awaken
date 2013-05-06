@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require modernizr
 //= require underscore
 //= require foundation
 //= require uploadify/jquery.uploadify

@@ -16,9 +16,10 @@
 
   %ul#video-thumbs
     - @videos.each_with_index do |video, index|
-      %li.thumb
-        = link_to video, data: { kind: video.kind, name: video.name, client: video.client } do
-          - if video.processed?
-            = image_tag video.thumbnail
-          - else
-            Processing
+      - 10.times do
+        %li.thumb
+          = link_to video, data: { kind: video.kind, name: video.name, client: video.client } do
+            - if video.processed?
+              = image_tag video.thumbnail
+            - else
+              Processing
