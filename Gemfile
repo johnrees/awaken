@@ -4,6 +4,9 @@ gem 'rails', '3.2.13'
 gem 'pg' # for heroku
 
 gem 'carrierwave'
+gem 'carrierwave_direct'
+gem 'sidekiq'
+
 gem 'fog'
 gem 'haml-rails'
 gem 'jquery-rails'
