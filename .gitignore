@@ -16,3 +16,4 @@
 /.env
 *.mp4
 screenshot*
+/public/uploads
