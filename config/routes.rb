@@ -1,4 +1,6 @@
 Awaken::Application.routes.draw do
+  mount RedactorRails::Engine => '/redactor_rails'
+
   resources :videos, only: [:index, :show]
   namespace :admin do
     resources :videos do
@@ -6,6 +8,7 @@ Awaken::Application.routes.draw do
         get 'thumbnail/:time', :action => 'thumbnail'
         post 'screenshot'
       end
+      collection { post :sort }
     end
     resources :pages
     root to: 'videos#index'

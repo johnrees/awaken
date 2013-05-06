@@ -26,3 +26,9 @@ label {
 .redactor_editor {
   max-height: 500px;
 }
+
+body.admin.c_pages.a_index {
+  ul {
+    list-style: none;
+  }
+}

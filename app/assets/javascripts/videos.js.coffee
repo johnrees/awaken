@@ -36,7 +36,6 @@ checkActive = ->
   window.active = closest
 
   activeThumb = $(".thumb:eq(#{closestIndex}) a:first-child")
-  console.log activeThumb
   $('span.kind').text( "#{activeThumb.data('kind')}:" )
   $('span.name').text( activeThumb.data('name') )
   $('span.client_name').text( activeThumb.data('client') )
@@ -50,7 +49,6 @@ jQuery ->
     minLeft = $(window).width()/2 - $('.thumb').width()/2
     maxLeft = $(window).width()/2 - $('#video-thumbs').width() + $('.thumb').width()/2 - $('.thumb').width()
     window.positions = _.range(minLeft, maxLeft, -315)
-    console.log window.positions
     checkActive()
 
     reset()

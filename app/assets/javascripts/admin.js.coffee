@@ -1,17 +1,7 @@
-# window.shoot = ->
-#   # output = document.getElementById('output')
-#   $(document).html capture(video)
-#   # canvas.onclick = ->
-#   # $('img#thumb').attr('src',canvas.toDataURL())
-#   console.log canvas
-#   # snapshots.unshift(canvas)
-#   # output.innerHTML = '';
-#   #   for(var i=0; i<1; i++){
-#   #       output.appendChild(snapshots[i]);
-#   #   }
 
 window.capture = (video, scaleFactor = 1) ->
   video = document.getElementById('my_video_1')
+  video.crossOrigin = 'anonymous';
   w = video.videoWidth * scaleFactor
   h = video.videoHeight * scaleFactor
   canvas = document.getElementById('canvas')
@@ -28,6 +18,14 @@ window.capture = (video, scaleFactor = 1) ->
 
 
 jQuery ->
+
+
+  $(document).foundation()
+
+  $('#videos').sortable
+    axis: 'y'
+    update: ->
+      $.post($(this).data('url'), $(this).sortable('serialize'))
 
   $('#capture').click (e) ->
     e.preventDefault()

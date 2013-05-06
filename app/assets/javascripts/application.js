@@ -11,13 +11,14 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require underscore
+//= require foundation
 //= require uploadify/jquery.uploadify
-//= require jquery.colorbox.js
+//= require jquery.colorbox
 //= require redactor-rails
 //= require rails.validations
+//= require TweenMax.min
 //= require_tree .
 
-
-$(document).foundation();

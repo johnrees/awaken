@@ -24,8 +24,8 @@
           .large-8.columns
             .input
               - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
-                %video#my_video_1.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "264", :poster => @video.thumbnail, :preload => "auto", :width => "640"}
-                  %source{:src => "#{@video.attachment.url}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+                %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "264", :poster => @video.thumbnail, :preload => "auto", :width => "640"}
+                  %source{'cross-origin' => 'anonymous', :src => "#{@video.attachment.url}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
               - else
                 %p Please be patient while we process this video
           .large-4.columns

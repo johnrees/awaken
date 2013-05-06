@@ -39,7 +39,7 @@ class Admin::VideosController < ApplicationController
   end
 
   def index
-    @videos = Video.all
+    @videos = Video.order('ordinal ASC')
   end
 
   def new
@@ -71,4 +71,12 @@ class Admin::VideosController < ApplicationController
   def show
     @video = Video.find(params[:id])
   end
+
+  def sort
+    params[:video].each_with_index do |id, index|
+      Video.update_all({ordinal: index+1}, {id: id})
+    end
+    render nothing: true
+  end
+
 end
