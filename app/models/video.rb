@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
   attr_accessible :client, :kind, :name, :attachment,
-    :zencoder_output_id, :processed, :thumbnail
+    :zencoder_output_id, :processed, :thumbnail, :ordinal
   validates_presence_of :client, :kind, :name, :attachment
   mount_uploader :attachment, VideoUploader
 
@@ -17,7 +17,7 @@ class Video < ActiveRecord::Base
 private
 
   def set_position
-    ordinal = Time.now.to_i
+    self.ordinal = Time.now.to_i
   end
 
 end

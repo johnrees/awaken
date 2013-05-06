@@ -5,5 +5,6 @@ FactoryGirl.define do
     name "MyString"
     kind "MyString"
     client "MyString"
+    attachment { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'test_video.flv')) }
   end
 end

@@ -3,6 +3,7 @@ CarrierWave.configure do |config|
     config.storage = :file
     config.enable_processing = true
   else
+    config.after :store, :zencode
     config.storage = :fog
     config.fog_credentials = {
       :provider               => 'AWS',

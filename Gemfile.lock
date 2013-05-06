@@ -203,6 +203,7 @@ GEM
     terminal-table (1.4.5)
     thor (0.18.1)
     tilt (1.4.0)
+    timecop (0.6.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -245,6 +246,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   sqlite3
+  timecop
   uglifier (>= 1.0.3)
   zencoder
   zurb-foundation (~> 4.0.0)
