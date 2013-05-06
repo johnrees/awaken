@@ -16,7 +16,6 @@
 //= require modernizr
 //= require underscore
 //= require foundation
-//= require uploadify/jquery.uploadify
 //= require jquery.colorbox
 //= require redactor-rails
 //= require rails.validations
