@@ -20,6 +20,8 @@ class VideoUploader < CarrierWave::Uploader::Base
     base_url = "s3://#{ENV['AWS_S3_BUCKET']}/uploads/video/attachment/#{@model.id}"
     input = "#{base_url}/video.mp4"
 
+    notification_url = Rails.env.production? ? "http://rouse.johnre.es/zencoder-callback" : "http://rouse.pagekite.me/zencoder-callback"
+
     zencoder_response = Zencoder::Job.create({
       :input => input,
       :output => [{
@@ -28,8 +30,7 @@ class VideoUploader < CarrierWave::Uploader::Base
         :label => "web",
         :notifications => [
             # zencoder_callback_url(:protocol => 'http')
-            # "http://rouse.johnre.es/zencoder-callback"
-            "http://rouse.pagekite.me/zencoder-callback"
+            notification_url
         ],
         :video_codec => "h264",
         :audio_codec => "aac",

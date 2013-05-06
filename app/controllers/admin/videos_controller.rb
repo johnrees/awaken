@@ -79,4 +79,10 @@ class Admin::VideosController < ApplicationController
     render nothing: true
   end
 
+  def destroy
+    @video = Video.find(params[:id])
+    @video.delete
+    redirect_to admin_videos_url, notice: "Deleted Video"
+  end
+
 end

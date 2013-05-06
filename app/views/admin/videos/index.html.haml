@@ -20,6 +20,6 @@
       - @videos.each do |video|
         = content_tag_for :li, video do
           %span.handle [drag]
-          = link_to video, video
+          = link_to video, edit_admin_video_path(video)
 
     = link_to "Upload New Video", new_admin_video_path, class: 'button'
