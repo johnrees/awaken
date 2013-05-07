@@ -26,8 +26,10 @@ group :development do
   gem 'binding_of_caller'
   gem 'better_errors'
   gem 'quiet_assets'
-  gem 'thin'
+
 end
+
+gem 'thin'
 
 group :development, :test do
   gem 'sqlite3'
