@@ -16,6 +16,10 @@ class Video < ActiveRecord::Base
     zencoder_output_id.present?
   end
 
+  def video
+    thumbnail.gsub(/thumbnail_(\d+).jpg/, 'video.mp4')
+  end
+
   def poster
     thumbnail.gsub('thumbnail', 'poster')
   end
