@@ -19,7 +19,7 @@ window.capture = (video, scaleFactor = 1) ->
 resetThumbnails = ->
   if $('#thumbnails').length
     TweenLite.to($('ul#thumbnails'), 0.5, {
-      scrollTop: (parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) + 1.5) * $('.active.thumbnail').height()
+      scrollTop: parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('.active.thumbnail').height()
     })
 
 VideoPoller =
