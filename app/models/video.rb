@@ -1,6 +1,7 @@
 class Video < ActiveRecord::Base
   attr_accessible :client, :kind, :name, :attachment,
-    :zencoder_output_id, :processed, :thumbnail, :ordinal
+    :zencoder_output_id, :processed, :thumbnail, :ordinal,
+    :width, :height, :filesize, :duration
 
   mount_uploader :attachment, VideoUploader
   validates_presence_of :client, :kind, :name, :attachment, on: :update

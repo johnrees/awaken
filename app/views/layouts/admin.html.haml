@@ -49,5 +49,5 @@
     %script#template-upload{type: 'text/x-tmpl'}
       .upload{data: {name: "{%=o.name%}"}}
         {%=o.name%}
-        .progress
-          .bar{style: 'width: 0%'}
+        .progress.success.round
+          %span.meter.bar{style: 'width: 0%'}

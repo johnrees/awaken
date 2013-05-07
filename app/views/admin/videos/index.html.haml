@@ -5,12 +5,20 @@
 .row
   .large-8.columns
     %h4 All Videos
+    %p.hint
+      This is the archive of every video uploaded. In order for videos to be added to the frontpage, change the settings on the
+      = link_to 'Edit Order of Videos', edit_order_admin_videos_path
+      page
+    #video-list
+      %input.search{placeholder: 'Search...'}
+      %span.sort.button.small.secondary{ data: { sort: "name" } } Sort by Name
+      %span.sort.button.small.secondary{ data: { sort: "id" } } Sort by Date Added
+      %ul#videos.list{data: { url: sort_admin_videos_url }}
+        = render @videos
 
-    %ul#videos{data: { url: sort_admin_videos_url }}
-      = render @videos
-
-  .large-4.columns
+  .large-4.columns#upload-new-videos
     %h4 Upload New Video(s)
+    %p.hint Pick the videos you want to add using the button below, allow them to fully upload then after about 10-20 seconds they should transfer into the All Videos column.
     = form_for [:admin,Video.new], :multipart => true do |f|
       = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
       / = f.submit

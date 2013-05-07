@@ -4,11 +4,14 @@
       = image_tag video.thumbnail
       / .waiting= image_tag "loader.gif"
   .details
-    .name
-      %strong= link_to video, edit_admin_video_path(video)
-
-
-    = video.kind
-    = video.client
+    .id{style: 'display: none'}= video.id
+    .name{style: 'display: none'}= video.name
+    %strong= link_to video, edit_admin_video_path(video)
+    .kind
+      Kind:
+      = video.kind || "undefined"
+    .client
+      Client:
+      = video.client || "undefined"
     / = video.kind.present? ? "#{video.kind}:" : "[Kind]:"
     / = video.client.present? ? video.client : "[Client]"

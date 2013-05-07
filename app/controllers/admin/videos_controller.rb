@@ -44,7 +44,7 @@ class Admin::VideosController < ApplicationController
   end
 
   def index
-    @videos = Video.order('ordinal ASC')
+    @videos = Video.order('id DESC')
   end
 
   def new

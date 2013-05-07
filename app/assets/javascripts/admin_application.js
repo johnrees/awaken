@@ -16,6 +16,7 @@
 
 //= require jquery.bsmselect
 //= require jquery.bsmselect.sortable
+//= require jquery.knob
 
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
@@ -25,7 +26,7 @@
 //= require jquery.colorbox
 //= require redactor-rails
 //= require TweenMax.min
-
+//= require list.min
 //= require jquery.h5validate
 //= require admin
 

@@ -30,8 +30,12 @@ Rails.logger.info '-----------------------'
 Rails.logger.info '-----------------------'
     video = Video.find_by_zencoder_output_id(output_id.to_s)
     if job_state == "finished" && video
+      video.width = params["output"]["width"]
+      video.height = params["output"]["height"]
+      video.filesize = params["output"]["filesize"]
+      video.duration = params["output"]["duration"]
       video.processed!
-      # video.save
+      video.save
     end
 Rails.logger.info '-----------------------'
 Rails.logger.info '-----------------------'

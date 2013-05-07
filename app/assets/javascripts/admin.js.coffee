@@ -18,17 +18,14 @@ window.capture = (video, scaleFactor = 1) ->
 
 resetThumbnails = ->
   if $('#thumbnails').length
-    TweenLite.to($('ul#thumbnails'), 0.5, {scrollTop: parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('li.thumbnail').height() - 4 })
-
-  # $('ul#thumbnails').scrollTop( parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('li.thumbnail').height() )
-
+    TweenLite.to($('ul#thumbnails'), 0.5, {
+      scrollTop: parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('li.thumbnail').height() - 4
+    })
 
 VideoPoller =
   poll: ->
     setTimeout @request, 5000
   request: ->
-    # alert()
-    # VideoPoller.poll()
     $.getJSON $('#video-section').data('url'), (data) ->
       if data
         console.log 'got'
@@ -42,12 +39,15 @@ VideoPoller =
 
 jQuery ->
 
+  featureList = new List 'video-list',
+    valueNames: [ 'name', 'id' ]
+
   $('form').h5Validate()
+  $(".knob").knob()
 
   if $('body.a_edit.admin.c_videos').length or $('body.a_update.admin.c_videos').length
     $('.waiting').hide()
     $('.processed').hide()
-    # if $('#thumbnails').is(":visible")
     VideoPoller.request()
 
   $(window).resize ->
