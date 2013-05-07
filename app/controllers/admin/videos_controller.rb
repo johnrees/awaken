@@ -81,6 +81,21 @@ class Admin::VideosController < ApplicationController
     render nothing: true
   end
 
+  def update_homepage
+    Video.update_all(ordinal: nil)
+    unless params[:video].empty?
+      params[:video].each_with_index do |video_number, index|
+        video = Video.select('id').find(video_number.to_i)
+        video.update_attribute(:ordinal, index)
+      end
+    end
+    render text: params[:video].inspect
+  end
+
+  def edit_order
+    @videos = Video.order('ordinal ASC, name ASC')
+  end
+
   def destroy
     @video = Video.find(params[:id])
     @video.delete

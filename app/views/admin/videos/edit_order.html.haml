@@ -1,0 +1,14 @@
+.row
+  .large-12.columns
+    %h1 Edit Homepage Order
+    %div
+      %span.hint
+        %p Select videos you want to be displayed on the homepage below. Then drag them into the order you want them to be shown, it will save automatically.
+        %p
+          Note:
+          %strong Only videos with all details completed will be listed below
+
+      = form_tag update_homepage_admin_videos_path, id: 'update_frontpage_items', remote: true do
+
+        = select_tag 'video', options_for_select(@videos.map{ |o| ["#{o.id}", o.id ]}, @videos.map{|o| o.id unless o.ordinal.blank? }), multiple: true, id: 'multi'
+        / = submit_tag

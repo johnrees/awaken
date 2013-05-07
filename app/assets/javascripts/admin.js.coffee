@@ -18,6 +18,12 @@ window.capture = (video, scaleFactor = 1) ->
 
 jQuery ->
 
+  $("#multi").bsmSelect
+    plugins: [ $.bsmSelect.plugins.sortable() ]
+    removeClass: 'btn'
+  $('select#multi').change ->
+    $('form#update_frontpage_items').submit()
+
   window.video = document.createElement('video')
   window.video.crossOrigin = 'anonymous'
   window.video.src = $('#video-holder').data('url')

@@ -4,7 +4,7 @@ class CreateVideos < ActiveRecord::Migration
       t.string :name
       t.string :kind
       t.string :client
-      t.integer :ordinal, default: 0, null: false
+      t.integer :ordinal
       t.string :attachment
       t.string :thumbnail
       t.string :zencoder_output_id

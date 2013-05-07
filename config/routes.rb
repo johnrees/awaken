@@ -10,7 +10,9 @@ Awaken::Application.routes.draw do
         post 'screenshot'
       end
       collection do
+        get :edit_order
         post :sort
+        post :update_homepage
       end
     end
     resources :pages

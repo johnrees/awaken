@@ -1,6 +1,7 @@
 @import "normalize";
 @import "foundation_and_overrides";
 @import "redactor-rails";
+@import "jquery.bsmselect";
 
 .actions {
   margin: 1em 0;
@@ -38,4 +39,84 @@ body.admin.c_pages.a_index {
   ul {
     list-style: none;
   }
+}
+
+
+.upload {
+  // border-top: solid 1px #CCC;
+  width: 100%;
+  padding-top: 10px;
+  margin-top: 10px;
+
+  .progress {
+    margin-top: 8px;
+    height: 20px;
+    border: solid 1px #555;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #FFF;
+    .bar {
+      height: 14px;
+      background: #3EC144;
+    }
+  }
+}
+
+ul#videos, ul#unpublished_videos {
+  li {
+    overflow: hidden;
+    list-style: none;
+    margin-bottom: 10px;
+    // padding-bottom: 10px;
+    // border-bottom: 1px solid #CCC;
+    background: #FFF;
+  }
+  li:nth-child(even) {
+    background: #EEE;
+  }
+}
+
+.thumbnail {
+  float: left;
+  margin-right: 10px;
+  .img {
+    width: 50px;
+    height: 50px;
+    background: #111;
+  }
+}
+
+#add_video {
+  padding: 10px;
+  background: yellow;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.alert {
+  padding: 10px;
+  background: #DEF0CE;
+}
+
+.bsmListItem {
+  line-height: 1.4em;
+  overflow: hidden;
+  .bsmListItemLabel {
+    float: left;
+  }
+  .btn {
+    float: right;
+    padding: 4px;
+    color: red;
+  }
+}
+
+.bsmSelect {
+  margin-bottom: 1em;
+}
+
+.hint {
+  color: #444;
+  font-size: 0.9em;
+  line-height: 0.9em;
 }
