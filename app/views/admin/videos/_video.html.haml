@@ -1,17 +1,20 @@
 = content_tag_for :li, video do
   .thumbnail
     .img
-      = image_tag video.thumbnail
+      = link_to edit_admin_video_path(video) do
+        = image_tag video.thumbnail
       / .waiting= image_tag "loader.gif"
   .details
     .id{style: 'display: none'}= video.id
     .name{style: 'display: none'}= video.name
     %strong= link_to video, edit_admin_video_path(video)
-    .kind
-      Kind:
-      = video.kind || "undefined"
-    .client
-      Client:
-      = video.client || "undefined"
+    - if video.kind.present?
+      .kind
+        %span.lab Kind:
+        = video.kind || "undefined"
+    - if video.client.present?
+      .client
+        %span.lab Client:
+        = video.client || "undefined"
     / = video.kind.present? ? "#{video.kind}:" : "[Kind]:"
     / = video.client.present? ? video.client : "[Client]"
