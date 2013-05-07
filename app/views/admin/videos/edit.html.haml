@@ -5,7 +5,7 @@
     = link_to "Delete Video", [:admin, @video], method: 'delete', class: 'button small round alert', confirm: "Are you sure that you want to delete '#{@video}'?"
 .row
   .large-12.columns
-    = simple_form_for [:admin,@video] do |f|
+    = simple_form_for [:admin,@video], validate: true do |f|
 
       %fieldset
         %legend Details

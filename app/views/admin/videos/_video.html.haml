@@ -1,8 +1,8 @@
 = content_tag_for :li, video do
   .thumbnail
     .img
-      .processed= image_tag video.thumbnail
-      .waiting= image_tag "loader.gif"
+      = image_tag video.thumbnail
+      / .waiting= image_tag "loader.gif"
   .details
     .name
       %strong= link_to video, edit_admin_video_path(video)

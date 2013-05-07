@@ -28,7 +28,7 @@ class ZencoderCallbackController < ApplicationController
 Rails.logger.info '-----------------------'
 Rails.logger.info '-----------------------'
 Rails.logger.info '-----------------------'
-    video = Video.find_by_zencoder_output_id(output_id)
+    video = Video.find_by_zencoder_output_id(output_id.to_s)
     if job_state == "finished" && video
       video.processed!
       # video.save

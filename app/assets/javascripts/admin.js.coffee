@@ -25,7 +25,7 @@ resetThumbnails = ->
 
 VideoPoller =
   poll: ->
-    setTimeout @request, 10000
+    setTimeout @request, 5000
   request: ->
     # alert()
     # VideoPoller.poll()
@@ -42,7 +42,9 @@ VideoPoller =
 
 jQuery ->
 
-  if $('body.a_edit.admin.c_videos').length
+  $('form').h5Validate()
+
+  if $('body.a_edit.admin.c_videos').length or $('body.a_update.admin.c_videos').length
     $('.waiting').hide()
     $('.processed').hide()
     # if $('#thumbnails').is(":visible")

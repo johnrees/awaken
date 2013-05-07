@@ -12,9 +12,11 @@ gem 'jquery-rails'
 gem 'zencoder'
 gem 'mini_magick'
 gem 'redactor-rails'
-gem 'simple_form'
+
 gem 'jquery-fileupload-rails'
+gem 'simple_form'
 # gem 'client_side_validations'
+# gem 'client_side_validations-simple_form'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

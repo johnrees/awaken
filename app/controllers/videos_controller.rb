@@ -9,7 +9,7 @@ class VideosController < ApplicationController
   end
 
   def processed
-    @video = Video.select(nil).find(params[:id])
+    @video = Video.find(params[:id])
     render json: @video.processed?
   end
 
