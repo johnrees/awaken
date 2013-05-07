@@ -1,6 +1,7 @@
-class ZencoderCallbackController < ActionController::Base
+class ZencoderCallbackController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, :authenticate
+  skip_before_filter :verify_authenticity_token
+  skip_before_filter :authenticate
   layout false
 
   def create
