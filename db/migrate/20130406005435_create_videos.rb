@@ -5,10 +5,10 @@ class CreateVideos < ActiveRecord::Migration
       t.string :kind
       t.string :client
       t.integer :ordinal
-      t.integer :width
-      t.integer :height
-      t.integer :filesize
-      t.integer :duration
+      # t.integer :width
+      # t.integer :height
+      # t.integer :filesize
+      # t.integer :duration
       t.string :attachment
       t.string :thumbnail
       t.string :zencoder_output_id
