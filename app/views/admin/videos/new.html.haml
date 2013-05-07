@@ -3,24 +3,28 @@
     %h2 Upload new Video
     #video_attachment
 
-    = form_for [:admin,@video], validate: true do |f|
-      - @video.errors.full_messages.each do |msg|
-        %p= msg
+    = simple_form_for [:admin,@video], validate: true do |f|
+      / - @video.errors.full_messages.each do |msg|
+      /   %p= msg
       %fieldset
         %legend Video Details
         .row
           .large-6.columns
-            = f.label :kind
-            = f.text_field :kind, placeholder: "e.g. Advert, Viral"
+            / = f.label :kind
+            / = f.text_field :kind, placeholder: "e.g. Advert, Viral"
+            = f.input :kind
           .large-6.columns
-            = f.label :name
-            = f.text_field :name
+            / = f.label :name
+            / = f.text_field :name
+            = f.input :name
         .row
           .large-12.columns
-            = f.label :client
-            = f.text_field :client
+            / = f.label :client
+            / = f.text_field :client
+            = f.input :client
 
       %fieldset
         %legend Video File
-        = f.file_field :attachment
+        /= f.file_field :attachment
+        = f.input :attachment
       = f.submit "Add Video", class: 'button'

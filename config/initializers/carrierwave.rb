@@ -14,9 +14,9 @@ CarrierWave.configure do |config|
     config.fog_directory = ENV['AWS_S3_BUCKET']
     config.fog_public     = false
     config.fog_attributes = {
-      'Cache-Control'=>'max-age=315576000',
-      'access-control-allow-origin' => '*',
-      'access-control-allow-credentials' => 'true'
+      'Cache-Control'=>'max-age=315576000'
+      # 'access-control-allow-origin' => '*',
+      # 'access-control-allow-credentials' => 'true'
     }
   end
 end

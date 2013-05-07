@@ -4,15 +4,14 @@ gem 'rails', '3.2.13'
 gem 'pg' # for heroku
 
 gem 'carrierwave'
-gem 'carrierwave_direct'
-gem 'sidekiq'
 
 gem 'fog'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'zencoder'
-gem 'mini_magick'
+# gem 'mini_magick'
 gem 'redactor-rails'
+gem 'simple_form'
 # gem 'client_side_validations'
 
 group :assets do
@@ -23,8 +22,10 @@ group :assets do
 end
 
 group :development do
+  gem 'binding_of_caller'
   gem 'better_errors'
   gem 'quiet_assets'
+  gem 'thin'
 end
 
 group :development, :test do
