@@ -6,6 +6,7 @@ gem 'pg' # for heroku
 
 gem 'carrierwave'
 
+gem 'squeel'
 gem 'fog'
 gem 'haml-rails'
 gem 'jquery-rails'

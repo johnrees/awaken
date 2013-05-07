@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
 
   def index
-    @videos = Video.order('ordinal ASC')
+    @videos = Video.where{ordinal != nil}.order('ordinal ASC')
   end
 
   def show
