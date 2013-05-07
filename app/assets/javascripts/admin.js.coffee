@@ -16,13 +16,73 @@ window.capture = (video, scaleFactor = 1) ->
   return canvas
 
 
+resetThumbnails = ->
+  if $('#thumbnails').length
+    TweenLite.to($('ul#thumbnails'), 0.5, {scrollTop: parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('li.thumbnail').height() - 4 })
+
+  # $('ul#thumbnails').scrollTop( parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('li.thumbnail').height() )
+
+
+VideoPoller =
+  poll: ->
+    setTimeout @request, 10000
+  request: ->
+    # alert()
+    # VideoPoller.poll()
+    $.getJSON $('#video-section').data('url'), (data) ->
+      if data
+        console.log 'got'
+        $('.waiting').remove()
+        $('.processed').show()
+      else
+        console.log 'check'
+        $('.waiting').show()
+        VideoPoller.poll()
+
+
 jQuery ->
+
+  if $('body.a_edit.admin.c_videos').length
+    $('.waiting').hide()
+    $('.processed').hide()
+    # if $('#thumbnails').is(":visible")
+    VideoPoller.request()
+
+  $(window).resize ->
+    resetThumbnails()
+
+  $(window).load ->
+    resetThumbnails()
+
+  $('#thumbnail-column').mouseleave ->
+    resetThumbnails()
+
+  $('ul#thumbnails li.thumbnail').click ->
+    img =$(this).find('img').attr('src')
+    $('#video_thumbnail').val(img)
+    $('li.thumbnail').removeClass('active')
+    $('#my_video_1').attr('poster', img.replace('thumbnail','poster'))
+    $('#my_video_1').get(0).pause()
+    $(this).addClass('active')
 
   $("#multi").bsmSelect
     plugins: [ $.bsmSelect.plugins.sortable() ]
     removeClass: 'btn'
+
   $('select#multi').change ->
     $('form#update_frontpage_items').submit()
+
+  $('#new_video').fileupload
+    paramName: 'video[attachment]'
+    dataType: "script"
+    add: (e, data) ->
+      data.context = tmpl("template-upload", data.files[0]).trim()
+      $('#new_video').append(data.context)
+      data.submit()
+    progress: (e, data) ->
+      if data.context
+        progress = parseInt(data.loaded / data.total * 100, 10)
+        $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
 
   window.video = document.createElement('video')
   window.video.crossOrigin = 'anonymous'
@@ -54,12 +114,14 @@ jQuery ->
   $('#capture').click (e) ->
     e.preventDefault()
     ctx = canvas.getContext('2d')
-    ctx.drawImage(window.video, 0, 0, canvas.width, canvas.height)
+    video = document.getElementById('my_video_1')
+    w = video.videoWidth * 1
+    h = video.videoHeight * 1
+    ctx.drawImage(video, 0, 0, w, h)
     url = canvas.toDataURL()
-    console.log url
+    # console.log url
+
+    $.post "screenshot", { bitmapdata: url }, (data) ->
+      alert("Data Loaded: " + data)
     # window.capture()
     # console.log document.getElementById('canvas').toDataURL()
-
-    # $.post "screenshot",
-    #   { bitmapdata: document.getElementById('canvas').toDataURL() }, (data) ->
-    #     alert("Data Loaded: " + data)

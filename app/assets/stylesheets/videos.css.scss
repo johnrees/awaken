@@ -49,6 +49,7 @@ a {
   top: 5px;
   overflow: hidden;
   white-space:nowrap;
+  font-size: 0;
   clear: both;
   &, li, a, img {
     margin: 0;
@@ -58,7 +59,7 @@ a {
   }
 
   li {
-    display: inline-block;
+    display: inline;
   }
 
   .thumb {

@@ -1,12 +1,16 @@
 Awaken::Application.routes.draw do
 
-  resources :videos, only: [:index, :show]
+  resources :videos, only: [:index, :show] do
+    member do
+      get :processed
+    end
+  end
 
   namespace :admin do
     root to: 'videos#index'
     resources :videos, except: [:show] do
       member do
-        # get 'thumbnail/:time', :action => 'thumbnail'
+        get 'thumbnail/:time', :action => 'thumbnail', :as => 'thumbnail'
         post 'screenshot'
       end
       collection do

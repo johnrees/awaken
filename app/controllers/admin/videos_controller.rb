@@ -21,6 +21,9 @@ class Admin::VideosController < ApplicationController
     zencoder_response = Zencoder::Job.create({
       :input => input,
       :output => [{
+        :skip_audio => true,
+        :clip_length => 1,
+        :start_clip => params[:time].to_f,
         :thumbnails => [
           {
             :base_url => base_url,
@@ -28,7 +31,9 @@ class Admin::VideosController < ApplicationController
             :label => "thumb",
             :filename => "poster",
             :times => [ params[:time].to_f * 100 ],
-            :public => 1
+            # :start_at_first_frame => true,
+            :number => 1,
+            :public => true
           }
         ]
       }]
@@ -60,26 +65,26 @@ class Admin::VideosController < ApplicationController
   end
 
   def create
-
-    @video = Video.new(params[:video])
-    if @video.save!
-      redirect_to admin_videos_url, notice: "Video Added"
-    else
-      # render :new
-      render text: params.inspect
-    end
+    @video = Video.create(params[:video])
+    # @video = Video.new(params[:video])
+    # if @video.save!
+    #   redirect_to admin_videos_url, notice: "Video Added"
+    # else
+    #   # render :new
+    #   render text: params.inspect
+    # end
   end
 
   def show
     @video = Video.find(params[:id])
   end
 
-  def sort
-    params[:video].each_with_index do |id, index|
-      Video.update_all({ordinal: index+1}, {id: id})
-    end
-    render nothing: true
-  end
+  # def sort
+  #   params[:video].each_with_index do |id, index|
+  #     Video.update_all({ordinal: index+1}, {id: id})
+  #   end
+  #   render nothing: true
+  # end
 
   def update_homepage
     Video.update_all(ordinal: nil)
@@ -93,7 +98,7 @@ class Admin::VideosController < ApplicationController
   end
 
   def edit_order
-    @videos = Video.order('ordinal ASC, name ASC')
+    @videos = Video.select('id, name, ordinal')
   end
 
   def destroy

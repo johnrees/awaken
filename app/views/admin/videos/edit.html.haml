@@ -1,41 +1,54 @@
 .row
-  .large-10.columns
-    %h1 Editing Video
-  .large-2.columns{style: 'padding-top: 1em; text-align: right'}
-    = link_to "Delete", [:admin, @video], method: 'delete', class: 'button small round', style: 'background: #c60f13', confirm: "Are you sure that you want to delete '#{@video}'?"
+  .large-8.small-7.columns
+    %h1 Edit Video
+  .large-2.small-5.columns{style: 'padding-top: 1em; text-align: right'}
+    = link_to "Delete Video", [:admin, @video], method: 'delete', class: 'button small round alert', confirm: "Are you sure that you want to delete '#{@video}'?"
 .row
   .large-12.columns
-    = form_for [:admin,@video] do |f|
+    = simple_form_for [:admin,@video] do |f|
 
       %fieldset
         %legend Details
         .row
           .large-6.columns
-            = f.label :name
-            = f.text_field :name
+            = f.input :name
           .large-6.columns
-            = f.label :kind
-            = f.text_field :kind, placeholder: "e.g. Advert, Viral"
+            = f.input :kind, placeholder: "e.g. Advert, Viral"
         .row
           .large-12.columns
-            = f.label :client
-            = f.text_field :client
+            = f.input :client
 
-      %fieldset
-        %legend Video
-        .row
-          .large-8.columns
-            .input
-              / #video-holder{data: { url: @video.attachment.url}}
-              - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
-                %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "264", :poster => @video.thumbnail, :preload => "auto", :width => "640"}
-                  %source{'cross-origin' => 'anonymous', :src => "#{@video.attachment.url}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
-              - else
-                %p Please be patient while we process this video
-          .large-8.columns
-            / %img#thumb{style: 'width: 400px; height: 400px;'}
-            %canvas#canvas{style: 'width: 100%; height: 200px;'}
-            = button_tag "Capture", class: 'button', id: 'capture'
 
+      .row#video-section{data: { url: processed_video_path(@video)}}
+
+        .processed
+          .large-8.columns
+            %fieldset
+              %legend Video
+              %p.hint Pick a different thumbnail to change the screenshot image.
+              .input
+                / #video-holder{data: { url: @video.attachment.url}}
+                - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
+                  %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "320", :poster => @video.poster, :preload => "auto", :width => "100%"}
+                    %source{'cross-origin' => 'anonymous', :src => "#{@video.attachment.url}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+                - else
+                  %p Please be patient while we process this video
+          .large-4.columns#thumbnail-column
+            %fieldset
+              %legend Thumbnail
+              %p.hint Scroll through the thumbnails below and click to select the one you want to use.
+              = f.hidden_field :thumbnail
+              %ul#thumbnails{data: {current: @video.thumbnail.match(/_(\d+).jpg/)[1]}}
+                - @video.thumbnails.each do |thumbnail|
+                  %li.thumbnail{class: ('active' if thumbnail == @video.thumbnail)}
+                    = image_tag thumbnail
+              / / %img#thumb{style: 'width: 400px; height: 400px;'}
+              / %canvas#canvas{style: 'width: 100%; height: 200px;'}
+              / = button_tag "Capture", class: 'button', id: 'capture'
+
+        .large-12.columns.waiting
+          %fieldset
+            %legend Video Coming Soon
+            %h2 This video is currently being processed, once it is ready it will automatically appear here.
 
       = f.submit "Update Video", class: "button large expand"

@@ -12,6 +12,7 @@ gem 'zencoder'
 gem 'mini_magick'
 gem 'redactor-rails'
 gem 'simple_form'
+gem 'jquery-fileupload-rails'
 # gem 'client_side_validations'
 
 group :assets do

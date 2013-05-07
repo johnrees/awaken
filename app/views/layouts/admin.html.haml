@@ -6,7 +6,7 @@
     = stylesheet_link_tag    "admin", :media => "all"
     / = stylesheet_link_tag    "http://vjs.zencdn.net/c/video-js.css"
     / = javascript_include_tag "http://vjs.zencdn.net/c/video.js"
-    = javascript_include_tag "application"
+    = javascript_include_tag "admin_application"
     = csrf_meta_tags
 
   %body.admin{ class: "a_#{action_name} c_#{controller_name}"}
@@ -26,7 +26,7 @@
             = link_to "Videos", admin_videos_path
             %ul.dropdown
               %li= link_to "Manage Videos", admin_videos_path
-              %li= link_to "Edit Homepage Order", edit_order_admin_videos_path
+              %li= link_to "Edit Order of Videos", edit_order_admin_videos_path
           %li.divider
           %li.has-dropdown
             = link_to "Pages", admin_pages_path
@@ -45,3 +45,9 @@
             = msg
 
     = yield
+
+    %script#template-upload{type: 'text/x-tmpl'}
+      .upload{data: {name: "{%=o.name%}"}}
+        {%=o.name%}
+        .progress
+          .bar{style: 'width: 0%'}

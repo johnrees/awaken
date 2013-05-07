@@ -64,15 +64,18 @@ body.admin.c_pages.a_index {
 
 ul#videos, ul#unpublished_videos {
   li {
+    padding: 5px;
     overflow: hidden;
     list-style: none;
-    margin-bottom: 10px;
     // padding-bottom: 10px;
     // border-bottom: 1px solid #CCC;
     background: #FFF;
   }
   li:nth-child(even) {
     background: #EEE;
+  }
+  a {
+    color: #000;
   }
 }
 
@@ -116,7 +119,40 @@ ul#videos, ul#unpublished_videos {
 }
 
 .hint {
-  color: #444;
+  color: #AAA;
   font-size: 0.9em;
-  line-height: 0.9em;
+  line-height: 1em;
+}
+
+ul#thumbnails {
+  overflow-y: scroll;
+  height: 300px;
+  // width: 100%;
+  img {
+    display: block;
+    margin: 0 auto;
+    border: 4px solid white;
+  }
+  li.thumbnail.active img {
+    border: 4px solid #37A5CF;
+    opacity: 1;
+  }
+  li {
+    display: block;
+    img { opacity: 0.6;
+      width: 100%;}
+
+  }
+}
+
+video {
+  background-color: #010101;
+}
+
+.top-bar {
+  margin-bottom: 1em;
+}
+
+.processed {
+  display: none;
 }

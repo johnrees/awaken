@@ -13,11 +13,18 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+
+//= require jquery.bsmselect
+//= require jquery.bsmselect.sortable
+
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
+
 //= require modernizr
 //= require underscore
 //= require foundation
 //= require jquery.colorbox
 //= require redactor-rails
 //= require TweenMax.min
-//= require videos
+//= require admin
 

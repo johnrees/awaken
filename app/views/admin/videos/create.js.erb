@@ -1,0 +1,8 @@
+console.log('a');
+<% if @video.new_record? %>
+  alert("Failed to upload video: <%= j @video.errors.full_messages.join(', ').html_safe %>");
+<% else %>
+  $("#videos").prepend("<%= j render(@video) %>")
+  $(".upload[data-name='<%= @video.attachment.filename %>']").fadeOut()
+  console.log(".upload[data-name='<%= @video.attachment.filename %>']")
+<% end %>

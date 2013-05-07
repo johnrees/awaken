@@ -1,28 +1,16 @@
 .row
   .large-12.columns
-    %h1 Listing Videos
-    %table
-      %thead
-        %tr
-          %th{colspan: 2} Name
-          %th Kind
-          %th Client
-      %tbody
-        - @videos.each do |video|
-          %tr
-            %td
-              - if video.ready?
-                = image_tag video.thumbnail
-              - else
-                not ready
-            %td= link_to video.name, edit_admin_video_path(video)
-            %td= video.kind
-            %td= video.client
+    %h1 Manage Videos
 
-    / #videos{data: { url: sort_admin_videos_url }}
-    /   - @videos.each do |video|
-    /     = content_tag_for :li, video do
-    /       %span.handle [drag]
-    /       = link_to video, edit_admin_video_path(video)
+.row
+  .large-8.columns
+    %h4 All Videos
 
-    = link_to "Upload New Video", new_admin_video_path, class: 'button'
+    %ul#videos{data: { url: sort_admin_videos_url }}
+      = render @videos
+
+  .large-4.columns
+    %h4 Upload New Video(s)
+    = form_for [:admin,Video.new], :multipart => true do |f|
+      = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
+      / = f.submit
