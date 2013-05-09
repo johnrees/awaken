@@ -40,7 +40,7 @@ VideoPoller =
 jQuery ->
 
   featureList = new List 'video-list',
-    valueNames: [ 'name', 'id' ]
+    valueNames: [ 'name', 'id', 'c', 'k' ]
 
   $('form').h5Validate()
   $(".knob").knob()
