@@ -3,6 +3,8 @@ window.active = null
 window.activeIndex = null
 window.positions = []
 
+window.padding = 2 # padding + border-width
+
 map = (x, in_min, in_max, out_min, out_max) ->
   (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
@@ -10,8 +12,8 @@ scroll = ->
   if (window.acceleration != 0)
     currentPosition = parseInt $('#video-thumbs').css('left')
     newPosition = currentPosition + window.acceleration
-    minLeft = $(window).width()/2 - $('.thumb').width()/2
-    maxLeft = $(window).width()/2 - $('#video-thumbs').width() + $('.thumb').width()/2
+    minLeft = $(window).width()/2 - $('.thumb').width()/2 - window.padding
+    maxLeft = $(window).width()/2 - $('#video-thumbs').width() + $('.thumb').width()/2 - window.padding
 
     newPosition = parseInt Math.max( maxLeft, Math.min( minLeft, newPosition))
     $('#video-thumbs').css 'left', -> "#{newPosition}px"
@@ -33,7 +35,7 @@ checkActive = ->
       closest = value
       closestIndex = index
 
-  window.active = closest
+  window.active = closest - window.padding
   window.activeIndex = closestIndex
 
   activeThumb = $(".thumb:eq(#{closestIndex}) a:first-child")
