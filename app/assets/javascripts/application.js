@@ -17,6 +17,7 @@
 //= require underscore
 //= require foundation
 //= require jquery.colorbox
+//= require jquery.history
 //= require redactor-rails
 //= require TweenMax.min
 //= require videos

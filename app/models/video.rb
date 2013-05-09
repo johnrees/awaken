@@ -21,6 +21,10 @@ class Video < ActiveRecord::Base
     thumbnail.gsub(/thumbnail_(\d+).jpg/, 'video.mp4')
   end
 
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
+
   def poster
     thumbnail.gsub('thumbnail', 'poster')
   end

@@ -47,14 +47,67 @@ setInterval(scroll, 10)
 
 jQuery ->
 
+
+  # -- History Stuff
+
+  History = window.History
+  if History.enabled
+    console.log 'history enabled'
+  else
+    console.log 'history NOT enabled'
+    return false
+
+  $(window).bind 'statechange', ->
+    console.log 'received statechange'
+    State = History.getState()
+
+    # if $('.modal').length > 0
+    #   console.log 'closing modal'
+    #   $.modal.close()
+    #   console.log 'closed modal'
+    # else
+    #   console.log 'not found modal'
+
+    if /[^=]\/(awards|biography|contact)/.test(State.url)
+      $.colorbox
+        href: State.url
+        initialWidth: 326
+        width: 360
+        height: 350
+    else if /[^=]\/videos\/(\d+)/.test(State.url)
+      console.log 'videos found in url'
+      try
+        console.log 'setting modal url'
+        console.log 'set modal url'
+        console.log 'opening modal'
+        # $("<a href='#{State.url}'>modal</a>").modal()
+        $.colorbox
+          href: State.url
+          initialWidth: 326
+          width: 740
+          height: 435
+        console.log 'opened modal'
+      catch error
+        console.log error
+    else
+      $.colorbox.close()
+
+    #   # History.log(State.data, State.title, State.url)
+
+  console.log 'triggering statechange'
+  History.Adapter.trigger(window, 'statechange')
+
+  $(document).bind 'cbox_closed', ->
+    History.pushState(null, null, '/')
+
   $('.polaroid').click (e) ->
     e.preventDefault()
-    link = $(".thumb:eq(#{window.activeIndex}) a:first-child").attr('href')
-    $.colorbox
-      href: link
-      initialWidth: 326
-      width: 740
-      height: 435
+    current = $(".thumb:eq(#{window.activeIndex}) a:first-child")
+    link = current.attr('href')
+    name = current.data('name')
+    location = link
+    History.pushState(null, "#{name} | James Rouse", link)
+
 
   $(window).resize( ->
     # window.positions = x for x in [minLeft..maxLeft] by -315
@@ -66,10 +119,14 @@ jQuery ->
     reset()
   ).trigger 'resize'
 
-  $('a[data-popup]').colorbox
-    initialWidth: 326
-    width: 360
-    height: 350
+  $('a[data-popup]').click (e) ->
+    e.preventDefault()
+    History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
+
+  # $('a[data-popup]').colorbox
+  #   initialWidth: 326
+  #   width: 360
+  #   height: 350
 
 
   $('ul#video-thumbs a').click -> false

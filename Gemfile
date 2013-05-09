@@ -5,7 +5,7 @@ gem 'rails', '3.2.13'
 gem 'pg' # for heroku
 
 gem 'carrierwave'
-
+gem 'friendly_id'
 gem 'squeel'
 gem 'fog'
 gem 'haml-rails'

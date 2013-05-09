@@ -88,6 +88,7 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
+    friendly_id (4.0.9)
     guard (1.8.0)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -253,6 +254,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   fog
+  friendly_id
   guard-rspec
   haml-rails
   jquery-fileupload-rails
