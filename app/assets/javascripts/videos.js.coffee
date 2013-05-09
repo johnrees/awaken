@@ -45,59 +45,9 @@ checkActive = ->
 
 setInterval(scroll, 10)
 
-jQuery ->
+init = ->
 
-
-  # -- History Stuff
-
-  History = window.History
-  if History.enabled
-    console.log 'history enabled'
-  else
-    console.log 'history NOT enabled'
-    return false
-
-  $(window).bind 'statechange', ->
-    console.log 'received statechange'
-    State = History.getState()
-
-    # if $('.modal').length > 0
-    #   console.log 'closing modal'
-    #   $.modal.close()
-    #   console.log 'closed modal'
-    # else
-    #   console.log 'not found modal'
-
-    if /[^=]\/(awards|biography|contact)/.test(State.url)
-      $.colorbox
-        opacity: 0.8
-        href: State.url
-        initialWidth: 326
-        width: 360
-        height: 350
-    else if /[^=]\/videos\/(\d+)/.test(State.url)
-      console.log 'videos found in url'
-      try
-        console.log 'setting modal url'
-        console.log 'set modal url'
-        console.log 'opening modal'
-        # $("<a href='#{State.url}'>modal</a>").modal()
-        $.colorbox
-          opacity: 0.8
-          href: State.url
-          initialWidth: 326
-          width: 728
-          height: 415
-        console.log 'opened modal'
-      catch error
-        console.log error
-    else
-      $.colorbox.close()
-
-    #   # History.log(State.data, State.title, State.url)
-
-  console.log 'triggering statechange'
-  History.Adapter.trigger(window, 'statechange')
+  $('#main .inner').fadeIn()
 
   $(document).bind 'cbox_closed', ->
     History.pushState(null, null, '/')
@@ -150,3 +100,61 @@ jQuery ->
     else reset()
 
   $('.holder').mouseout (e) -> reset()
+
+jQuery ->
+
+  $('#main .inner').hide()
+
+  # -- History Stuff
+
+  History = window.History
+  if History.enabled
+    console.log 'history enabled'
+    $('#main .inner').load '/videos', ->
+      init()
+  else
+    console.log 'history NOT enabled'
+    return false
+
+  $(window).bind 'statechange', ->
+    console.log 'received statechange'
+    State = History.getState()
+
+    # if $('.modal').length > 0
+    #   console.log 'closing modal'
+    #   $.modal.close()
+    #   console.log 'closed modal'
+    # else
+    #   console.log 'not found modal'
+
+    if /[^=]\/(awards|biography|contact)/.test(State.url)
+      $.colorbox
+        opacity: 0.8
+        href: State.url
+        initialWidth: 326
+        width: 360
+        height: 350
+    else if /[^=]\/videos\/(\d+)/.test(State.url)
+      console.log 'videos found in url'
+      try
+        console.log 'setting modal url'
+        console.log 'set modal url'
+        console.log 'opening modal'
+        # $("<a href='#{State.url}'>modal</a>").modal()
+        $.colorbox
+          opacity: 0.8
+          href: State.url
+          initialWidth: 326
+          width: 728
+          height: 415
+        console.log 'opened modal'
+      catch error
+        console.log error
+    else
+      $.colorbox.close()
+
+    #   # History.log(State.data, State.title, State.url)
+
+  console.log 'triggering statechange'
+  History.Adapter.trigger(window, 'statechange')
+
