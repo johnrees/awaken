@@ -198,3 +198,12 @@ li {
 #main {
   height: 317px;
 }
+
+#videos-holder {
+  padding: 10px;
+  overflow: hidden;
+  height: 317px;
+  position: absolute !important;
+  top: 0;
+  width: 100%;
+}

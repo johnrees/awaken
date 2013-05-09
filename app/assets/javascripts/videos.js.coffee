@@ -60,7 +60,6 @@ init = ->
     location = link
     History.pushState(null, "#{name} | James Rouse", link)
 
-
   $(window).resize( ->
     # window.positions = x for x in [minLeft..maxLeft] by -315
     minLeft = $(window).width()/2 - $('.thumb').width()/2
@@ -75,31 +74,24 @@ init = ->
     e.preventDefault()
     History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
-  # $('a[data-popup]').colorbox
-  #   initialWidth: 326
-  #   width: 360
-  #   height: 350
-
-
   $('ul#video-thumbs a').click -> false
 
-  # $('ul#video-thumbs a').colorbox
-  #   initialWidth: 326
-  #   width: 810
-  #   height: 460
+  if Modernizr.touch
+    $('#videos-holder').overscroll
+      direction: 'horizontal'
+  else
+    $('.holder').mousemove (e) ->
+      TweenLite.killTweensOf($('#video-thumbs'))
+      maxSpeed = 10
+      xPos = e.pageX
+      width = $('.left').width() * .65
+      if (xPos > $('body').width() - width)
+        window.acceleration = map(xPos, $('body').width() - width, $('body').width(), 0, -maxSpeed)
+      else if (e.pageX < width)
+        window.acceleration = map(xPos, 0, width, maxSpeed, 0)
+      else reset()
 
-  $('.holder').mousemove (e) ->
-    TweenLite.killTweensOf($('#video-thumbs'))
-    maxSpeed = 10
-    xPos = e.pageX
-    width = $('.left').width() * .65
-    if (xPos > $('body').width() - width)
-      window.acceleration = map(xPos, $('body').width() - width, $('body').width(), 0, -maxSpeed)
-    else if (e.pageX < width)
-      window.acceleration = map(xPos, 0, width, maxSpeed, 0)
-    else reset()
-
-  $('.holder').mouseout (e) -> reset()
+    $('.holder').mouseout (e) -> reset()
 
 jQuery ->
 

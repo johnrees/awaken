@@ -18,6 +18,7 @@
 //= require foundation
 //= require jquery.colorbox
 //= require jquery.history
+//= require jquery.overscroll
 //= require redactor-rails
 //= require TweenMax.min
 //= require videos
