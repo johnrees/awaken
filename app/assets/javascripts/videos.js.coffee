@@ -70,6 +70,7 @@ jQuery ->
 
     if /[^=]\/(awards|biography|contact)/.test(State.url)
       $.colorbox
+        opacity: 0.8
         href: State.url
         initialWidth: 326
         width: 360
@@ -82,10 +83,11 @@ jQuery ->
         console.log 'opening modal'
         # $("<a href='#{State.url}'>modal</a>").modal()
         $.colorbox
+          opacity: 0.8
           href: State.url
           initialWidth: 326
-          width: 740
-          height: 435
+          width: 728
+          height: 415
         console.log 'opened modal'
       catch error
         console.log error
