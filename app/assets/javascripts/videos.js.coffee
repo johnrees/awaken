@@ -34,6 +34,7 @@ checkActive = ->
       closestIndex = index
 
   window.active = closest
+  window.activeIndex = closestIndex
 
   activeThumb = $(".thumb:eq(#{closestIndex}) a:first-child")
   $('span.kind').text( "#{activeThumb.data('kind')}:" )
@@ -43,6 +44,15 @@ checkActive = ->
 setInterval(scroll, 10)
 
 jQuery ->
+
+  $('.polaroid').click (e) ->
+    e.preventDefault()
+    link = $(".thumb:eq(#{window.activeIndex}) a:first-child").attr('href')
+    $.colorbox
+      href: link
+      initialWidth: 326
+      width: 740
+      height: 435
 
   $(window).resize( ->
     # window.positions = x for x in [minLeft..maxLeft] by -315
@@ -54,19 +64,18 @@ jQuery ->
     reset()
   ).trigger 'resize'
 
-  $(document).bind 'cbox_complete', ->
-    # _V_("video").ready ->
-    #   this.play()
-
   $('a[data-popup]').colorbox
     initialWidth: 326
     width: 360
     height: 350
 
-  $('ul#video-thumbs a').colorbox
-    initialWidth: 326
-    width: 810
-    height: 460
+
+  $('ul#video-thumbs a').click -> false
+
+  # $('ul#video-thumbs a').colorbox
+  #   initialWidth: 326
+  #   width: 810
+  #   height: 460
 
   $('.holder').mousemove (e) ->
     TweenLite.killTweensOf($('#video-thumbs'))

@@ -99,7 +99,8 @@ a {
     left: 4px;
   }
 
-  pointer-events: none;
+  // pointer-events: none;
+  cursor: pointer;
   margin: 0 auto;
   border: 1px solid black;
   width: 325px;

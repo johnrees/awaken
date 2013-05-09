@@ -2,12 +2,10 @@
 %html
   %head
     %title James Rouse | Director
-
     = stylesheet_link_tag    "application", :media => "all"
     = stylesheet_link_tag    "http://vjs.zencdn.net/c/video-js.css"
     = javascript_include_tag "http://vjs.zencdn.net/c/video.js"
     = javascript_include_tag "application"
-    / = csrf_meta_tags
   %body
     %header
       = link_to root_url do
