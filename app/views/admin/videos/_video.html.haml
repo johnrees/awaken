@@ -11,10 +11,10 @@
     - if video.kind.present?
       .kind
         %span.lab Kind:
-        .k= video.kind || "undefined"
+        %span.k= video.kind || "undefined"
     - if video.client.present?
       .client
         %span.lab Client:
-        .c= video.client || "undefined"
+        %span.c= video.client || "undefined"
     / = video.kind.present? ? "#{video.kind}:" : "[Kind]:"
     / = video.client.present? ? video.client : "[Client]"
