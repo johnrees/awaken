@@ -7,7 +7,7 @@ html,body {
 }
 
 #job {
-  letter-spacing: 1px;
+  // letter-spacing: 1px;
 }
 
 #job, footer {
@@ -33,7 +33,9 @@ header, footer {
 }
 
 header {
+  position: relative;
   margin-bottom: 20px;
+  z-index: 99999;
 }
 
 footer {
@@ -109,6 +111,7 @@ a:active, a:visited, video {
 
 #colorbox {
   box-shadow: 0px 0px 12px rgba(50, 50, 50, 0.5);
+  top: 201px !important;
 }
 
 .polaroid {

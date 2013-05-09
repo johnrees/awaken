@@ -52,6 +52,7 @@ init = ->
   $(document).bind 'cbox_closed', ->
     History.pushState(null, null, '/')
 
+
   $('.polaroid').click (e) ->
     e.preventDefault()
     current = $(".thumb:eq(#{window.activeIndex}) a:first-child")
@@ -95,6 +96,13 @@ init = ->
 
 jQuery ->
 
+  # $(document).bind 'cbox_complete', ->
+  #   if $('#video').length
+  #     videojs("video").play()
+  #   # videojs("video").ready ->
+  #   #   this.play()
+
+
   $('#main .inner').hide()
 
   # -- History Stuff
@@ -124,6 +132,7 @@ jQuery ->
         opacity: 0.8
         href: State.url
         initialWidth: 326
+        initialHeight: 317
         width: 360
         height: 350
     else if /[^=]\/videos\/(\d+)/.test(State.url)
@@ -137,6 +146,7 @@ jQuery ->
           opacity: 0.8
           href: State.url
           initialWidth: 326
+          initialHeight: 317
           width: 728
           height: 415
         console.log 'opened modal'
@@ -144,6 +154,7 @@ jQuery ->
         console.log error
     else
       $.colorbox.close()
+
 
     #   # History.log(State.data, State.title, State.url)
 
