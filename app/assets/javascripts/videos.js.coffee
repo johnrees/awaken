@@ -90,7 +90,7 @@ class Reel
     @updateGUI()
     # @checkActive()
 
-  reset: (time=null) ->
+  reset: (time=null) =>
     @acceleration = 0
     @pageWidth = $(window).width()
     @minLeft = @pageWidth/2 - @thumbWidth/2 - 1
