@@ -6,6 +6,13 @@ html,body {
   font-weight: 300;
 }
 
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
 #job {
   // letter-spacing: 1px;
 }
@@ -35,7 +42,6 @@ header, footer {
 header {
   position: relative;
   margin-bottom: 20px;
-  z-index: 99999;
 }
 
 footer {
@@ -51,6 +57,9 @@ footer {
 a {
   text-decoration: none;
   color: #444;
+  &:hover {
+    color: #BBB;
+  }
 }
 
 .holder {
@@ -65,6 +74,7 @@ a:active, a:visited, video {
 #video-thumbs {
   position: absolute;
   float: left;
+  display: block;
   left: 0;
   top: 3px;
   border: 1px solid black !important;
@@ -111,7 +121,7 @@ a:active, a:visited, video {
 
 #colorbox {
   box-shadow: 0px 0px 12px rgba(50, 50, 50, 0.5);
-  top: 201px !important;
+  top: 190px !important;
 }
 
 .polaroid {
@@ -131,6 +141,10 @@ a:active, a:visited, video {
   width: 325px;
   box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.75);
   position: relative;
+  // top: 7px;
+  // left: 50%;
+  // margin-left: -163px;
+  // z-index: 5;
   z-index: 8;
 
   .text {
@@ -202,11 +216,29 @@ li {
   height: 317px;
 }
 
-#videos-holder {
-  padding: 10px;
-  overflow: hidden;
-  height: 317px;
-  position: absolute !important;
-  top: 0;
-  width: 100%;
+::-webkit-scrollbar {
+    display: none;
+}
+
+// #videos-holder {
+//   display: block;
+//   // width: 800px;
+//   overflow: hidden;
+//   padding: 10px;
+//   overflow: scroll;
+//   -webkit-overflow-scrolling: touch;
+//   height: 317px;
+//   position: relative;
+//   top: 0;
+//   // left: 50%;
+//   // margin-left: -300px;
+//   top: 0;
+// }
+
+.page {
+  padding: 18px;
+}
+
+.hide {
+  display: none;
 }

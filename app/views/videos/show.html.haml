@@ -1,5 +1,7 @@
 - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
-  %video#video.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "405", :poster => @video.poster, :preload => "auto", :width => "720"}
-    %source{:src => "#{@video.video}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+  %video#video2.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "405", :poster => @video.poster, :preload => "auto", :width => "720"}
+    %source{src: "#{@video.video}", type: "video/mp4"}
+    %source{src: "#{@video.video.gsub('mp4', 'webm')}", type: "video/webm"}
+    %source{src: "#{@video.video.gsub('mp4', 'ogg')}", type: "video/ogg"}
 - else
   %p Please be patient while we process this video

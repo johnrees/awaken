@@ -15,9 +15,12 @@
         %span.client_name Client
   .right
 
-  #videos-holder
-    %ul#video-thumbs
-      - @videos.each_with_index do |video, index|
-        %li.thumb
-          = link_to video, data: { kind: video.kind, name: video.name, client: video.client } do
-            = image_tag video.thumbnail
+  %ul#video-thumbs
+    - @videos.each_with_index do |video, index|
+      %li.thumb
+        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
+          = image_tag video.thumbnail
+
+.hide
+  #video-modal
+    %video#video.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "405", :preload => "auto", :width => "720"}

@@ -1,163 +1,170 @@
-window.acceleration = 0
-window.active = null
-window.activeIndex = null
-window.positions = []
+window.showingVideo = false
 
-window.padding = 2 # padding + border-width
+class Reel
 
-map = (x, in_min, in_max, out_min, out_max) ->
-  (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+  constructor: (@element) ->
+    # @positions = []
+    @acceleration = 0
+    @activeSlide = 0
+    thumb = @element.find('.thumb')
+    @thumbWidth = thumb.width()
+    @isSwiped = false
+    $(window).resize(=> @reset())
+    @reset(0)
 
-scroll = ->
-  if (window.acceleration != 0)
-    currentPosition = parseInt $('#video-thumbs').css('left')
-    newPosition = currentPosition + window.acceleration
-    minLeft = $(window).width()/2 - $('.thumb').width()/2 - window.padding
-    maxLeft = $(window).width()/2 - $('#video-thumbs').width() + $('.thumb').width()/2 - window.padding
+    $('.box').click @clicked
+    $('.holder').mousemove(@mousemoved).mouseout(@reset)
 
-    newPosition = parseInt Math.max( maxLeft, Math.min( minLeft, newPosition))
-    $('#video-thumbs').css 'left', -> "#{newPosition}px"
-    checkActive()
+    if Modernizr.touch
+      $('#main').swipe
+        swipe: @swiped
+    else
+      setInterval(@scroll, 10)
 
-reset = ->
-  window.acceleration = 0
-  position = parseInt $('#video-thumbs').css('left')
-  minLeft = $(window).width()/2 - $('.thumb').width()/2
-  TweenLite.to($('#video-thumbs'), 0.5, {left: window.active})
-  # minLeft - $('.thumb').width() * window.active
+  mousemoved: (e) =>
+    TweenLite.killTweensOf @element
+    maxSpeed = 10
+    xPos = e.pageX
+    width = $('.left').width() * .65
+    if (xPos > @pageWidth - width)
+      @acceleration = @map(xPos, @pageWidth - width, @pageWidth, 0, -maxSpeed)
+    else if (e.pageX < width)
+      @acceleration = @map(xPos, 0, width, maxSpeed, 0)
+    else @reset()
 
-checkActive = ->
-  goal = parseInt $('#video-thumbs').css('left')
-  closest = null
-  closestIndex = null
-  $.each window.positions, (index, value) ->
-    if (closest == null || Math.abs(value - goal) < Math.abs(closest - goal))
-      closest = value
-      closestIndex = index
+  scroll: =>
+    if (@acceleration != 0)
+      currentPosition = parseInt @element.css('left')
+      newPosition = currentPosition + @acceleration
 
-  window.active = closest - window.padding
-  window.activeIndex = closestIndex
+      newPosition = parseInt Math.max( @maxLeft, Math.min( @minLeft, newPosition))
+      $('#video-thumbs').css 'left', -> "#{newPosition}px"
+      @checkActive()
 
-  activeThumb = $(".thumb:eq(#{closestIndex}) a:first-child")
-  $('span.kind').text( "#{activeThumb.data('kind')}:" )
-  $('span.name').text( activeThumb.data('name') )
-  $('span.client_name').text( activeThumb.data('client') )
+  swiped: (event, direction, distance, duration, fingerCount) =>
 
-setInterval(scroll, 10)
+    unless @isSwiped
+      @isSwiped = true
+      # speed = parseInt @map(distance/duration, 0, 1.5, 1, 2)
+      setTimeout( (=> @isSwiped = false), 200)
+      switch direction
+        when 'right'
+          slide = Math.max(@activeSlide-1, 0)
+        when 'left'
+          slide = Math.min(@activeSlide+1, @element.find('.thumb').length)
+      @scrollTo(slide)
 
-init = ->
-
-  $('#main .inner').fadeIn()
-
-  $(document).bind 'cbox_closed', ->
-    History.pushState(null, null, '/')
-
-
-  $('.polaroid').click (e) ->
+  clicked: (e) =>
     e.preventDefault()
-    current = $(".thumb:eq(#{window.activeIndex}) a:first-child")
+    current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
     name = current.data('name')
-    location = link
-    History.pushState(null, "#{name} | James Rouse", link)
+    History.pushState(null, "#{name} | James Rouse", link) unless @isSwiped
 
-  $(window).resize( ->
-    # window.positions = x for x in [minLeft..maxLeft] by -315
-    minLeft = $(window).width()/2 - $('.thumb').width()/2
-    maxLeft = $(window).width()/2 - $('#video-thumbs').width() + $('.thumb').width()/2 - $('.thumb').width()
-    window.positions = _.range(minLeft, maxLeft, -315)
-    checkActive()
+  map: (x, in_min, in_max, out_min, out_max) ->
+    (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-    reset()
-  ).trigger 'resize'
+  checkActive: ->
+    goal = parseInt @element.css('left')
+    closest = null
+    closestIndex = null
+    $.each @positions, (index, value) ->
+      if (closest == null || Math.abs(value - goal) < Math.abs(closest - goal))
+        closest = value
+        closestIndex = index
 
-  $('a[data-popup]').click (e) ->
-    e.preventDefault()
-    History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
+    # window.active = closest - window.padding
+    @activeSlide = closestIndex
+    @updateGUI()
 
-  $('ul#video-thumbs a').click -> false
+  updateGUI: ->
+    activeThumb = $(".thumb:eq(#{@activeSlide}) a:first-child")
+    $('span.kind').text( "#{activeThumb.data('kind')}:" )
+    $('span.name').text( activeThumb.data('name') )
+    $('span.client_name').text( activeThumb.data('client') )
 
-  if Modernizr.touch
-    $('#videos-holder').overscroll
-      direction: 'horizontal'
-  else
-    $('.holder').mousemove (e) ->
-      TweenLite.killTweensOf($('#video-thumbs'))
-      maxSpeed = 10
-      xPos = e.pageX
-      width = $('.left').width() * .65
-      if (xPos > $('body').width() - width)
-        window.acceleration = map(xPos, $('body').width() - width, $('body').width(), 0, -maxSpeed)
-      else if (e.pageX < width)
-        window.acceleration = map(xPos, 0, width, maxSpeed, 0)
-      else reset()
+  scrollTo: (slide, time = 0.3) ->
+    @activeSlide = slide
+    TweenLite.to @element, time,
+      left: @minLeft - @thumbWidth * slide - 2
+    @updateGUI()
+    # @checkActive()
 
-    $('.holder').mouseout (e) -> reset()
-
-jQuery ->
-
-  # $(document).bind 'cbox_complete', ->
-  #   if $('#video').length
-  #     videojs("video").play()
-  #   # videojs("video").ready ->
-  #   #   this.play()
+  reset: (time=null) ->
+    @acceleration = 0
+    @pageWidth = $(window).width()
+    @minLeft = @pageWidth/2 - @thumbWidth/2 - 1
+    @maxLeft = @pageWidth/2 - @element.width() + @thumbWidth/2 - 1
+    @positions = _.range(@minLeft, @maxLeft, -315)
+    @scrollTo(@activeSlide,time)
+    # TweenLite.to @element, 0.5,
+    #   left: @minLeft - @thumbWidth * @activeSlide - 1
 
 
-  $('#main .inner').hide()
+class Delorean
 
-  # -- History Stuff
+  constructor: ->
+    History = window.History
+    return false unless History.enabled
 
-  History = window.History
-  if History.enabled
-    console.log 'history enabled'
-    $('#main .inner').load '/videos', ->
-      init()
-  else
-    console.log 'history NOT enabled'
-    return false
+    $(document).bind 'cbox_closed', ->
+      History.pushState("James Rouse | Director", null, '/')
 
-  $(window).bind 'statechange', ->
-    console.log 'received statechange'
-    State = History.getState()
+    $(window).bind 'statechange', ->
+      State = History.getState()
 
-    # if $('.modal').length > 0
-    #   console.log 'closing modal'
-    #   $.modal.close()
-    #   console.log 'closed modal'
-    # else
-    #   console.log 'not found modal'
-
-    if /[^=]\/(awards|biography|contact)/.test(State.url)
-      $.colorbox
-        opacity: 0.8
-        href: State.url
-        initialWidth: 326
-        initialHeight: 317
-        width: 360
-        height: 350
-    else if /[^=]\/videos\/(\d+)/.test(State.url)
-      console.log 'videos found in url'
-      try
-        console.log 'setting modal url'
-        console.log 'set modal url'
-        console.log 'opening modal'
-        # $("<a href='#{State.url}'>modal</a>").modal()
+      if /[^=]\/(awards|biography|contact)/.test(State.url)
+        window.showingVideo = false
         $.colorbox
-          opacity: 0.8
+          opacity: 0
           href: State.url
           initialWidth: 326
           initialHeight: 317
-          width: 728
-          height: 415
-        console.log 'opened modal'
-      catch error
-        console.log error
-    else
-      $.colorbox.close()
+          width: 360
+          height: 380
+
+      else if /[^=]\/videos\/(\d+)/.test(State.url)
+        window.showingVideo = true
+        console.log 'videos found in url'
+        current = $("a[href$='#{window.location.pathname}']")
+        videojs("video").src(current.data('video'))
+        try
+          console.log 'setting modal url'
+          console.log 'set modal url'
+          console.log 'opening modal'
+          # $("<a href='#{State.url}'>modal</a>").modal()
+          $.colorbox
+            opacity: 0
+            href: '#video-modal'
+            inline: true
+            # src:
+            # href: State.url
+            initialWidth: 326
+            initialHeight: 317
+            width: 728
+            height: 415
+
+          console.log 'opened modal'
+        catch error
+          console.log error
+      else
+        window.showingVideo = false
+        if $('#colorbox').length > 0
+          $.colorbox.close()
+
+    History.Adapter.trigger(window, 'statechange')
 
 
-    #   # History.log(State.data, State.title, State.url)
+jQuery ->
 
-  console.log 'triggering statechange'
-  History.Adapter.trigger(window, 'statechange')
+  $('#main .inner').hide().load '/videos', ->
+    new Delorean
+    new Reel $('#video-thumbs')
 
+    $(this).fadeIn('slow')
+
+    $('a[data-popup]').click (e) ->
+      e.preventDefault()
+      History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
+  $(document).bind 'cbox_complete', ->
+    videojs("video").play() if window.showingVideo

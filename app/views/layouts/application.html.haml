@@ -4,8 +4,8 @@
     %title James Rouse | Director
     %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=no", :name => "viewport"}/
     = stylesheet_link_tag    "application", :media => "all"
-    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300", "http://vjs.zencdn.net/4.0/video-js.css"
+    = javascript_include_tag "application", "http://vjs.zencdn.net/4.0/video.js"
   %body
     %header
       = link_to root_url do

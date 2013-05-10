@@ -13,13 +13,12 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require video
 //= require modernizr
 //= require underscore
 //= require foundation
+//= require jquery.touchSwipe
 //= require jquery.colorbox
 //= require jquery.history
-//= require jquery.overscroll
 //= require redactor-rails
 //= require TweenMax.min
 //= require videos

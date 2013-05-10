@@ -28,9 +28,29 @@ class VideoUploader < CarrierWave::Uploader::Base
 
     zencoder_response = Zencoder::Job.create({
       :input => input,
-      :output => [{
+      :outputs => [
+        {
+          :base_url => base_url,
+          :filename => "video.webm",
+          :size => "1920x1080",
+          :public => 1
+        },
+        {
+          :base_url => base_url,
+          :filename => "video.ogg",
+          :size => "1920x1080",
+          :public => 1
+        },
+        {
+          :base_url => base_url,
+          :filename => "video-small.mp4",
+          :size => "640x480",
+          :public => 1
+        },
+        {
         :base_url => base_url,
         :filename => "video.mp4",
+        :size => "1920x1080",
         :label => "web",
         :notifications => [
             # zencoder_callback_url(:protocol => 'http')
@@ -39,8 +59,6 @@ class VideoUploader < CarrierWave::Uploader::Base
         :video_codec => "h264",
         :audio_codec => "aac",
         :quality => 4,
-        :width => 1024,
-        :height => 768,
         :format => "mp4",
         :aspect_mode => "preserve",
         :public => 1,
