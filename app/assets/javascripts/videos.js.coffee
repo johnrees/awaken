@@ -3,14 +3,13 @@ window.showingVideo = false
 class Reel
 
   constructor: (@element) ->
-    # @positions = []
+    @positions = []
     @acceleration = 0
-    @activeSlide = 0
+    @activeSlide = 3
     thumb = @element.find('.thumb')
     @thumbWidth = thumb.width()
     @isSwiped = false
-    $(window).resize(=> @reset())
-    @reset(0)
+    $(window).resize(=> @reset()).trigger 'resize'
 
     $('.box').click @clicked
     $('.holder').mousemove(@mousemoved).mouseout(@reset)
@@ -25,7 +24,7 @@ class Reel
     TweenLite.killTweensOf @element
     maxSpeed = 10
     xPos = e.pageX
-    width = $('.left').width() * .65
+    width = $('.left').width()
     if (xPos > @pageWidth - width)
       @acceleration = @map(xPos, @pageWidth - width, @pageWidth, 0, -maxSpeed)
     else if (e.pageX < width)
@@ -33,11 +32,15 @@ class Reel
     else @reset()
 
   scroll: =>
-    if (@acceleration != 0)
-      currentPosition = parseInt @element.css('left')
-      newPosition = currentPosition + @acceleration
 
+    if (@acceleration != 0)
+      # console.log @activeSlide
+      currentPosition = parseInt @element.css('left')
+
+      newPosition = currentPosition + @acceleration
       newPosition = parseInt Math.max( @maxLeft, Math.min( @minLeft, newPosition))
+
+      console.log @activeSlide, @element.find('.thumb').length
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
@@ -52,7 +55,7 @@ class Reel
           slide = Math.max(@activeSlide-1, 0)
         when 'left'
           slide = Math.min(@activeSlide+1, @element.find('.thumb').length)
-      @scrollTo(slide)
+      @scrollTo(slide,0.3)
 
   clicked: (e) =>
     e.preventDefault()
@@ -72,9 +75,9 @@ class Reel
       if (closest == null || Math.abs(value - goal) < Math.abs(closest - goal))
         closest = value
         closestIndex = index
-
-    # window.active = closest - window.padding
-    @activeSlide = closestIndex
+    if closestIndex != null
+      # window.active = closest - window.padding
+      @activeSlide = closestIndex
     @updateGUI()
 
   updateGUI: ->
@@ -90,13 +93,13 @@ class Reel
     @updateGUI()
     # @checkActive()
 
-  reset: (time=null) =>
+  reset: () =>
     @acceleration = 0
     @pageWidth = $(window).width()
     @minLeft = @pageWidth/2 - @thumbWidth/2 - 1
     @maxLeft = @pageWidth/2 - @element.width() + @thumbWidth/2 - 1
     @positions = _.range(@minLeft, @maxLeft, -315)
-    @scrollTo(@activeSlide,time)
+    @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
     #   left: @minLeft - @thumbWidth * @activeSlide - 1
 
@@ -126,7 +129,7 @@ class Delorean
       else if /[^=]\/videos\/(\d+)/.test(State.url)
         window.showingVideo = true
         console.log 'videos found in url'
-        current = $("a[href$='#{window.location.pathname}']")
+        current = $("a[href$='#{window.location.pathname}']").first()
         videojs("video").src(current.data('video'))
         try
           console.log 'setting modal url'
@@ -158,13 +161,17 @@ class Delorean
 jQuery ->
 
   $('#main .inner').hide().load '/videos', ->
-    new Delorean
-    new Reel $('#video-thumbs')
+    $(this).fadeIn()
 
-    $(this).fadeIn('slow')
+    reel = new Reel $('#video-thumbs')
+    new Delorean
+
+
 
     $('a[data-popup]').click (e) ->
       e.preventDefault()
       History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
-  $(document).bind 'cbox_complete', ->
-    videojs("video").play() if window.showingVideo
+
+    $(document).bind 'cbox_complete', ->
+      reel.reset()
+      videojs("video").play() if window.showingVideo
