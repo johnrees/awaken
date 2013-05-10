@@ -16,11 +16,15 @@
   .right
 
   %ul#video-thumbs
-    - @videos.each_with_index do |video, index|
-      %li.thumb
-        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
-          = image_tag video.thumbnail
+    - 1.times do
+      - @videos.each_with_index do |video, index|
+        %li.thumb
+          = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
+            = image_tag video.thumbnail
 
 .hide
   #video-modal
-    %video#video.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "405", :preload => "auto", :width => "720"}
+    %video#video.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "405", :poster => "", :preload => "auto", :width => "720"}
+      %source{src: "", type: "video/mp4"}
+      %source{src: "", type: "video/webm"}
+      %source{src: "", type: "video/ogg"}

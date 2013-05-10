@@ -5,8 +5,8 @@ class Reel
   constructor: (@element) ->
     @positions = []
     @acceleration = 0
-    @activeSlide = 3
     thumb = @element.find('.thumb')
+    @activeSlide = Math.min(3, thumb.length - 1)
     @thumbWidth = thumb.width()
     @isSwiped = false
     $(window).resize(=> @reset()).trigger 'resize'
@@ -17,6 +17,7 @@ class Reel
     if Modernizr.touch
       $('#main').swipe
         swipe: @swiped
+        allowPageScroll: 'vertical'
     else
       setInterval(@scroll, 10)
 
@@ -40,7 +41,7 @@ class Reel
       newPosition = currentPosition + @acceleration
       newPosition = parseInt Math.max( @maxLeft, Math.min( @minLeft, newPosition))
 
-      console.log @activeSlide, @element.find('.thumb').length
+      # console.log @activeSlide, @element.find('.thumb').length
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
@@ -75,9 +76,9 @@ class Reel
       if (closest == null || Math.abs(value - goal) < Math.abs(closest - goal))
         closest = value
         closestIndex = index
-    if closestIndex != null
-      # window.active = closest - window.padding
-      @activeSlide = closestIndex
+    # if closestIndex != null
+    # window.active = closest - window.padding
+    @activeSlide = closestIndex
     @updateGUI()
 
   updateGUI: ->
@@ -90,14 +91,15 @@ class Reel
     @activeSlide = slide
     TweenLite.to @element, time,
       left: @minLeft - @thumbWidth * slide - 2
+    @checkActive()
     @updateGUI()
-    # @checkActive()
+
 
   reset: () =>
     @acceleration = 0
-    @pageWidth = $(window).width()
-    @minLeft = @pageWidth/2 - @thumbWidth/2 - 1
-    @maxLeft = @pageWidth/2 - @element.width() + @thumbWidth/2 - 1
+    @pageWidth = parseInt $(window).width()
+    @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
+    @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
     @positions = _.range(@minLeft, @maxLeft, -315)
     @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
