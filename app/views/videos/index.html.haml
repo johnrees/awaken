@@ -16,11 +16,10 @@
   .right
 
   %ul#video-thumbs
-    - 4.times do
-      - @videos.each_with_index do |video, index|
-        %li.thumb
-          = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
-            = image_tag video.thumbnail
+    - @videos.each_with_index do |video, index|
+      %li.thumb
+        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
+          = image_tag video.thumbnail
 
 .hide
   #video-modal
