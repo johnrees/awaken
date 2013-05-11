@@ -109,13 +109,13 @@ a:active, a:visited, video {
   overflow: hidden;
   position: relative;
   top:50%;
-  height: 570px;
-  margin-top: -330px;
+  height: 610px;
+  margin-top: -355px;
 }
 
 html,body {
   height: 100%;
-  min-height: 640px;
+  min-height: 720px;
 }
 
 .left, .right {
@@ -135,6 +135,7 @@ html,body {
 #colorbox {
   box-shadow: 0px 0px 12px rgba(50, 50, 50, 0.5);
   top: 190px !important;
+  z-index: 99999;
 }
 
 .polaroid {
@@ -215,7 +216,6 @@ li {
     border: none;
   }
 }
-
 
 #cboxContent {
   padding: 4px !important;

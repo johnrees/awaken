@@ -3,6 +3,7 @@ window.showingVideo = false
 class Reel
 
   constructor: (@element) ->
+    @video =
     @interval = null
     @positions = []
     @acceleration = 0
@@ -17,9 +18,7 @@ class Reel
 
     $(document).bind 'cbox_complete', =>
       current = $("a[href$='#{window.location.pathname}']").first()
-
       @activeSlide = $('.thumb a').index(current)
-      console.log "a[href$='#{window.location.pathname}']"
       if window.showingVideo
         videojs("video").play()
         @reset()
@@ -45,13 +44,13 @@ class Reel
   scroll: =>
 
     if (@acceleration != 0)
-      # console.log @activeSlide
+      # #console.log @activeSlide
       currentPosition = parseInt @element.css('left')
 
       newPosition = currentPosition + @acceleration
       newPosition = parseInt Math.max( @maxLeft, Math.min( @minLeft, newPosition))
 
-      # console.log @activeSlide, @element.find('.thumb').length
+      # #console.log @activeSlide, @element.find('.thumb').length
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
@@ -100,7 +99,7 @@ class Reel
   scrollTo: (slide, time = 0.3) ->
     @activeSlide = slide
     TweenLite.to @element, time,
-      left: @minLeft - @thumbWidth * slide# - 2
+      left: @minLeft - @thumbWidth * slide - 2
     @checkActive()
     @updateGUI()
 
@@ -110,9 +109,9 @@ class Reel
       @acceleration = 0
       @sideWidth = $('.left').width()
       @pageWidth = parseInt $(window).width()
-      @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
-      @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
-      @positions = _.range(@minLeft + 2, @maxLeft, -315)
+      @minLeft = parseInt(@pageWidth/2) - parseInt(@thumbWidth/2) - 1
+      @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) - 1
+      @positions = _.range(@minLeft + 5, @maxLeft, -315)
       @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
     #   left: @minLeft - @thumbWidth * @activeSlide - 1
@@ -139,13 +138,14 @@ class Delorean
 
       else if /[^=]\/videos\/(\d+)/.test(State.url)
         window.showingVideo = true
-        console.log 'videos found in url'
+        #console.log 'videos found in url'
         current = $("a[href$='#{window.location.pathname}']").first()
         videojs("video").src(current.data('video'))
+        $('#video').attr('src', current.data('video'))
         try
-          console.log 'setting modal url'
-          console.log 'set modal url'
-          console.log 'opening modal'
+          #console.log 'setting modal url'
+          #console.log 'set modal url'
+          #console.log 'opening modal'
           # $("<a href='#{State.url}'>modal</a>").modal()
           $.colorbox
             opacity: 0
@@ -158,9 +158,9 @@ class Delorean
             width: 728
             height: 415
 
-          console.log 'opened modal'
+          #console.log 'opened modal'
         catch error
-          console.log error
+          #console.log error
       else
         window.showingVideo = false
         if $('#colorbox').length > 0
@@ -176,10 +176,12 @@ jQuery ->
     reel = new Reel $('#video-thumbs')
     new Delorean
 
-
     $('a[data-popup]').click (e) ->
       e.preventDefault()
       History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
-    $(document).bind 'cbox_closed', ->
-      History.pushState("James Rouse | Director", null, '/')
+  $(document).bind 'cbox_open', ->
+    $('#container').append($('#colorbox'))
+
+  $(document).bind 'cbox_closed', ->
+    History.pushState("James Rouse | Director", null, '/')
