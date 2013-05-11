@@ -14,6 +14,14 @@ class Reel
     $('.box').click @clicked
     $('.holder').mousemove(@mousemoved).mouseout(@reset)
 
+    $(document).bind 'cbox_complete', =>
+      current = $("a[href$='#{window.location.pathname}']").first()
+
+      @activeSlide = $('.thumb a').index(current)
+      console.log "a[href$='#{window.location.pathname}']"
+      @reset()
+      videojs("video").play() if window.showingVideo
+
     if Modernizr.touch
       $('#main').swipe
         swipe: @swiped
@@ -90,7 +98,7 @@ class Reel
   scrollTo: (slide, time = 0.3) ->
     @activeSlide = slide
     TweenLite.to @element, time,
-      left: @minLeft - @thumbWidth * slide - 2
+      left: @minLeft - @thumbWidth * slide# - 2
     @checkActive()
     @updateGUI()
 
@@ -100,7 +108,7 @@ class Reel
     @pageWidth = parseInt $(window).width()
     @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
     @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
-    @positions = _.range(@minLeft, @maxLeft, -315)
+    @positions = _.range(@minLeft + 2, @maxLeft, -315)
     @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
     #   left: @minLeft - @thumbWidth * @activeSlide - 1
@@ -174,6 +182,3 @@ jQuery ->
       e.preventDefault()
       History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
-    $(document).bind 'cbox_complete', ->
-      reel.reset()
-      videojs("video").play() if window.showingVideo
