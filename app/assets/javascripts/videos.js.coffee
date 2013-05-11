@@ -13,22 +13,23 @@ class Reel
     @isSwiped = false
     $(window).resize(=> @reset()).trigger 'resize'
 
-    $('.box').click @clicked
+    $('.polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
     $(document).bind 'cbox_complete', =>
-      current = $("a[href$='#{window.location.pathname}']").first()
-      @activeSlide = $('.thumb a').index(current)
+      @reset()
       if window.showingVideo
-        videojs("video").play()
-        @reset()
+        $('#video').get(0).play()
+      #   videojs("video").play()
 
     if Modernizr.touch
       $('#main').swipe
         swipe: @swiped
+        tap: @clicked
         allowPageScroll: 'vertical'
     else
       @interval = setInterval(@scroll, 10)
+
 
   mousemoved: (e) =>
     TweenLite.killTweensOf @element
@@ -48,7 +49,7 @@ class Reel
       currentPosition = parseInt @element.css('left')
 
       newPosition = currentPosition + @acceleration
-      newPosition = parseInt Math.max( @maxLeft, Math.min( @minLeft, newPosition))
+      newPosition = parseInt Math.max( @maxLeft , Math.min( @minLeft, newPosition) - 2)
 
       # #console.log @activeSlide, @element.find('.thumb').length
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
@@ -64,11 +65,14 @@ class Reel
         when 'right'
           slide = Math.max(@activeSlide-1, 0)
         when 'left'
-          slide = Math.min(@activeSlide+1, @element.find('.thumb').length)
+          slide = Math.min(@activeSlide+1, (@element.find('.thumb').length - 1))
       @scrollTo(slide,0.3)
 
-  clicked: (e) =>
+  clicked: (e, target=null) =>
     e.preventDefault()
+    if target != null
+      return if $(target).hasClass('bar')
+
     current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
     name = current.data('name')
@@ -100,7 +104,7 @@ class Reel
     @activeSlide = slide
     TweenLite.to @element, time,
       left: @minLeft - @thumbWidth * slide - 2
-    @checkActive()
+    # @checkActive()
     @updateGUI()
 
 
@@ -109,8 +113,8 @@ class Reel
       @acceleration = 0
       @sideWidth = $('.left').width()
       @pageWidth = parseInt $(window).width()
-      @minLeft = parseInt(@pageWidth/2) - parseInt(@thumbWidth/2) - 1
-      @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) - 1
+      @minLeft = parseInt(@pageWidth/2) - parseInt(@thumbWidth/2) #- 2
+      @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) #- 2
       @positions = _.range(@minLeft + 5, @maxLeft, -315)
       @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
@@ -140,23 +144,27 @@ class Delorean
         window.showingVideo = true
         #console.log 'videos found in url'
         current = $("a[href$='#{window.location.pathname}']").first()
+        # current = $("a[href$='#{window.location.pathname}']").first()
+        @activeSlide = $('.thumb a').index(current)
         videojs("video").src(current.data('video'))
-        $('#video').attr('src', current.data('video'))
+        $('#video').attr
+          src: current.data('video')
+          poster: current.data('poster')
         try
           #console.log 'setting modal url'
           #console.log 'set modal url'
           #console.log 'opening modal'
-          # $("<a href='#{State.url}'>modal</a>").modal()
-          $.colorbox
-            opacity: 0
-            href: '#video-modal'
-            inline: true
-            # src:
-            # href: State.url
-            initialWidth: 326
-            initialHeight: 317
-            width: 728
-            height: 415
+          if $(window).width() > 7280
+            window.location = current.data('video')
+          else
+            $.colorbox
+              opacity: 0
+              href: '#video-modal'
+              inline: true
+              initialWidth: 326
+              initialHeight: 317
+              width: 728
+              height: 415
 
           #console.log 'opened modal'
         catch error
@@ -171,6 +179,7 @@ class Delorean
 
 jQuery ->
 
+
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
     reel = new Reel $('#video-thumbs')
@@ -184,4 +193,4 @@ jQuery ->
     $('#container').append($('#colorbox'))
 
   $(document).bind 'cbox_closed', ->
-    History.pushState("James Rouse | Director", null, '/')
+    History.pushState(null, "James Rouse | Director", '/')

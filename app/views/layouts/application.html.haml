@@ -2,21 +2,23 @@
 %html
   %head
     %title James Rouse | Director
-    %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    / %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    / %meta{:content => "width=380, user-scalable=no", :name => "viewport"}/
     = stylesheet_link_tag    "application", :media => "all"
     = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300", "http://vjs.zencdn.net/4.0/video-js.css"
-    = javascript_include_tag "application", "http://vjs.zencdn.net/4.0/video.js"
+    = javascript_include_tag "http://vjs.zencdn.net/4.0/video.js", "application"
   %body
-    #container
-      %header
-        = link_to root_url do
-          = image_tag "rouse.png", id: 'logo'
-        %p#job James Rouse - Director
-      #main
-        .inner= yield
-      %footer
-        %nav
-          %ul
-            %li= link_to "Awards", page_path("awards"), data: { popup: true }
-            %li= link_to "Biography", page_path("biography"), data: { popup: true }
-            %li= link_to "Contact", page_path("contact"), data: { popup: true }
+    #outer
+      #container
+        %header
+          = link_to root_url do
+            = image_tag "rouse.png", id: 'logo'
+          %p#job James Rouse - Director
+        #main
+          .inner= yield
+        %footer
+          %nav
+            %ul
+              %li= link_to "Awards", page_path("awards"), data: { popup: true }
+              %li= link_to "Biography", page_path("biography"), data: { popup: true }
+              %li= link_to "Contact", page_path("contact"), data: { popup: true }

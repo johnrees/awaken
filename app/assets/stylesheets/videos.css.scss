@@ -73,9 +73,7 @@ a:active, a:visited, video {
 
 #video-thumbs {
   position: absolute;
-  float: left;
   display: block;
-  left: 0;
   top: 3px;
   border: 1px solid black !important;
   padding: 1px !important;
@@ -110,12 +108,16 @@ a:active, a:visited, video {
   position: relative;
   top:50%;
   height: 610px;
-  margin-top: -355px;
+  margin-top: -300px;
 }
 
-html,body {
+body, html {
   height: 100%;
-  min-height: 720px;
+}
+#outer {
+  width: 100%;
+  overflow: hidden;
+  height: 720px;
 }
 
 .left, .right {
@@ -229,9 +231,9 @@ li {
   height: 317px;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
+// ::-webkit-scrollbar {
+//   display: none;
+// }
 
 // #videos-holder {
 //   display: block;
