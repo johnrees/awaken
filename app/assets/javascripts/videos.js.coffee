@@ -12,15 +12,16 @@ class Reel
     $(window).resize(=> @reset()).trigger 'resize'
 
     $('.box').click @clicked
-    $('.holder').mousemove(@mousemoved).mouseout(@reset)
+    $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
     $(document).bind 'cbox_complete', =>
       current = $("a[href$='#{window.location.pathname}']").first()
 
       @activeSlide = $('.thumb a').index(current)
       console.log "a[href$='#{window.location.pathname}']"
-      @reset()
-      videojs("video").play() if window.showingVideo
+      if window.showingVideo
+        @reset()
+        videojs("video").play()
 
     if Modernizr.touch
       $('#main').swipe
@@ -33,7 +34,7 @@ class Reel
     TweenLite.killTweensOf @element
     maxSpeed = 10
     xPos = e.pageX
-    width = $('.left').width()
+    width = @sideWidth
     if (xPos > @pageWidth - width)
       @acceleration = @map(xPos, @pageWidth - width, @pageWidth, 0, -maxSpeed)
     else if (e.pageX < width)
@@ -105,6 +106,7 @@ class Reel
 
   reset: () =>
     @acceleration = 0
+    @sideWidth = $('.left').width()
     @pageWidth = parseInt $(window).width()
     @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
     @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
