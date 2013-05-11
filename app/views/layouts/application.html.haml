@@ -8,17 +8,16 @@
     = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300", "http://vjs.zencdn.net/4.0/video-js.css"
     = javascript_include_tag "http://vjs.zencdn.net/4.0/video.js", "application"
   %body
-    #outer
-      #container
-        %header
-          = link_to root_url do
-            = image_tag "rouse.png", id: 'logo'
-          %p#job James Rouse - Director
-        #main
-          .inner= yield
-        %footer
-          %nav
-            %ul
-              %li= link_to "Awards", page_path("awards"), data: { popup: true }
-              %li= link_to "Biography", page_path("biography"), data: { popup: true }
-              %li= link_to "Contact", page_path("contact"), data: { popup: true }
+    #container
+      %header
+        = link_to root_url do
+          = image_tag "rouse.png", id: 'logo'
+        %p#job James Rouse - Director
+      #main
+        .inner= yield
+      %footer
+        %nav
+          %ul
+            %li= link_to "Awards", page_path("awards"), data: { popup: true }
+            %li= link_to "Biography", page_path("biography"), data: { popup: true }
+            %li= link_to "Contact", page_path("contact"), data: { popup: true }
