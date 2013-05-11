@@ -105,6 +105,19 @@ a:active, a:visited, video {
   }
 }
 
+#container {
+  overflow: hidden;
+  position: relative;
+  top:50%;
+  height: 570px;
+  margin-top: -330px;
+}
+
+html,body {
+  height: 100%;
+  min-height: 640px;
+}
+
 .left, .right {
   background: rgba(255,255,255,0.8);
   position: absolute;

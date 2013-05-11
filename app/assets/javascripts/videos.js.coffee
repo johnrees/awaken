@@ -3,6 +3,7 @@ window.showingVideo = false
 class Reel
 
   constructor: (@element) ->
+    @interval = null
     @positions = []
     @acceleration = 0
     thumb = @element.find('.thumb')
@@ -20,15 +21,15 @@ class Reel
       @activeSlide = $('.thumb a').index(current)
       console.log "a[href$='#{window.location.pathname}']"
       if window.showingVideo
-        @reset()
         videojs("video").play()
+        @reset()
 
     if Modernizr.touch
       $('#main').swipe
         swipe: @swiped
         allowPageScroll: 'vertical'
     else
-      setInterval(@scroll, 10)
+      @interval = setInterval(@scroll, 10)
 
   mousemoved: (e) =>
     TweenLite.killTweensOf @element
@@ -105,13 +106,14 @@ class Reel
 
 
   reset: () =>
-    @acceleration = 0
-    @sideWidth = $('.left').width()
-    @pageWidth = parseInt $(window).width()
-    @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
-    @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
-    @positions = _.range(@minLeft + 2, @maxLeft, -315)
-    @scrollTo(@activeSlide,0.2)
+    try
+      @acceleration = 0
+      @sideWidth = $('.left').width()
+      @pageWidth = parseInt $(window).width()
+      @minLeft = parseInt(@pageWidth/2 - @thumbWidth/2 - 1)
+      @maxLeft = parseInt(@pageWidth/2 - @element.width() + @thumbWidth/2 - 1)
+      @positions = _.range(@minLeft + 2, @maxLeft, -315)
+      @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
     #   left: @minLeft - @thumbWidth * @activeSlide - 1
 
@@ -121,9 +123,6 @@ class Delorean
   constructor: ->
     History = window.History
     return false unless History.enabled
-
-    $(document).bind 'cbox_closed', ->
-      History.pushState("James Rouse | Director", null, '/')
 
     $(window).bind 'statechange', ->
       State = History.getState()
@@ -174,13 +173,13 @@ jQuery ->
 
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
-
     reel = new Reel $('#video-thumbs')
     new Delorean
-
 
 
     $('a[data-popup]').click (e) ->
       e.preventDefault()
       History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
+    $(document).bind 'cbox_closed', ->
+      History.pushState("James Rouse | Director", null, '/')
