@@ -15,9 +15,9 @@
 //= require jquery_ujs
 //= require modernizr
 //= require underscore
+//= require jquery.fitvids
 //= require foundation
 //= require jquery.touchSwipe
-//= require jquery.colorbox
 //= require jquery.history
 //= require redactor-rails
 //= require TweenMax.min
