@@ -198,7 +198,7 @@ class Reel
     if @video
       # $("img.vjs-poster").hide()
       @video.pause()
-    TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 8, onComplete: -> $('#popup').hide() }
+    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 8, onComplete: -> $('#popup').hide() }
 
 
 jQuery ->

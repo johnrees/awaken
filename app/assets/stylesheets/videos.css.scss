@@ -270,7 +270,11 @@
   #popup {
     overflow: hidden;
     height: auto;
-    width: 90% !important;
+    max-width: 90% !important;
+    // max-height: 360px !important;
+    // #video {
+    //   max-height: 300px !important;
+    // }
   }
 
 
