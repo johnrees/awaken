@@ -187,7 +187,7 @@ class Reel
 
 
           TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
-          @video.play()
+          @video.currentTime(0).play()
       else
         $("##{type}").show()
         TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
@@ -198,7 +198,7 @@ class Reel
     if @video
       # $("img.vjs-poster").hide()
       @video.pause()
-    TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 5, onComplete: -> $('#popup').hide() }
+    TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 8, onComplete: -> $('#popup').hide() }
 
 
 jQuery ->
