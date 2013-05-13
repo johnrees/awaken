@@ -14,7 +14,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require modernizr
-//= require enquire
 //= require underscore
 //= require jquery.fitvids
 //= require foundation
