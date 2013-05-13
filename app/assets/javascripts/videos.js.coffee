@@ -152,7 +152,7 @@ class Reel
           $('#video').show()
           @video = videojs "video"
           @video.width '100%'
-          @video.height 405
+          @video.height 400
           @video.poster current.data('poster')
           # @video.attr 'src', current.data('video')
           $('.vjs-poster').css('background', "url(#{current.data('poster')})")
@@ -176,7 +176,7 @@ class Reel
           # window.location = current.data('video')
 
 
-          TweenMax.to $('#popup'), 0.5, { width: 720, height: 407, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
+          TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
           @video.play()
       else
         $("##{type}").show()
