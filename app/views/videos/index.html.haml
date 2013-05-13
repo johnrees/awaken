@@ -12,30 +12,28 @@
       / %source{src: "", type: "video/ogg"}
 = link_to "Close", "#", id: 'close'
 
+#holder
 
-
-.holder
-  .left.bar
-
-  .polaroid
-    .box
-    .top
-    .side
-    .image
-    .side
-    .text
+  #polaroid
+    #box
+    #top
+    .side.left
+    #image
+    .side.right
+    #text
       %p
-        %span.kind Kind:
-        %span.name Name
+        %span#video-kind Kind:
+        %span#video-name Name
       %p
-        %span.client Client:
-        %span.client_name Client
-  .right.bar
+        %span#video-clientlabel Client:
+        %span#video-client Client
 
   %ul#video-thumbs
-    - 1.times do
-      - @videos.each_with_index do |video, index|
-        %li.thumb
-          = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
-            = image_tag video.thumbnail
+    - @videos.each_with_index do |video, index|
+      %li.thumb
+        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
+          = image_tag video.thumbnail
 
+
+  #left.bar
+  #right.bar

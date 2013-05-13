@@ -9,8 +9,7 @@ class Reel
     @acceleration = 0
     thumb = @element.find('.thumb')
     @activeSlide = Math.min(3, thumb.length - 1)
-    @thumbWidth = thumb.width()
-    @isSwiped = false
+    # @isSwiped = false
     @setupHistory()
     @bindEvents()
 
@@ -22,7 +21,7 @@ class Reel
         @launch State.url.split('/').pop()
       else if /[^=]\/videos\/(\d+)/.test(State.url)
         @launch 'video'
-      else
+      else if $('#popup').is(":visible")
         @close()
     window.History.Adapter.trigger(window, 'statechange')
 
@@ -31,24 +30,26 @@ class Reel
       e.preventDefault()
       window.History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
-    $('#overlay').click @close
-    $('.polaroid').click @clicked
+    $('#overlay,#close').click -> window.History.pushState(null, "James Rouse | Director", '/')
+    $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
     if Modernizr.touch
       $('#main').swipe
-        swipe: @swiped
+        swipeLeft: @swiped
+        swipeRight: @swiped
         tap: @clicked
         allowPageScroll: 'vertical'
     else
       @interval = setInterval(@scroll, 10)
-    $(window).resize(=> @reset()).trigger 'resize'
+    $(window).resize(@reset).trigger 'resize'
 
   mousemoved: (e) =>
     TweenLite.killTweensOf @element
     maxSpeed = 10
     xPos = e.pageX
     width = @sideWidth
+    # console.log width
     if (xPos > @pageWidth - width)
       @acceleration = @map(xPos, @pageWidth - width, @pageWidth, 0, -maxSpeed)
     else if (e.pageX < width)
@@ -58,7 +59,7 @@ class Reel
   scroll: =>
 
     if (@acceleration != 0)
-      # #console.log @activeSlide
+      # console.log @acceleration
       currentPosition = parseInt @element.css('left')
 
       newPosition = currentPosition + @acceleration
@@ -69,17 +70,18 @@ class Reel
       @checkActive()
 
   swiped: (event, direction, distance, duration, fingerCount) =>
+    # unless @isSwiped
 
-    unless @isSwiped
-      @isSwiped = true
-      # speed = parseInt @map(distance/duration, 0, 1.5, 1, 2)
-      setTimeout( (=> @isSwiped = false), 200)
-      switch direction
-        when 'right'
-          slide = Math.max(@activeSlide-1, 0)
-        when 'left'
-          slide = Math.min(@activeSlide+1, (@element.find('.thumb').length - 1))
-      @scrollTo(slide,0.3)
+    # @isSwiped = true
+    ## speed = parseInt @map(distance/duration, 0, 1.5, 1, 2)
+    setTimeout( (=> @isSwiped = false), 200)
+    console.log direction
+    switch direction
+      when 'right'
+        slide = Math.max(@activeSlide-1, 0)
+      when 'left'
+        slide = Math.min(@activeSlide+1, (@element.find('.thumb').length - 1))
+    @scrollTo(slide,0.3)
 
   clicked: (e, target=null) =>
     e.preventDefault()
@@ -89,7 +91,7 @@ class Reel
     current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
     name = current.data('name')
-    window.History.pushState(null, "#{name} | James Rouse", link) unless @isSwiped
+    window.History.pushState(null, "#{name} | James Rouse", link)# unless @isSwiped
 
   map: (x, in_min, in_max, out_min, out_max) ->
     (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -117,18 +119,19 @@ class Reel
 
   updateGUI: ->
     activeThumb = $(".thumb:eq(#{@activeSlide}) a:first-child")
-    $('span.kind').text( "#{activeThumb.data('kind')}:" )
-    $('span.name').text( activeThumb.data('name') )
-    $('span.client_name').text( activeThumb.data('client') )
+    $('span#video-kind').text( "#{activeThumb.data('kind')}:" )
+    $('span#video-name').text( activeThumb.data('name') )
+    $('span#video-client').text( activeThumb.data('client') )
 
   reset: =>
     try
       @acceleration = 0
-      @sideWidth = $('.left').width()
+      @thumbWidth = @element.find('.thumb').width()
+      @sideWidth = $('.bar').width()
       @pageWidth = parseInt $(window).width()
       @minLeft = parseInt(@pageWidth/2) - parseInt(@thumbWidth/2) #- 2
       @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) #- 2
-      @positions = _.range(@minLeft + 5, @maxLeft, -315)
+      @positions = _.range(@minLeft + 5, @maxLeft, -$('.thumb').width())
       @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
     #   left: @minLeft - @thumbWidth * @activeSlide - 1
@@ -137,8 +140,9 @@ class Reel
     $('#popup,#overlay').show()
     switch type
       when 'video'
-        TweenMax.to $('#popup'), 0.5, { width: 720, height: 407, top: 0, onComplete: -> $('#close').fadeIn(100) }
-        current = $("a[href$='#{window.location.pathname}']").first()
+
+        current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
+
         if current
           $('#video').attr
             src: current.data('video')
@@ -149,30 +153,33 @@ class Reel
           @video = videojs "video"
           @video.width '100%'
           @video.height 405
+          @video.poster current.data('poster')
+          $('.vjs-poster').css('background', "url(#{current.data('poster')})")
+          $('#video_html5_api').attr('poster', current.data('poster'))
           @video.src [
             {type: 'video/mp4', src: current.data('video')}
             {type: 'video/webm', src: current.data('video').replace('mp4', 'webm')}
             {type: 'video/ogg', src: current.data('video').replace('mp4', 'ogg')}
           ]
 
-          @video.poster current.data('poster')
+
+          TweenMax.to $('#popup'), 0.5, { width: 720, height: 407, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
           @video.play()
       else
         $("##{type}").show()
-        TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100) }
+        TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
 
-  close: ->
-    window.History.pushState(null, "James Rouse | Director", '/')
+  close: (e = null) ->
+    e.preventDefault() if e
     $('#overlay').hide()
     $('#close').hide()
     if @video
-      @video.poster null
+      # $("img.vjs-poster").hide()
       @video.pause()
     TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 9, onComplete: -> $('#popup').hide() }
 
 
 jQuery ->
-
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
     new Reel $('#video-thumbs')

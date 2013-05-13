@@ -1,77 +1,75 @@
-html,body {
-  margin: 0;
-  padding: 0;
-  font-size: 12px;
-  font-family: "Calibri", "Open Sans", sans-serif;
-  font-weight: 300;
-}
-
-h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 1.2em;
-  margin-bottom: 1em;
-}
-
-#job {
-  // letter-spacing: 1px;
-}
-
-#job, footer {
-  font-weight: 600;
-}
-
-footer {
-  font-size: 1em;
-}
-
-.kind, .client {
+#video-kind, #video-clientlabel {
   color: #AAA;
   font-weight: 400;
 }
 
+@mixin bars($width, $height) {
+  #polaroid {
+    height: $width;
 
-body {
-  font-family: Helvetica, arial, sans-serif;
+    .side {
+      width: 5px;
+      display: block;
+      background: white;
+      height: $height + 4;
+      float: left;
+      &.right {
+        float: right;
+      }
+    }
+  }
+  #box {
+    width: $width;
+    height: $height - 20;
+  }
+
+  .bar {
+    left: -$width/2 - 4;
+    &#right {
+      right: -$width/2 - 4;
+    }
+  }
+
+  #video-thumbs {
+    li.thumb {
+      width: $width;
+        img {
+          width: $width;
+          height: $height;
+        }
+    }
+  }
+
+  #main {
+  height: $width;
 }
+  // #video-thumbs {
+  //   li.thumb img {
+  //     width: $width - 63;
+  //     height: $width - 63;
+  //   }
+  // }
 
-header, footer {
-  text-align: center;
-}
-
-header {
-  position: relative;
-  margin-bottom: 20px;
-  // z-index: 50;
-}
-
-footer {
-  margin-top: 20px;
-}
-
-#logo {
-  margin-top: 20px;
-  height: 132px;
-  width: 209px;
-}
-
-a {
-  text-decoration: none;
-  color: #444;
-  &:hover {
-    color: #BBB;
+  #holder {
+    // height: $width - 15;
+    #polaroid {
+      width: $width + 10;
+      // width: 252px;
+    }
+    #box {
+      width: $width;
+      height: $height - 2;
+    }
   }
 }
 
-.holder {
+@include bars(315px,250px);
+
+#holder {
+  top: 210px;
   overflow: hidden;
   position: absolute;
   width: 100%;
-  top: 210px;
-}
-a:active, a:visited, video {
-  border: none;
-  outline: none;
 }
 
 #video-thumbs {
@@ -84,6 +82,7 @@ a:active, a:visited, video {
   white-space:nowrap;
   font-size: 0;
   clear: both;
+
   &, li, a, img {
     margin: 0;
     padding: 0;
@@ -91,18 +90,9 @@ a:active, a:visited, video {
     border: none;
   }
 
-  li {
+  li.thumb {
     display: inline;
-  }
-
-  .thumb {
     overflow: hidden;
-    width: 315px;
-
-    img {
-      width: 315px;
-      height: 250px;
-    }
   }
 }
 
@@ -110,43 +100,32 @@ a:active, a:visited, video {
   overflow: hidden;
   position: relative;
   top:50%;
-  height: 640px;
+  height: 650px;
   margin-top: -330px;
 }
 
-body, html {
-  height: 100%;
-}
 #outer {
   width: 100%;
   overflow: hidden;
   height: 720px;
 }
 
-.left, .right {
+.bar {
   background: rgba(255,255,255,0.8);
   position: absolute;
   top: 0;
   height: 100%;
   width: 50%;
   z-index: 5;
-  left: -162px;
-}
-.right {
-  left: auto;
-  right: -162px;
+  &#right {
+    left: auto;
+  }
 }
 
-#colorbox {
-  box-shadow: 0px 0px 12px rgba(50, 50, 50, 0.5);
-  top: 190px !important;
-  z-index: 99999;
-}
-
-#popup, .polaroid {
+#popup, #polaroid {
   margin: 0 auto;
   border: 1px solid black;
-  width: 325px;
+  // width: 325px;
   box-shadow: 0px 0px 5px rgba(50, 50, 50, 0.75);
   position: relative;
 }
@@ -160,45 +139,36 @@ body, html {
   display: none;
   margin: 0 auto;
   height: 330px;
+  // max-width: 780px;
   #pages > div {
     padding: 8px;
   }
 }
 
-.polaroid {
+#polaroid {
   cursor: pointer;
   z-index: 8;
-  height: 315px;
-  .box {
-    width: 315px;
-    height: 250px;
+  #box {
     border: 1px solid black;
     position: absolute;
-    top: 3px;
+    top: 4px;
     left: 4px;
   }
 
-  .text {
+  #text {
     clear: both;
     display: block;
     padding: 10px;
     line-height: 1.5em;
     letter-spacing: 0.1em;
-    border-top: 4px solid #FFF;
+    border-top: 2px solid #FFF;
     p {
       margin: 0;
     }
   }
 
-  .side {
-    width: 5px;
-    display: block;
-    background: white;
-    height: 255px;
-    float: left;
-  }
 
-  .top {
+  #top {
     background: #FFF;
     position: absolute;
     top: 0;
@@ -207,70 +177,21 @@ body, html {
     height: 3px;
   }
 
-  .image {
+  #image {
+    display: none;
     float: left;
     width: 315px;
     height: 250px;
   }
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 20px;
-}
 
-li {
-  display: inline-block;
-  border-right: 1px solid #CCC;
-  padding: 0;
-  margin: 0;
-  margin-left: 10px;
-  padding-right: 10px;
-  &:last-child {
-    padding: 0;
-    border: none;
-  }
-}
-
-#cboxContent {
-  padding: 4px !important;
-}
-
-#cboxLoadedContent {
-  margin: 0 !important;
-}
-
-#main {
-  height: 317px;
-}
-
-// ::-webkit-scrollbar {
-//   display: none;
-// }
-
-// #videos-holder {
-//   display: block;
-//   // width: 800px;
-//   overflow: hidden;
-//   padding: 10px;
-//   overflow: scroll;
-//   -webkit-overflow-scrolling: touch;
-//   height: 317px;
-//   position: relative;
-//   top: 0;
-//   // left: 50%;
-//   // margin-left: -300px;
-//   top: 0;
-// }
 
 .page {
   padding: 18px;
 }
 
 #video {
-  // max-width: 100%;
   display: block;
   height: 100%;
 }
@@ -290,26 +211,39 @@ li {
   z-index: 40;
 }
 
-// #close {
-//   font-weight: bold;
-//   margin-top: 20px;
-// }
 
 #pages > div {
-  display: none;
+  display: block;
+  padding: 8px;
+  height: 360px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  word-wrap: break-word;
 }
 
 #close {
   margin: 0 auto;
-  display: block;
+  position: relative;
+  z-index: 200;
+  display: none;
+  padding-top: 10px;
   width: 100%;
   text-align: center;
   font-weight: bold;
-  display: none;
 }
 
-#video {
-.vjs-control-bar {
-  display: none;
+@media (max-width: 400px) {
+
+  @include bars(270px,214px);
+
+  #container {
+    overflow: auto;
+    position: static;
+    height: auto;
+    margin-top: 0;
+  }
+  #popup {
+    width: 90% !important;
+  }
 }
-}
+
