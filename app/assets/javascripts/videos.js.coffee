@@ -30,7 +30,9 @@ class Reel
       e.preventDefault()
       window.History.pushState(null, "#{$(this).text()} | James Rouse", $(this).attr('href'))
 
-    $('#overlay,#close').click -> window.History.pushState(null, "James Rouse | Director", '/')
+    $('#overlay,#close').click (e) ->
+      e.preventDefault()
+      window.History.pushState(null, "James Rouse | Director", '/')
     $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
@@ -143,6 +145,8 @@ class Reel
 
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
 
+        small = $(window).width() < 500
+
         if current
           $('#video').attr
             src: current.data('video')
@@ -150,16 +154,16 @@ class Reel
 
           @scrollTo $('.thumb a').index(current)
           $('#video').show()
-          @video = videojs "video"
+          @video = _V_ "video"
           @video.width '100%'
-          @video.height 400
+          @video.height '100%'#parseInt($('#popup').width()) * 9/16
           @video.poster current.data('poster')
           # @video.attr 'src', current.data('video')
           $('.vjs-poster').css('background', "url(#{current.data('poster')})")
           $('#video_html5_api').attr('poster', current.data('poster'))
 
           sources = [
-            if $(window).width() > 500
+            unless small
               {type: 'video/mp4', src: current.data('video')}
             else
               {type: 'video/mp4', src: current.data('video').replace('.mp4','-small.mp4')}
@@ -175,6 +179,12 @@ class Reel
 
           # window.location = current.data('video')
 
+          # $('#popup').css('display','block')
+
+          # w = Math.min( parseInt($(window).width()) - 20, 720)
+          # h = parseInt((w + 8) * 9/16);
+          # TweenMax.to $('#popup'), 0.5, { width: w, height: h, top: 0, onComplete: ->$('#close').fadeIn(100).css('display', 'block') }
+
 
           TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
           @video.play()
@@ -182,8 +192,7 @@ class Reel
         $("##{type}").show()
         TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
 
-  close: (e = null) ->
-    e.preventDefault() if e
+  close: ->
     $('#overlay').hide()
     $('#close').hide()
     if @video
@@ -194,6 +203,8 @@ class Reel
 
 jQuery ->
   $('#main .inner').hide().load '/videos', ->
+
+    # _V_('video').on('fullscreenchange', -> alert 'a')
 
     $(this).fadeIn()
     new Reel $('#video-thumbs')

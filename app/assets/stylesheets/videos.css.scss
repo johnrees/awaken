@@ -82,7 +82,6 @@
   top: 3px;
   border: 1px solid black !important;
   padding: 1px !important;
-  overflow: hidden;
   white-space:nowrap;
   font-size: 0;
   clear: both;
@@ -135,6 +134,7 @@
 }
 
 #popup {
+
   top: 5px;
   overflow: hidden;
   z-index: 100;
@@ -145,9 +145,7 @@
   // height: 330px;
   width: 326px;
   // max-width: 780px;
-  #pages > div {
-    padding: 8px;
-  }
+
 }
 
 #polaroid {
@@ -196,6 +194,10 @@
   padding: 18px;
 }
 
+#video {
+  overflow: hidden;
+}
+
 // #video {
 //   display: block;
 //   height: 100%;
@@ -218,6 +220,7 @@
 
 
 #close {
+  background: #FFF !important;
   margin: 0 auto;
   position: relative;
   z-index: 200;
@@ -234,16 +237,19 @@
   height: 360px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  overflow: hidden;
   word-wrap: break-word;
 }
 
-@media (max-width: 500px) {
+#pages {
 
-  #pages > div {
-    height: auto;
-    overflow: hidden;
-  }
+}
+
+@media (max-width: 730px) {
+
+  // #pages > div {
+  //   height: auto;
+  //   overflow: hidden;
+  // }
 
   @include bars(270px,214px);
 
@@ -254,7 +260,16 @@
     margin-top: 0;
   }
   #popup {
+    overflow: hidden;
+    height: auto;
     width: 90% !important;
   }
+
+
 }
+
+  .video-js .vjs-tech {
+    position: relative;
+    display: block !important;
+  }
 
