@@ -30,7 +30,7 @@
                 / #video-holder{data: { url: @video.attachment.url}}
                 - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
                   %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "320", :poster => @video.poster, :preload => "auto", :width => "100%"}
-                    %source{'cross-origin' => 'anonymous', :src => "#{@video.video}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+                    %source{'cross-origin' => 'anonymous', :src => "#{@video.video.gsub('.mp4','-small.mp4')}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
                 - else
                   %p Please be patient while we process this video
           .large-4.columns#thumbnail-column

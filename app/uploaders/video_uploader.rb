@@ -45,7 +45,15 @@ class VideoUploader < CarrierWave::Uploader::Base
           :base_url => base_url,
           :filename => "video-small.mp4",
           :size => "640x480",
-          :public => 1
+          :public => 1,
+
+          :audio_bitrate => 128,
+          :audio_sample_rate => 44100,
+          # :height => 320,
+          # :width => 480,
+          :max_frame_rate => 30,
+          :video_bitrate => 1500,
+          :h264_level => 3
         },
         {
         :base_url => base_url,

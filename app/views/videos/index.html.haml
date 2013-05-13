@@ -29,7 +29,7 @@
         %span#video-client Client
 
   %ul#video-thumbs
-    - @videos.each_with_index do |video, index|
+    - @videos.limit(4).each_with_index do |video, index|
       %li.thumb
         = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
           = image_tag video.thumbnail

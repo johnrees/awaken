@@ -4,6 +4,10 @@
 }
 
 @mixin bars($width, $height) {
+  #popup {
+    // height: auto;
+    // max-height: $height * 1.4;
+  }
   #polaroid {
     height: $width;
 
@@ -131,14 +135,15 @@
 }
 
 #popup {
-  top: 9px;
+  top: 5px;
   overflow: hidden;
   z-index: 100;
   background: #FFF;
   padding: 4px;
   display: none;
   margin: 0 auto;
-  height: 330px;
+  // height: 330px;
+  width: 326px;
   // max-width: 780px;
   #pages > div {
     padding: 8px;
@@ -160,7 +165,7 @@
     display: block;
     padding: 10px;
     line-height: 1.5em;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     border-top: 2px solid #FFF;
     p {
       margin: 0;
@@ -191,10 +196,10 @@
   padding: 18px;
 }
 
-#video {
-  display: block;
-  height: 100%;
-}
+// #video {
+//   display: block;
+//   height: 100%;
+// }
 
 .hide {
   display: none;
@@ -232,14 +237,14 @@
   font-weight: bold;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
 
   @include bars(270px,214px);
 
   #container {
     overflow: auto;
     position: static;
-    height: auto;
+    // height: auto;
     margin-top: 0;
   }
   #popup {

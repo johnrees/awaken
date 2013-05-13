@@ -130,7 +130,7 @@ class Reel
       @sideWidth = $('.bar').width()
       @pageWidth = parseInt $(window).width()
       @minLeft = parseInt(@pageWidth/2) - parseInt(@thumbWidth/2) #- 2
-      @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) #- 2
+      @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) - 1
       @positions = _.range(@minLeft + 5, @maxLeft, -$('.thumb').width())
       @scrollTo(@activeSlide,0.2)
     # TweenLite.to @element, 0.5,
@@ -154,13 +154,26 @@ class Reel
           @video.width '100%'
           @video.height 405
           @video.poster current.data('poster')
+          # @video.attr 'src', current.data('video')
           $('.vjs-poster').css('background', "url(#{current.data('poster')})")
           $('#video_html5_api').attr('poster', current.data('poster'))
-          @video.src [
-            {type: 'video/mp4', src: current.data('video')}
+
+          sources = [
+            if $(window).width() > 500
+              {type: 'video/mp4', src: current.data('video')}
+            else
+              {type: 'video/mp4', src: current.data('video').replace('.mp4','-small.mp4')}
+
             {type: 'video/webm', src: current.data('video').replace('mp4', 'webm')}
             {type: 'video/ogg', src: current.data('video').replace('mp4', 'ogg')}
           ]
+
+
+          @video.src sources
+
+          console.log $(window).width(), sources
+
+          # window.location = current.data('video')
 
 
           TweenMax.to $('#popup'), 0.5, { width: 720, height: 407, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
@@ -176,10 +189,11 @@ class Reel
     if @video
       # $("img.vjs-poster").hide()
       @video.pause()
-    TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 9, onComplete: -> $('#popup').hide() }
+    TweenMax.to $('#popup'), 0.5, { width: 326, height: 317, top: 5, onComplete: -> $('#popup').hide() }
 
 
 jQuery ->
   $('#main .inner').hide().load '/videos', ->
+
     $(this).fadeIn()
     new Reel $('#video-thumbs')
