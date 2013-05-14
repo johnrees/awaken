@@ -111,7 +111,7 @@
   overflow: hidden;
   position: relative;
   top:50%;
-  height: 650px;
+  height: 680px;
   margin-top: -330px;
 }
 
@@ -245,6 +245,7 @@
   z-index: 200;
   display: none;
   padding-top: 10px;
+  padding-bottom: 50px;
   width: 100%;
   text-align: center;
   font-weight: bold;
@@ -255,7 +256,7 @@
   padding: 8px;
   height: 360px;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: auto;
   word-wrap: break-word;
 }
 
@@ -263,6 +264,11 @@
 
 }
 
+@media (min-width: 480px) {
+  #pages > div {
+    -webkit-overflow-scrolling: touch;
+  }
+}
 @media (max-width: 730px) {
 
   // #pages > div {
