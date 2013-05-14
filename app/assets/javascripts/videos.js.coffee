@@ -188,6 +188,8 @@ class Reel
 
           TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
           @video.load().play()
+
+          # player = document.getElementsByTagName("video")[0]
       else
         $("##{type}").show()
         TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
@@ -208,3 +210,7 @@ jQuery ->
 
     $(this).fadeIn()
     new Reel $('#video-thumbs')
+
+    $('video').on 'webkitendfullscreen', ->
+      if $(window).width() < 500
+        window.History.pushState(null, "James Rouse | Director", '/')

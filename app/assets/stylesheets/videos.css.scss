@@ -122,7 +122,10 @@
 }
 
 .bar {
-  background: rgba(255,255,255,0.8);
+  body.rgba & {
+    background: rgba(255,255,255,0.8);
+  }
+  background: image-url('barbg.png');
   position: absolute;
   top: 0;
   height: 100%;
@@ -180,7 +183,7 @@
     padding: 10px;
     line-height: 1.5em;
     letter-spacing: 0.05em;
-    border-top: 2px solid #FFF;
+    border-top: 4px solid #FFF;
     p {
       margin: 0;
     }
