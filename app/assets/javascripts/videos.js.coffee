@@ -174,8 +174,14 @@ class Reel
 
 
           @video.src sources
+          console.log @video.N
+          @video.on 'webkitendfullscreen', ->
+            alert 'a'
 
-          console.log $(window).width(), sources
+
+            # if $(window).width() < 500
+            # window.History.pushState(null, "James Rouse | Director", '/')
+            # console.log $(window).width(), sources
 
           # window.location = current.data('video')
 
@@ -204,13 +210,11 @@ class Reel
 
 
 jQuery ->
-  $('#main .inner').hide().load '/videos', ->
 
-    # _V_('video').on('fullscreenchange', -> alert 'a')
+
+
+  $('#main .inner').hide().load '/videos', ->
 
     $(this).fadeIn()
     new Reel $('#video-thumbs')
-
-    $('video').on 'webkitendfullscreen', ->
-      if $(window).width() < 500
-        window.History.pushState(null, "James Rouse | Director", '/')
+    # _V_('video').on('fullscreenchange', -> alert 'a')

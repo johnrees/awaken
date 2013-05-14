@@ -260,15 +260,13 @@
   word-wrap: break-word;
 }
 
-#pages {
 
-}
+// @media (min-width: 480px) {
+//   #pages > div {
+//     -webkit-overflow-scrolling: touch;
+//   }
+// }
 
-@media (min-width: 480px) {
-  #pages > div {
-    -webkit-overflow-scrolling: touch;
-  }
-}
 @media (max-width: 730px) {
 
   // #pages > div {
