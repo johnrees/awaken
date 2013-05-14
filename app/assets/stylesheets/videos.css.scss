@@ -79,13 +79,14 @@
 #video-thumbs {
 
 
-  font-size: 0.1rem;
-  letter-spacing: -1em;
-  word-spacing: -1em;
+  font-size: 0;
+  // font-size: 0.1rem;
+  // letter-spacing: -1em;
+  // word-spacing: -1em;
 
 
   position: absolute;
-  display: block;
+
   top: 8px;
   border: 1px solid black !important;
   padding: 1px !important;
@@ -101,12 +102,7 @@
   }
 
   li.thumb {
-
-    a {
-      background: green;
-    }
-
-    display: inline;
+    display: inline-block;
     overflow: hidden;
   }
 }
