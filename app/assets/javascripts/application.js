@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require modernizr
+//= require mediaelement-and-player
 //= require underscore
 //= require jquery.fitvids
 //= require foundation

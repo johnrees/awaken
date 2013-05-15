@@ -6,10 +6,11 @@
           %h1= page.name
           = page.content.html_safe
 
-    %video#video.video-js.vjs-default-skin{:controls => "", :poster => "", :preload => "auto"}
-      / %source{src: "", type: "video/mp4"}
-      / %source{src: "", type: "video/webm"}
-      / %source{src: "", type: "video/ogg"}
+    / %video#video{:controls => "", :poster => "", :preload => "auto", :src => Video.first.video }
+    / / .video-js.vjs-default-skin
+    / /   / %source{src: "", type: "video/mp4"}
+    / /   / %source{src: "", type: "video/webm"}
+    / /   / %source{src: "", type: "video/ogg"}
 = link_to "Close", "#", id: 'close'
 
 #holder
@@ -31,8 +32,18 @@
   %ul#video-thumbs<
     - @videos.each_with_index do |video, index|
       %li.thumb>
-        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster } do
+        = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster }, class: 'video-link' do
           = image_tag video.thumbnail
+        .popup
+          = content_tag_for :video, video, width: '640', height: '480', poster: video.poster, controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
+            / %source{src: video.video, type: "video/mp4"}
+            %source{src: video.video.gsub('.mp4','-small.mp4'), type: "video/mp4"}
+            %source{src: video.video.gsub('mp4','webm'), type: "video/webm"}
+            %source{src: video.video.gsub('mp4','ogg'), type: "video/ogg"}
+            %object{width: '640', height: '480', type: 'application/x-shockwave-flash', data: asset_path('flashmediaelement.swf')}
+              %param{name: 'movie', value: asset_path('flashmediaelement.swf')}
+              %param{name: 'flashvars', value: "controls=true&file=#{video.video}"}
+              %param{name: 'allowFullScreen', value: "true"}
 
 
   #left.bar

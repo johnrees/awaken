@@ -1,4 +1,4 @@
-window.showingVideo = false
+window.players = []
 
 class Reel
 
@@ -9,7 +9,6 @@ class Reel
     @acceleration = 0
     thumb = @element.find('.thumb')
     @activeSlide = Math.min(3, thumb.length - 1)
-    # @isSwiped = false
     @setupHistory()
     @bindEvents()
 
@@ -21,7 +20,7 @@ class Reel
         @launch State.url.split('/').pop()
       else if /[^=]\/videos\/(\d+)/.test(State.url)
         @launch 'video'
-      else if $('#popup').is(":visible")
+      else if $('#video-modal').is(":visible")
         @close()
     window.History.Adapter.trigger(window, 'statechange')
 
@@ -33,6 +32,7 @@ class Reel
     $('#overlay,#close').click (e) ->
       e.preventDefault()
       window.History.pushState(null, "James Rouse | Director", '/')
+
     $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
@@ -61,21 +61,15 @@ class Reel
   scroll: =>
 
     if (@acceleration != 0)
-      # console.log @acceleration
       currentPosition = parseInt @element.css('left')
 
       newPosition = currentPosition + @acceleration
       newPosition = parseInt Math.max( @maxLeft , Math.min( @minLeft, newPosition) - 2)
 
-      # #console.log @activeSlide, @element.find('.thumb').length
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
   swiped: (event, direction, distance, duration, fingerCount) =>
-    # unless @isSwiped
-
-    # @isSwiped = true
-    ## speed = parseInt @map(distance/duration, 0, 1.5, 1, 2)
     setTimeout( (=> @isSwiped = false), 200)
     console.log direction
     switch direction
@@ -135,86 +129,56 @@ class Reel
       @maxLeft = parseInt(@pageWidth/2) - @element.width() + parseInt(@thumbWidth/2) - 1
       @positions = _.range(@minLeft + 5, @maxLeft, -$('.thumb').width())
       @scrollTo(@activeSlide,0.2)
-    # TweenLite.to @element, 0.5,
-    #   left: @minLeft - @thumbWidth * @activeSlide - 1
 
   launch: (type) ->
     $('#popup,#overlay').show()
     switch type
       when 'video'
-
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
-
         small = $(window).width() < 500
-
         if current
-          $('#video').attr
-            src: current.data('video')
-            poster: current.data('poster')
-
-          @scrollTo $('.thumb a').index(current)
-          $('#video').show()
-          @video = _V_ "video"
-          @video.width '100%'
-          @video.height '100%'#parseInt($('#popup').width()) * 9/16
-          @video.poster current.data('poster')
-          # @video.attr 'src', current.data('video')
-          $('.vjs-poster').css('background', "url(#{current.data('poster')})")
-          $('#video_html5_api').attr('poster', current.data('poster'))
-
-          sources = [
-            unless small
-              {type: 'video/mp4', src: current.data('video')}
-            else
-              {type: 'video/mp4', src: current.data('video').replace('.mp4','-small.mp4')}
-
-            {type: 'video/webm', src: current.data('video').replace('mp4', 'webm')}
-            {type: 'video/ogg', src: current.data('video').replace('mp4', 'ogg')}
-          ]
-
-
-          @video.src sources
-          console.log @video.N
-          @video.on 'webkitendfullscreen', ->
-            alert 'a'
-
-
-            # if $(window).width() < 500
-            # window.History.pushState(null, "James Rouse | Director", '/')
-            # console.log $(window).width(), sources
-
-          # window.location = current.data('video')
-
-          # $('#popup').css('display','block')
-
-          # w = Math.min( parseInt($(window).width()) - 20, 720)
-          # h = parseInt((w + 8) * 9/16);
-          # TweenMax.to $('#popup'), 0.5, { width: w, height: h, top: 0, onComplete: ->$('#close').fadeIn(100).css('display', 'block') }
-
-
+          console.log $('a.video-link').index(current)
+          $('#video-modal').append current.parents('li').find('.popup')
+          @scrollTo $('a.video-link').index(current)
           TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
-          @video.load().play()
 
-          # player = document.getElementsByTagName("video")[0]
+          player = $('#video-modal video')[0]
+          try
+            setTimeout (-> player.play()), 100
+          catch error
+            console.log error
+
+          # player.hideControls()
+          # player.setVolume(0.8)
+          # player.load()
+          $('#video-modal video').on 'webkitendfullscreen', => window.History.pushState(null, "James Rouse | Director", '/')
+
       else
         $("##{type}").show()
         TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
 
   close: ->
-    $('#overlay').hide()
-    $('#close').hide()
-    if @video
-      # $("img.vjs-poster").hide()
-      @video.currentTime(0).pause()
-    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 12, onComplete: -> $('#popup').hide() }
+    $('#overlay,#close').hide()
+
+    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 12, onComplete: ->
+      $('#popup').hide()
+      if $('#video-modal video').length > 0
+        try
+          $('#video-modal video').get(0).player.pause()
+        catch error
+          console.log error
+        $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
+    }
 
 
 jQuery ->
-
-
-
   $('#main .inner').hide().load '/videos', ->
-
     $(this).fadeIn()
     new Reel $('#video-thumbs')
-    # _V_('video').on('fullscreenchange', -> alert 'a')
+    $('video').mediaelementplayer
+      enablePluginDebug: true
+      plugins: ['flash']
+      videoWidth: -1
+      videoHeight: -1
+      success: (player, node) ->
+        window.players.push player
