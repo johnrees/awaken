@@ -180,7 +180,7 @@ jQuery ->
       plugins: ['flash']
       # defaultVideoWidth: 710
       # defaultVideoHeight: 400
-      videoWidth: 710
+      videoWidth: '100%'
       videoHeight: 400
       success: (player, node) ->
         window.players.push player
