@@ -4,6 +4,9 @@ Awaken::Application.routes.draw do
     member do
       get :processed
     end
+    collection do
+      get :ios
+    end
   end
 
   namespace :admin do

@@ -110,9 +110,9 @@
 #container {
   overflow: hidden;
   position: relative;
-  top:50%;
+  // top:50%;
   height: 680px;
-  margin-top: -330px;
+  // margin-top: -330px;
 }
 
 #outer {
@@ -308,9 +308,9 @@
   background: black;
 }
 
-// li .popup {
-//   display: none;
-// }
+li .popup {
+  display: none !important;
+}
 
 li {
   position: relative;
@@ -318,6 +318,7 @@ li {
 
 .popup {
   display: none;
+  background: black;
 }
 
 #video-modal {

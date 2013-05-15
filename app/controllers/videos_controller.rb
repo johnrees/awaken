@@ -4,6 +4,10 @@ class VideosController < ApplicationController
     @videos = Video.where{ordinal != nil}.order('ordinal ASC')
   end
 
+  def ios
+    @videos = Video.where{ordinal != nil}.order('ordinal ASC')
+  end
+
   def show
     @video = Video.find(params[:id])
   end

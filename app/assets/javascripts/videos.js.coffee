@@ -12,6 +12,7 @@ class Reel
     @setupHistory()
     @bindEvents()
 
+
   setupHistory: =>
     $(window).bind 'statechange', =>
       State = window.History.getState()
@@ -59,13 +60,10 @@ class Reel
     else @reset()
 
   scroll: =>
-
     if (@acceleration != 0)
       currentPosition = parseInt @element.css('left')
-
       newPosition = currentPosition + @acceleration
       newPosition = parseInt Math.max( @maxLeft , Math.min( @minLeft, newPosition) - 2)
-
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
@@ -120,6 +118,14 @@ class Reel
     $('span#video-client').text( activeThumb.data('client') )
 
   reset: =>
+
+    if $(window).width() < 500
+      $('source[src$=".mp4"]').not('[src$="small.mp4"]').each ->
+        $(this).attr 'src', $(this).attr('src').replace('.mp4','-small.mp4')
+    else
+      $('source[src$="-small.mp4"]').each ->
+        $(this).attr 'src', $(this).attr('src').replace('-small.mp4','.mp4')
+
     try
       @acceleration = 0
       @thumbWidth = @element.find('.thumb').width()
@@ -134,34 +140,52 @@ class Reel
     $('#popup,#overlay').show()
     switch type
       when 'video'
+
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
-        small = $(window).width() < 500
         if current
-          console.log $('a.video-link').index(current)
+
+
+
+
+          TweenMax.to $('#popup'), 0.5, {
+            width: 720
+            height: 410
+            top: 0
+            onComplete: -> $('#close').fadeIn(100).css('display', 'block')
+          }
+
           $('#video-modal').append current.parents('li').find('.popup')
           @scrollTo $('a.video-link').index(current)
-          TweenMax.to $('#popup'), 0.5, { width: 720, height: 410, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
 
-          player = $('#video-modal video')[0]
-          try
-            setTimeout (-> player.play()), 100
-          catch error
-            console.log error
+          setTimeout (->
+            if $('#video-modal video').length > 0
+              $('#video-modal video')[0].play()
+          ), 100
 
-          # player.hideControls()
-          # player.setVolume(0.8)
-          # player.load()
-          $('#video-modal video').on 'webkitendfullscreen', => window.History.pushState(null, "James Rouse | Director", '/')
+
+          $('#video-modal video').on 'webkitendfullscreen', =>
+            unless navigator.userAgent.match(/iPad/i)
+              window.History.pushState(null, "James Rouse | Director", '/')
+
+
+          # player = new MediaElementPlayer $('#video-modal video')[0]
+          # try
+          #   setTimeout (-> player.play()), 100
+          #   player.hideControls()
+          # catch error
+          #   console.log error
 
       else
         $("##{type}").show()
         TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
 
   close: ->
+    $('#video-modal .popup').hide()
     $('#overlay,#close').hide()
 
     TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 12, onComplete: ->
       $('#popup').hide()
+      $('#video-modal .popup').show()
       if $('#video-modal video').length > 0
         try
           $('#video-modal video').get(0).player.pause()
@@ -175,12 +199,12 @@ jQuery ->
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
     new Reel $('#video-thumbs')
-    $('video').mediaelementplayer
-      enablePluginDebug: true
-      plugins: ['flash']
-      # defaultVideoWidth: 710
-      # defaultVideoHeight: 400
-      videoWidth: '100%'
-      videoHeight: 400
-      success: (player, node) ->
-        window.players.push player
+    # $('video').mediaelementplayer
+    #   enablePluginDebug: true
+    #   plugins: ['flash']
+    #   # defaultVideoWidth: 710
+    #   # defaultVideoHeight: 400
+    #   videoWidth: '100%'
+    #   videoHeight: 400
+    #   success: (player, node) ->
+    #     window.players.push player
