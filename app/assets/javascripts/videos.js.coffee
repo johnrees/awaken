@@ -178,7 +178,9 @@ jQuery ->
     $('video').mediaelementplayer
       enablePluginDebug: true
       plugins: ['flash']
-      videoWidth: -1
-      videoHeight: -1
+      # defaultVideoWidth: 710
+      # defaultVideoHeight: 400
+      videoWidth: 710
+      videoHeight: 400
       success: (player, node) ->
         window.players.push player

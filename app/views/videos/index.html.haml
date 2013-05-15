@@ -35,7 +35,7 @@
         = link_to video, data: { kind: video.kind, name: video.name, client: video.client, video: video.video, poster: video.poster }, class: 'video-link' do
           = image_tag video.thumbnail
         .popup
-          = content_tag_for :video, video, width: '640', height: '480', poster: video.poster, controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
+          = content_tag_for :video, video, width: 710, height: 400, poster: video.poster, controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
             / %source{src: video.video, type: "video/mp4"}
             %source{src: video.video.gsub('.mp4','-small.mp4'), type: "video/mp4"}
             %source{src: video.video.gsub('mp4','webm'), type: "video/webm"}
