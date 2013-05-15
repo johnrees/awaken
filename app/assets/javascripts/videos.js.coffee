@@ -208,3 +208,4 @@ jQuery ->
     #   videoHeight: 400
     #   success: (player, node) ->
     #     window.players.push player
+
