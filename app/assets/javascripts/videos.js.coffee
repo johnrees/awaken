@@ -42,6 +42,10 @@ class Reel
 
 
     if Modernizr.touch
+
+      $('#videos').on 'touchmove', (e) ->
+        e.preventDefault()
+
       @myScroll = new iScroll 'videos', {
         snap: 'li'
         vScroll: false
@@ -243,4 +247,3 @@ jQuery ->
     #     window.players.push player
 
 # document.addEventListener('DOMContentLoaded', (-> setTimeout(loaded, 200)), false)
-# # document.addEventListener('touchmove', ((e) -> e.preventDefault()), false)
