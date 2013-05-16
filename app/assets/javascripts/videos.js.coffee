@@ -215,7 +215,7 @@ class Reel
 
 
 loaded = ->
-  new Reel $('#video-thumbs')
+  window.reel = new Reel $('#video-thumbs')
 
 jQuery ->
 

@@ -9,10 +9,7 @@
     = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300"
     = stylesheet_link_tag    "application", :media => "all"
     / = javascript_include_tag "http://vjs.zencdn.net/4.0/video.js"
-    - if Rails.env.development?
-      = javascript_include_tag "application.js?#{Time.now.to_i}"
-    - else
-      = javascript_include_tag "application.js"
+    = javascript_include_tag "application.js"
   %body
     #overlay
     #container
