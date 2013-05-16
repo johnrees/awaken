@@ -41,7 +41,7 @@ class Reel
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
 
-    if !Modernizr.touch
+    if Modernizr.touch
       @myScroll = new iScroll 'videos', {
         snap: 'li'
         vScroll: false
@@ -107,7 +107,7 @@ class Reel
     if target != null
       return if $(target).hasClass('bar')
 
-    console.log @myScroll
+    # console.log @myScroll
 
     return false if @myScroll.momentumX > 5
 
