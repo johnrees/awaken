@@ -139,6 +139,11 @@
     // height: auto;
     // max-height: $height * 1.4;
   }
+  #polaroid, .bar {
+    html.touch & {
+      pointer-events: none;
+    }
+  }
   #polaroid {
     height: $height + 62;
 
@@ -163,11 +168,7 @@
     height: $height - 16;
   }
 
-  #polaroid , .bar {
-    html.touch & {
-      pointer-events: none;
-    }
-  }
+
   .bar {
     left: -$width/2 - 4;
     &#right {
@@ -226,7 +227,7 @@
   body.rgba & {
     background: rgba(255,255,255,0.8);
   }
-  background: image-url('barbg.png');
+  // background: image-url('barbg.png');
   position: absolute;
   top: 0;
   height: 100%;
@@ -343,6 +344,7 @@
     position: static;
     // height: auto;
     margin-top: 0;
+    height: 600px;
   }
   #popup {
     overflow: hidden;

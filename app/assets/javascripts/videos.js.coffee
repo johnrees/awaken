@@ -4,12 +4,14 @@ class Reel
 
   constructor: (@element) ->
     return false unless window.History.enabled
+
     @interval = null
     @positions = []
     @acceleration = 0
     thumb = @element.find('.thumb')
     @activeSlide = Math.min(3, thumb.length - 1)
     @setupHistory()
+
     @bindEvents()
 
 
@@ -38,7 +40,8 @@ class Reel
     $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
-    if Modernizr.touch
+
+    if !Modernizr.touch
       @myScroll = new iScroll 'videos', {
         snap: 'li'
         vScroll: false
@@ -61,8 +64,8 @@ class Reel
     else
       @interval = setInterval(@scroll, 10)
 
-    $(window).resize(@reset).trigger 'resize'
 
+    $(window).resize(@reset).trigger 'resize'
 
   mousemoved: (e) =>
     TweenLite.killTweensOf @element
@@ -84,6 +87,7 @@ class Reel
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
 
+
   scroll2: =>
     @activeSlide = @myScroll.currPageX
     @updateGUI()
@@ -102,6 +106,10 @@ class Reel
     e.preventDefault()
     if target != null
       return if $(target).hasClass('bar')
+
+    console.log @myScroll
+
+    return false if @myScroll.momentumX > 5
 
     current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
@@ -139,6 +147,7 @@ class Reel
     $('span#video-client').text( activeThumb.data('client') )
 
   reset: =>
+
 
     if $(window).width() < 500
       $('source[src$=".mp4"]').not('[src$="small.mp4"]').each ->
@@ -214,15 +223,15 @@ class Reel
 
 
 
-loaded = ->
-  window.reel = new Reel $('#video-thumbs')
+# loaded = ->
+#   window.reel = new Reel $('#video-thumbs')
 
 jQuery ->
 
-  $('.overthrow').scroll (e) ->
-    console.log e
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
+
+    window.reel = new Reel $('#video-thumbs')
 
     # $('video').mediaelementplayer
     #   enablePluginDebug: true
@@ -234,5 +243,5 @@ jQuery ->
     #   success: (player, node) ->
     #     window.players.push player
 
-document.addEventListener('DOMContentLoaded', (-> setTimeout(loaded, 200)), false)
-# document.addEventListener('touchmove', ((e) -> e.preventDefault()), false)
+# document.addEventListener('DOMContentLoaded', (-> setTimeout(loaded, 200)), false)
+# # document.addEventListener('touchmove', ((e) -> e.preventDefault()), false)
