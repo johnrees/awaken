@@ -148,13 +148,12 @@ class Reel
 
   reset: =>
 
-
-    if $(window).width() < 500
-      $('source[src$=".mp4"]').not('[src$="small.mp4"]').each ->
-        $(this).attr 'src', $(this).attr('src').replace('.mp4','-small.mp4')
-    else
-      $('source[src$="-small.mp4"]').each ->
-        $(this).attr 'src', $(this).attr('src').replace('-small.mp4','.mp4')
+    # if $(window).width() < 500
+    #   $('source[src$=".mp4"]').not('[src$="small.mp4"]').each ->
+    #     $(this).attr 'src', $(this).attr('src').replace('.mp4','-small.mp4')
+    # else
+    #   $('source[src$="-small.mp4"]').each ->
+    #     $(this).attr 'src', $(this).attr('src').replace('-small.mp4','.mp4')
 
     try
       @acceleration = 0
