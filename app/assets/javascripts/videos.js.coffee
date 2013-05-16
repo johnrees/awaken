@@ -213,7 +213,7 @@ class Reel
     $('#video-modal .popup').hide()
     $('#overlay,#close').hide()
 
-    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 12, onComplete: ->
+    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 7, onComplete: ->
       $('#popup').hide()
       $('#video-modal .popup').show()
       if $('#video-modal video').length > 0

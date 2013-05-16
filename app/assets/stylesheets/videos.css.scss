@@ -1,9 +1,9 @@
 #container {
-  overflow: hidden;
-  position: relative;
-  // top:50%;
-  height: 680px;
-  // margin-top: -330px;
+  // overflow: hidden;
+  // position: relative;
+  // // top:50%;
+  // height: 680px;
+  // // margin-top: -330px;
 }
 // #outer {
 //   width: 100%;
@@ -30,6 +30,11 @@
 
 #video-thumbs {
 
+  html.no-touch & {
+    border: 1px solid black;
+    padding: 1px;
+  }
+
   html.touch & {
     position: static;
     top: 8px
@@ -38,8 +43,6 @@
   font-size: 0;
   position: absolute;
   top: 2px;
-  // border: 1px solid black !important;
-  // padding: 1px;
   white-space:nowrap;
   clear: both;
 
@@ -212,7 +215,8 @@
 @include bars(315px,250px);
 
 #holder {
-  top: 210px;
+  // top: 210px;
+  top: 0;
   overflow: hidden;
   position: absolute;
   width: 100%;
@@ -256,7 +260,7 @@
 
 #popup {
 
-  top: 8px;
+  top: 0;//8px;
   overflow: hidden;
   z-index: 100;
   background: #FFF;
@@ -266,6 +270,7 @@
   // height: 330px;
   width: 326px;
   // max-width: 780px;
+  text-align: left;
 
 }
 
@@ -340,11 +345,11 @@
   @include bars(220px,175px);
 
   #container {
-    overflow: auto;
-    position: static;
-    // height: auto;
-    margin-top: 0;
-    height: 600px;
+    // overflow: auto;
+    // position: static;
+    // // height: auto;
+    // margin-top: 0;
+    // height: 600px;
   }
   #popup {
     overflow: hidden;
@@ -414,3 +419,36 @@ li {
 //   width: 100% !important;
 // }
 
+#outer-wrapper {
+  height: 90%;
+  display: table;
+  width: 100%;
+}
+
+.inner {
+  position: relative;
+}
+
+
+// /* The ghost, nudged to maintain perfect centering */
+// body:before {
+//   content: '';
+//   display: inline-block;
+//   height: 100%;
+//   vertical-align: middle;
+//   margin-right: -0.25em; /* Adjusts for spacing */
+// }
+
+/* The element to be centered, can
+   also be of any width and height */
+#container {
+  width: 100%;
+  position: relative;
+  // text-align: center;
+  // display: inline-block;
+  // vertical-align: middle;
+  // width: 100%;
+  display: table-cell;
+   text-align: center;
+   vertical-align: middle;
+}
