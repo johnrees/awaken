@@ -12,15 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require iscroll
 //= require modernizr
+//= require iscroll
 //= require mediaelement-and-player
 //= require underscore
-//= require jquery.fitvids
-//= require foundation
-//= require jquery.touchSwipe
 //= require jquery.history
-//= require redactor-rails
 //= require TweenMax.min
 //= require videos
 
