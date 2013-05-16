@@ -2,7 +2,9 @@
 %html
   %head
     %title James Rouse | Director
-    %meta{:content => "width=device-width, initial-scale=1.0, user-scalable=no", :name => "viewport"}/
+    %meta{content: "width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0", name: "viewport"}/
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "black", :name => "apple-mobile-web-app-status-bar-style"}/
     / = stylesheet_link_tag    "http://vjs.zencdn.net/4.0/video-js.css"
     = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:600,400,300"
     = stylesheet_link_tag    "application", :media => "all"

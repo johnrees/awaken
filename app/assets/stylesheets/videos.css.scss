@@ -1,9 +1,140 @@
+#container {
+  overflow: hidden;
+  position: relative;
+  // top:50%;
+  height: 1880px;
+  // margin-top: -330px;
+}
+// #outer {
+//   width: 100%;
+//   overflow: hidden;
+//   height: 720px;
+// }
+
+
+#videos {
+  overflow: auto;
+  display: block;
+  padding-bottom: 40px;
+  width: 100%;
+}
+#scroller {
+  // width: 2500px;
+  float: left;
+  // position: absolute;
+  display: block;
+  border: 1px solid black;
+  padding: 1px;
+  // padding: 0 400px;
+}
+
+#video-thumbs {
+
+  html.touch & {
+    position: static;
+    top: 8px
+  }
+
+  font-size: 0;
+  position: absolute;
+  top: 2px;
+  // border: 1px solid black !important;
+  // padding: 1px;
+  white-space:nowrap;
+  clear: both;
+
+  &, li, a, img {
+    margin: 0;
+    padding: 0;
+    padding: 0;
+    border: none;
+  }
+
+  li.thumb {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .popup {
+    display: none;
+    background: black;
+  }
+}
+
+#polaroid {
+  cursor: pointer;
+  z-index: 4;
+
+  #box {
+    border: 1px solid black;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+  }
+
+  #text {
+    clear: both;
+    display: block;
+    padding: 10px;
+    line-height: 1.5em;
+    letter-spacing: 0.05em;
+    border-top: 4px solid #FFF;
+    p {
+      margin: 0;
+    }
+  }
+
+  #top {
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+  }
+
+  #image {
+    display: none;
+    float: left;
+  }
+}
+
+
+.overthrow {
+    overflow: auto;
+    // -webkit-overflow-scrolling: touch;
+}
+
+#wrapper {
+  position: absolute;
+  top: 8px;
+  overflow:hidden;
+  width:100%;
+  height: 300px;
+  margin: 0 auto;
+  text-align:center
+}
+
+#videos {
+  margin: 0 auto;
+  overflow:visible !important;
+}
+
+//------------- SORT OUT
+
+
+
 #video-kind, #video-clientlabel {
   color: #AAA;
   font-weight: 400;
 }
 
 @mixin bars($width, $height) {
+
+  #videos {
+  width: $width;
+}
+
   #popup {
     // height: auto;
     // max-height: $height * 1.4;
@@ -11,6 +142,11 @@
   #polaroid {
     height: $height + 62;
 
+
+#image {
+    width: $width;
+    height: $height;
+  }
     .side {
       width: 5px;
       display: block;
@@ -27,6 +163,11 @@
     height: $height - 16;
   }
 
+  #polaroid , .bar {
+    html.touch & {
+      pointer-events: none;
+    }
+  }
   .bar {
     left: -$width/2 - 4;
     &#right {
@@ -76,50 +217,10 @@
   width: 100%;
 }
 
-#video-thumbs {
 
 
-  font-size: 0;
-  // font-size: 0.1rem;
-  // letter-spacing: -1em;
-  // word-spacing: -1em;
 
 
-  position: absolute;
-
-  top: 8px;
-  border: 1px solid black !important;
-  padding: 1px !important;
-  white-space:nowrap;
-  // font-size: 0;
-  clear: both;
-
-  &, li, a, img {
-    margin: 0;
-    padding: 0;
-    padding: 0;
-    border: none;
-  }
-
-  li.thumb {
-    display: inline-block;
-    overflow: hidden;
-  }
-}
-
-#container {
-  overflow: hidden;
-  position: relative;
-  // top:50%;
-  height: 680px;
-  // margin-top: -330px;
-}
-
-#outer {
-  width: 100%;
-  overflow: hidden;
-  height: 720px;
-}
 
 .bar {
   body.rgba & {
@@ -130,7 +231,7 @@
   top: 0;
   height: 100%;
   width: 50%;
-  z-index: 5;
+  z-index: 3;
   &#right {
     left: auto;
   }
@@ -167,45 +268,6 @@
 
 }
 
-#polaroid {
-  cursor: pointer;
-  z-index: 8;
-  #box {
-    border: 1px solid black;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-  }
-
-  #text {
-    clear: both;
-    display: block;
-    padding: 10px;
-    line-height: 1.5em;
-    letter-spacing: 0.05em;
-    border-top: 4px solid #FFF;
-    p {
-      margin: 0;
-    }
-  }
-
-
-  #top {
-    background: #FFF;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-  }
-
-  #image {
-    display: none;
-    float: left;
-    width: 315px;
-    height: 250px;
-  }
-}
 
 
 
@@ -239,10 +301,10 @@
 
 
 #close {
-  // background: #FFF !important;
+  background: white !important;
   margin: 0 auto;
   position: relative;
-  z-index: 200;
+  z-index: 30;
   display: none;
   padding-top: 10px;
   padding-bottom: 50px;
@@ -255,8 +317,8 @@
   display: block;
   padding: 8px;
   height: 360px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: auto;
+  // overflow-y: auto;
+  // -webkit-overflow-scrolling: auto;
   word-wrap: break-word;
 }
 
@@ -274,7 +336,7 @@
   //   overflow: hidden;
   // }
 
-  @include bars(270px,214px);
+  @include bars(220px,175px);
 
   #container {
     overflow: auto;
@@ -286,10 +348,15 @@
     overflow: hidden;
     height: auto;
     max-width: 90% !important;
+    max-height: 320px !important;
     // max-height: 360px !important;
     // #video {
     //   max-height: 300px !important;
     // }
+  }
+
+  #video-modal {
+  height: 310px !important;
   }
 
 
@@ -316,13 +383,11 @@ li {
   position: relative;
 }
 
-.popup {
-  display: none;
-  background: black;
-}
+
 
 #video-modal {
   height: 100%;
+  overflow: hidden;
 }
 
 #video-modal .popup {
@@ -346,3 +411,4 @@ li {
 // .mejs-controls {
 //   width: 100% !important;
 // }
+

@@ -34,18 +34,35 @@ class Reel
       e.preventDefault()
       window.History.pushState(null, "James Rouse | Director", '/')
 
+    $('a.video-link').click @clicked
     $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
     if Modernizr.touch
-      $('#main').swipe
-        swipeLeft: @swiped
-        swipeRight: @swiped
-        tap: @clicked
-        allowPageScroll: 'vertical'
+      @myScroll = new iScroll 'videos', {
+        snap: 'li'
+        vScroll: false
+        bounce: false
+        momentum: true
+        hScrollbar: false
+        vScrollbar: false
+        useTransition: true
+        # onRefresh: ->
+        #   console.log this.distX
+        onBeforeScrollEnd: ->
+          console.log this
+        onScrollEnd: ->
+          # alert "onScrollEnd"
+        onBeforeScrollStart: (e) ->
+          # user is scrolling the x axis, so prevent the browsers' native scrolling
+          e.preventDefault()  if @absDistX > (@absDistY + 5)
+      }
+      @interval = setInterval(@scroll2, 10)
     else
       @interval = setInterval(@scroll, 10)
+
     $(window).resize(@reset).trigger 'resize'
+
 
   mousemoved: (e) =>
     TweenLite.killTweensOf @element
@@ -66,6 +83,10 @@ class Reel
       newPosition = parseInt Math.max( @maxLeft , Math.min( @minLeft, newPosition) - 2)
       $('#video-thumbs').css 'left', -> "#{newPosition}px"
       @checkActive()
+
+  scroll2: =>
+    @activeSlide = @myScroll.currPageX
+    @updateGUI()
 
   swiped: (event, direction, distance, duration, fingerCount) =>
     setTimeout( (=> @isSwiped = false), 200)
@@ -144,9 +165,6 @@ class Reel
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
         if current
 
-
-
-
           TweenMax.to $('#popup'), 0.5, {
             width: 720
             height: 410
@@ -195,10 +213,17 @@ class Reel
     }
 
 
+
+loaded = ->
+  new Reel $('#video-thumbs')
+
 jQuery ->
+
+  $('.overthrow').scroll (e) ->
+    console.log e
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
-    new Reel $('#video-thumbs')
+
     # $('video').mediaelementplayer
     #   enablePluginDebug: true
     #   plugins: ['flash']
@@ -209,3 +234,5 @@ jQuery ->
     #   success: (player, node) ->
     #     window.players.push player
 
+document.addEventListener('DOMContentLoaded', (-> setTimeout(loaded, 200)), false)
+# document.addEventListener('touchmove', ((e) -> e.preventDefault()), false)
