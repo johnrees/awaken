@@ -224,10 +224,10 @@
 
 
 .bar {
-  body.rgba & {
+  html.rgba & {
     background: rgba(255,255,255,0.8);
   }
-  // background: image-url('barbg.png');
+  background: image-url('barbg.png');
   position: absolute;
   top: 0;
   height: 100%;

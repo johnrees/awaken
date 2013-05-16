@@ -109,7 +109,7 @@ class Reel
 
     # console.log @myScroll
 
-    return false if @myScroll.momentumX > 5
+    # return false if @myScroll.momentumX > 5
 
     current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
