@@ -196,7 +196,7 @@
 
   #main {
   height: $height + 70;
-}
+  }
   // #video-thumbs {
   //   li.thumb img {
   //     width: $width - 63;
@@ -312,10 +312,13 @@
 
 
 #close {
-  // background: white !important;
+  html.touch & {
+    pointer-events: none;
+  }
+  background: white !important;
   margin: 0 auto;
   position: relative;
-  z-index: 130;
+  z-index: 8;
   display: none;
   padding-top: 10px;
   padding-bottom: 50px;
@@ -375,7 +378,7 @@
     max-width: 310px;
     // max-width: 90% !important;
     max-height: none;
-    min-height: 290px !important;
+    min-height: 250px !important;
     // max-height: 360px !important;
     // #video {
     //   max-height: 300px !important;
@@ -387,6 +390,10 @@
   }
 
 
+}
+
+video {
+  background: black;
 }
 
   .video-js .vjs-tech {

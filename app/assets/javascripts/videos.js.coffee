@@ -184,6 +184,8 @@ class Reel
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
         if current
 
+          $('footer').css('visibility', 'hidden')
+
           TweenLite.to $('#popup'), 0.5, {
             width: 700
             height: 400
@@ -213,6 +215,7 @@ class Reel
           #   console.log error
 
       else
+        $('footer').css('visibility', 'hidden')
         $('#pages').show()
         $("##{type}").show()
         TweenLite.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: ->
@@ -223,6 +226,7 @@ class Reel
   close: ->
     $('#video-modal .popup').hide()
     $('#overlay,#close').hide()
+    $('footer').css('visibility', 'visible')
 
     TweenLite.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 7, onComplete: ->
       $('#popup').hide()
