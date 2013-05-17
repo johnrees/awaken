@@ -9,10 +9,12 @@ class Reel
     @positions = []
     @acceleration = 0
     thumb = @element.find('.thumb')
-    @activeSlide = Math.min(3, thumb.length - 1)
+    @scrollTo Math.min(3, thumb.length - 1)
+
     @setupHistory()
 
     @bindEvents()
+
 
 
   setupHistory: =>
@@ -44,7 +46,8 @@ class Reel
     if Modernizr.touch
 
       $('#videos').on 'touchmove', (e) ->
-        e.preventDefault()
+        console.log e
+        # e.preventDefault()
 
       @myScroll = new iScroll 'videos', {
         snap: 'li'
@@ -62,7 +65,7 @@ class Reel
           # alert "onScrollEnd"
         onBeforeScrollStart: (e) ->
           # user is scrolling the x axis, so prevent the browsers' native scrolling
-          e.preventDefault()  if @absDistX > (@absDistY + 5)
+          e.preventDefault()  if @absDistX > (@absDistY + 20)
       }
       @interval = setInterval(@scroll2, 10)
     else
@@ -137,10 +140,14 @@ class Reel
 
   scrollTo: (slide, time = 0.3) ->
     @activeSlide = slide
-
-    newPosition = @minLeft - @thumbWidth * slide - 2
-    unless isNaN(newPosition)
-      TweenLite.to @element, time, left: newPosition
+    if @myScroll
+      # alert "li.thumb:eq(#{@activeSlide})"
+      @myScroll.scrollToPage slide
+    else
+      newPosition = @minLeft - @thumbWidth * slide - 2
+      unless isNaN(newPosition)
+        # alert "TweenLite.to #{@element}, #{time}, left: #{newPosition}"
+        TweenLite.to @element, time, left: newPosition
     @updateGUI()
 
 
@@ -173,13 +180,13 @@ class Reel
     $('#popup,#overlay').show()
     switch type
       when 'video'
-
+        $('#pages').hide()
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
         if current
 
-          TweenMax.to $('#popup'), 0.5, {
-            width: 720
-            height: 410
+          TweenLite.to $('#popup'), 0.5, {
+            width: 700
+            height: 400
             top: 0
             onComplete: -> $('#close').fadeIn(100).css('display', 'block')
           }
@@ -206,14 +213,18 @@ class Reel
           #   console.log error
 
       else
+        $('#pages').show()
         $("##{type}").show()
-        TweenMax.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: -> $('#close').fadeIn(100).css('display', 'block') }
+        TweenLite.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: ->
+          $('#close').fadeIn(100).css('display', 'block');
+          # @scrollTo(@activeSlide);
+        }
 
   close: ->
     $('#video-modal .popup').hide()
     $('#overlay,#close').hide()
 
-    TweenMax.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 7, onComplete: ->
+    TweenLite.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 7, onComplete: ->
       $('#popup').hide()
       $('#video-modal .popup').show()
       if $('#video-modal video').length > 0
