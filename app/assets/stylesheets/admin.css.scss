@@ -62,7 +62,7 @@ body.admin.c_pages.a_index {
   }
 }
 
-ul#videos, ul#unpublished_videos {
+ul#published-videos, ul#unpublished-videos {
   li {
     // padding: 5px;
     overflow: hidden;
@@ -70,6 +70,15 @@ ul#videos, ul#unpublished_videos {
     // padding-bottom: 10px;
     // border-bottom: 1px solid #CCC;
     background: #FFF;
+
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    &.ui-sortable-helper {
+      cursor: move;
+      cursor: -webkit-grabbing;
+      cursor: -moz-grabbing;
+    }
   }
   li:nth-child(even) {
     background: #F8F8F8;
@@ -197,5 +206,16 @@ input.ui-state-error {
   line-height: 1.2em;
   span.lab {
     color: #BBB;
+  }
+}
+
+#unpublished {
+img { -webkit-filter: grayscale(100%);  }
+strong a { color: #999;}
+}
+
+ul#published-videos {
+  li:nth-child(4) {
+    background: #F9FFB5;
   }
 }

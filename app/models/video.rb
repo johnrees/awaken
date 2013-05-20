@@ -13,8 +13,38 @@ class Video < ActiveRecord::Base
     self.name ||= File.basename(attachment.filename, '.*') if attachment
   end
 
+  def self.do_order(ids)
+    # update_all(
+    #   ['ordinal = FIND_IN_SET(id, ?)', ids.join(',')],
+    #   { :id => ids }
+    # )
+    update_all(
+      ["ordinal = STRPOS(?, ','||id||',')", ",#{ids.join(',')},"],
+      { :id => ids }
+    )
+  end
+
+  def self.disable(ids)
+    update_all(
+      ["ordinal = NULL"],
+      { :id => ids }
+    )
+  end
+
   def ready?
     zencoder_output_id.present?
+  end
+
+  def self.published
+    # where{(kind != "") && (client != "") && (name != "")}.order('ordinal')
+    # where("kind <> '' AND client <> '' AND name <> '' AND ordinal > 0").order('ordinal')
+    where('ordinal > 0').order('ordinal ASC')
+  end
+
+  def self.unpublished
+    # where{(kind == nil) | (client == nil) | (name == nil)}
+    # where('ordinal <= 0 OR ordinal = NULL')
+    where({ordinal: nil}).order('updated_at DESC')
   end
 
   def video

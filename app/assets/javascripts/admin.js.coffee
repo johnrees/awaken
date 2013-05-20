@@ -39,7 +39,7 @@ VideoPoller =
 
 jQuery ->
 
-  featureList = new List 'video-list',
+  featureList = new List 'manage-videos',
     valueNames: [ 'name', 'id', 'c', 'k' ]
 
   $('form').h5Validate()
@@ -107,23 +107,41 @@ jQuery ->
 
   $(document).foundation()
 
-  $('#videos').sortable
-    axis: 'y'
+  # $('#videos').sortable
+  #   axis: 'y'
+  #   update: ->
+  #     $.post($(this).data('url'), $(this).sortable('serialize'))
+  #     console.log $(this).sortable('serialize')
+
+  $('#published-videos').disableSelection().sortable
+    items:'li.video'
+    connectWith: '.list'
+    # containment:'parent'
+    # axis:'y'
     update: ->
-      $.post($(this).data('url'), $(this).sortable('serialize'))
+      # console.log '_method=put&'+$(this).sortable('serialize')
+      console.log "_method=put&##{$('#published-videos').sortable('serialize')}"
+      $.post '/admin/videos/sort', "_method=put&#{$('#published-videos').sortable('serialize')}"
 
+  $('#unpublished-videos').disableSelection().sortable
+    items:'li.video'
+    connectWith: '.list'
+    update: ->
+      # console.log '_method=put&'+$(this).sortable('serialize')
+      # console.log "_method=put&##{$('#published-videos').sortable('serialize')}"
+      $.post '/admin/videos/disable', "_method=put&#{$('#unpublished-videos').sortable('serialize')}"
 
-  $('#capture').click (e) ->
-    e.preventDefault()
-    ctx = canvas.getContext('2d')
-    video = document.getElementById('my_video_1')
-    w = video.videoWidth * 1
-    h = video.videoHeight * 1
-    ctx.drawImage(video, 0, 0, w, h)
-    url = canvas.toDataURL()
-    # console.log url
+  # $('#capture').click (e) ->
+  #   e.preventDefault()
+  #   ctx = canvas.getContext('2d')
+  #   video = document.getElementById('my_video_1')
+  #   w = video.videoWidth * 1
+  #   h = video.videoHeight * 1
+  #   ctx.drawImage(video, 0, 0, w, h)
+  #   url = canvas.toDataURL()
+  #   # console.log url
 
-    $.post "screenshot", { bitmapdata: url }, (data) ->
-      alert("Data Loaded: " + data)
-    # window.capture()
-    # console.log document.getElementById('canvas').toDataURL()
+  #   $.post "screenshot", { bitmapdata: url }, (data) ->
+  #     alert("Data Loaded: " + data)
+  #   # window.capture()
+  #   # console.log document.getElementById('canvas').toDataURL()

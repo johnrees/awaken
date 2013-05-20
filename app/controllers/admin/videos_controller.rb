@@ -4,6 +4,18 @@ class Admin::VideosController < ApplicationController
   skip_before_filter :verify_authenticity_token#, :only => :upload
   layout "admin"
 
+  def sort
+    order = params[:video]
+    Video.do_order(order)
+    render :text => order.inspect
+  end
+
+  def disable
+    videos = params[:video]
+    Video.disable(videos)
+    render :text => videos.inspect
+  end
+
   def screenshot
     File.open('screenshot1.txt', "w+") do |f|
       f.write( params[:bitmapdata].split(',')[1] )
