@@ -22,11 +22,11 @@
         / Left Nav Section
         %ul.left
           %li.divider
-          %li
+          %li.has-dropdown
             = link_to "Videos", admin_videos_path
-            / %ul.dropdown
-            /   %li= link_to "Manage Videos", admin_videos_path
-            /   / %li= link_to "Edit Order of Videos", edit_order_admin_videos_path
+            %ul.dropdown
+              %li= link_to "Manage Videos", admin_videos_path
+              %li= link_to "Upload New Video(s)", upload_admin_videos_path
           %li.divider
           %li.has-dropdown
             = link_to "Pages", admin_pages_path
@@ -48,6 +48,7 @@
 
     %script#template-upload{type: 'text/x-tmpl'}
       .upload{data: {name: "{%=o.name%}"}}
+        .abort abort
         {%=o.name%}
         .progress.success.round
           %span.meter.bar{style: 'width: 0%'}

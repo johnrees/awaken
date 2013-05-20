@@ -18,6 +18,7 @@ Awaken::Application.routes.draw do
       end
       collection do
         get :edit_order
+        get :upload
         put :sort
         put :disable
         post :update_homepage

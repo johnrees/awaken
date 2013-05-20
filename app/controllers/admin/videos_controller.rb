@@ -10,6 +10,9 @@ class Admin::VideosController < ApplicationController
     render :text => order.inspect
   end
 
+  def upload
+  end
+
   def disable
     videos = params[:video]
     Video.disable(videos)
