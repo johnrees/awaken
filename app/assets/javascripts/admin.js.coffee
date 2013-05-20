@@ -37,7 +37,8 @@ VideoPoller =
         VideoPoller.poll()
 
 
-abortUpload = (e) ->
+window.abortUpload = (e) ->
+  alert 'ABORT'
   e.preventDefault()
   template = $(e.currentTarget).closest('.upload')
   data = template.data('data') || {}
@@ -89,8 +90,10 @@ jQuery ->
     dataType: "script"
     add: (e, data) ->
       data.context = tmpl("template-upload", data.files[0]).trim()
+      console.log $(data.context).find('.abort')
+
       $('#new_video').append(data.context)
-      $(data.context).find('.abort').click(abortUpload)
+
       xhr = data.submit()
       $(data.context).data('data', {jqXHR: xhr})
     progress: (e, data) ->
@@ -117,6 +120,9 @@ jQuery ->
 
   # console.log video
   # $('#video-holder').html(video)
+
+  $('.abort').on 'click', ->
+    alert 'ABOOOORT'
 
 
   $(document).foundation()
@@ -161,5 +167,6 @@ jQuery ->
   #   # console.log document.getElementById('canvas').toDataURL()
   $('.alert').delay(1000).fadeOut()
 
-  # if $('.upload').length() > 0
-  #   window.onbeforeunload = -> "Your videos haven't finished uploading"
+
+  window.onbeforeunload = ->
+    "Have all your videos been uploaded?" if $('.upload').is(':visible')

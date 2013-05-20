@@ -219,3 +219,13 @@ ul#published-videos {
     background: #F9FFB5;
   }
 }
+
+a.delete {
+  float: right;
+  padding: 0 5px 5px 10px;
+  display: block;
+  color: #CCC !important;
+  &:hover {
+    color: red !important;
+  }
+}

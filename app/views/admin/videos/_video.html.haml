@@ -7,6 +7,7 @@
   .details
     .id{style: 'display: none'}= video.id
     .name{style: 'display: none'}= video.name
+    = link_to "x", admin_video_path(video), method: 'delete', class: 'delete', confirm: "Are you sure you want to delete '#{video}'?"
     %strong= link_to video, edit_admin_video_path(video)
     - if video.kind.present?
       .kind
