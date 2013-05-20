@@ -223,7 +223,7 @@ class Reel
         $('#video-modal .popup').show()
         if $('#video-modal video').length > 0
           try
-            $('#video-modal video').get(0).player.pause()
+            $('#video-modal video').get(0).pause()
           catch error
             console.log error
           $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
