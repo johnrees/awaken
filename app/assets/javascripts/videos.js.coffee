@@ -10,11 +10,8 @@ class Reel
     @acceleration = 0
     thumb = @element.find('.thumb')
     @scrollTo Math.min(3, thumb.length - 1)
-
     @setupHistory()
-
     @bindEvents()
-
 
 
   setupHistory: =>
@@ -42,13 +39,9 @@ class Reel
     $('#polaroid').click @clicked
     $('.bar').mousemove(@mousemoved).mouseout(@reset)
 
-
     if Modernizr.touch
-
       $('#videos').on 'touchmove', (e) ->
         console.log e
-        # e.preventDefault()
-
       @myScroll = new iScroll 'videos', {
         snap: 'li'
         vScroll: false
@@ -59,15 +52,16 @@ class Reel
         useTransition: true
         # onRefresh: ->
         #   console.log this.distX
-        onBeforeScrollEnd: ->
-          console.log this
-        onScrollEnd: ->
-          # alert "onScrollEnd"
+        # onBeforeScrollEnd: ->
+        #   # console.log this
+        #   @scroll2
+        onScrollStart: =>
+          @interval = setInterval(@scroll2, 200)
+        onScrollEnd: =>
+          clearInterval @interval if @interval
         onBeforeScrollStart: (e) ->
-          # user is scrolling the x axis, so prevent the browsers' native scrolling
           e.preventDefault()  if @absDistX > (@absDistY + 20)
       }
-      @interval = setInterval(@scroll2, 10)
     else
       @interval = setInterval(@scroll, 10)
 
@@ -114,10 +108,6 @@ class Reel
     if target != null
       return if $(target).hasClass('bar')
 
-    # console.log @myScroll
-
-    # return false if @myScroll.momentumX > 5
-
     current = $(".thumb:eq(#{@activeSlide}) a:first-child")
     link = current.attr('href')
     name = current.data('name')
@@ -141,12 +131,10 @@ class Reel
   scrollTo: (slide, time = 0.3) ->
     @activeSlide = slide
     if @myScroll
-      # alert "li.thumb:eq(#{@activeSlide})"
       @myScroll.scrollToPage slide
     else
       newPosition = @minLeft - @thumbWidth * slide - 2
       unless isNaN(newPosition)
-        # alert "TweenLite.to #{@element}, #{time}, left: #{newPosition}"
         TweenLite.to @element, time, left: newPosition
     @updateGUI()
 
@@ -158,14 +146,6 @@ class Reel
     $('span#video-client').text( activeThumb.data('client') )
 
   reset: =>
-
-    # if $(window).width() < 500
-    #   $('source[src$=".mp4"]').not('[src$="small.mp4"]').each ->
-    #     $(this).attr 'src', $(this).attr('src').replace('.mp4','-small.mp4')
-    # else
-    #   $('source[src$="-small.mp4"]').each ->
-    #     $(this).attr 'src', $(this).attr('src').replace('-small.mp4','.mp4')
-
     try
       @acceleration = 0
       @thumbWidth = @element.find('.thumb').width()
@@ -184,17 +164,18 @@ class Reel
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
         if current
 
-          $('footer').css('visibility', 'hidden')
-
           TweenLite.to $('#popup'), 0.5, {
             width: 700
             height: 400
             top: 0
-            onComplete: -> $('#close').fadeIn(100).css('display', 'block')
+            overwrite: 0
+            onComplete: =>
+              $('#close').fadeIn(100).css('display', 'block')
+              @scrollTo $('a.video-link').index(current)
           }
 
+          $('footer').css('visibility', 'hidden')
           $('#video-modal').append current.parents('li').find('.popup')
-          @scrollTo $('a.video-link').index(current)
 
           setTimeout (->
             if $('#video-modal video').length > 0
@@ -206,21 +187,16 @@ class Reel
             unless navigator.userAgent.match(/iPad/i)
               window.History.pushState(null, "James Rouse | Director", '/')
 
-
-          # player = new MediaElementPlayer $('#video-modal video')[0]
-          # try
-          #   setTimeout (-> player.play()), 100
-          #   player.hideControls()
-          # catch error
-          #   console.log error
-
       else
         $('footer').css('visibility', 'hidden')
         $('#pages').show()
         $("##{type}").show()
-        TweenLite.to $('#popup'), 0.5, { width: 360, height: 380, top: 0, onComplete: ->
-          $('#close').fadeIn(100).css('display', 'block');
-          # @scrollTo(@activeSlide);
+        TweenLite.to $('#popup'), 0.5, {
+          width: 360
+          height: 380
+          top: 0
+          overwrite: 1
+          onComplete: -> $('#close').fadeIn(100).css('display', 'block');
         }
 
   close: ->
@@ -228,37 +204,34 @@ class Reel
     $('#overlay,#close').hide()
     $('footer').css('visibility', 'visible')
 
-    TweenLite.to $('#popup'), 0.5, { width: $('#polaroid').width(), height: $('#polaroid').height(), top: 7, onComplete: ->
-      $('#popup').hide()
-      $('#video-modal .popup').show()
-      if $('#video-modal video').length > 0
-        try
-          $('#video-modal video').get(0).player.pause()
-        catch error
-          console.log error
-        $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
+    # $('#popup').hide()
+    # $('#video-modal .popup').show()
+    # if $('#video-modal video').length > 0
+    #   try
+    #     $('#video-modal video').get(0).player.pause()
+    #   catch error
+    #     console.log error
+    #   $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
+
+    TweenLite.to $('#popup'), 0.5, {
+      width: $('#polaroid').width()
+      height: $('#polaroid').height()
+      top: 7
+      overwrite: 1
+      onComplete: ->
+        $('#popup').hide()
+        $('#video-modal .popup').show()
+        if $('#video-modal video').length > 0
+          try
+            $('#video-modal video').get(0).player.pause()
+          catch error
+            console.log error
+          $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
     }
 
-
-
-# loaded = ->
-#   window.reel = new Reel $('#video-thumbs')
 
 jQuery ->
 
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
-
     window.reel = new Reel $('#video-thumbs')
-
-    # $('video').mediaelementplayer
-    #   enablePluginDebug: true
-    #   plugins: ['flash']
-    #   # defaultVideoWidth: 710
-    #   # defaultVideoHeight: 400
-    #   videoWidth: '100%'
-    #   videoHeight: 400
-    #   success: (player, node) ->
-    #     window.players.push player
-
-# document.addEventListener('DOMContentLoaded', (-> setTimeout(loaded, 200)), false)
