@@ -248,3 +248,7 @@ li.page {
   border: 1px solid #DDD;
   min-height: 70px;
 }
+
+.redactor_btn_image, .redactor_btn_video {
+  display: none !important;
+}
