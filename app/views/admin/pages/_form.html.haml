@@ -1,4 +1,5 @@
-= form_for [:admin,@page] do |f|
+= form_for [:admin,@page], validate: true do |f|
+
   - if @page.errors.any?
     #error_explanation
       %h2= "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
@@ -19,9 +20,6 @@
           %span.prefix{style: 'text-align: right'} http://www.rousefilm.com/
         .large-9.columns
           = f.text_field :permalink, placeholder: "Enter URL..."
-        / %p.hint>
-        /   %span> i.e. http://www.rousefilm.com/
-        /   %span.permalink< PERMALINK
   .field
     /= f.label :content
     = f.text_area :content, class: "redactor"

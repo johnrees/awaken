@@ -234,3 +234,12 @@ li.page {
   overflow: hidden;
   clear: both;
 }
+
+.redactor_box {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.redactor_box .redactor_editor {
+  min-height: 200px;
+}

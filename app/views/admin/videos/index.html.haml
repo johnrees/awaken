@@ -2,9 +2,14 @@
   .row
     .large-12.columns
       %h1 Manage Videos
-      / %input.search{placeholder: 'Search...'}
-      / %span.sort.button.small.secondary{ data: { sort: "name" } } Sort by Name
-      / %span.sort.button.small.secondary{ data: { sort: "id" } } Sort by Date Added
+      %p.hint
+        \- You can drag videos to reorder them in the 'Published' column, or to move them to the 'Inactive' column.
+        %br/
+        %br/
+        \- Clicking a video's title will allow you to edit its details, or you can delete the video by clicking the 'x' on the right.
+        %br/
+        %br/
+        \- The yellow slot is the first position that will be active by default on the homepage.
 
   .row
     .large-8.columns

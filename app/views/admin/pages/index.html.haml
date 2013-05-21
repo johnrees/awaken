@@ -1,6 +1,13 @@
 .row
-  .large-4.columns
+  .large-12.columns
     %h1 All Pages
+    %p.hint
+      \- Drag to reorder pages
+      %br/
+      %br/
+      \- Click page titles to edit them, or the 'x' next to the title to delete them
+.row
+  .large-5.columns
     %ul#pages
       - @pages.each do |page|
         = content_tag_for :li, page do

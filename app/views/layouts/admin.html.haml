@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title ADMIN : James Rouse
+    %title ADMIN : Rouse Productions
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     = stylesheet_link_tag    "admin", :media => "all"
     / = stylesheet_link_tag    "http://vjs.zencdn.net/c/video-js.css"
@@ -14,7 +14,7 @@
       %ul.title-area
         %li.name
           %h1
-            %a= link_to "Admin Area", admin_root_path
+            %a= link_to "Rouse Productions", admin_root_path
         %li.toggle-topbar.menu-icon
           %a{:href => "#"}
             %span Menu
@@ -48,8 +48,9 @@
 
     %script#template-upload{type: 'text/x-tmpl'}
       .upload{data: {name: "{%=o.name%}", xhr: "{%=o.xhr%}"}}
-        %a.abort{href: '#'} abort
-        %span.name {%=o.name%}
+        %span.name
+          %strong {%=o.name%}
+          %a.abort.delete{href: '#'} Cancel Upload
         %span.percentage
         .progress.success.round
           %span.meter.bar{style: 'width: 0%'}
