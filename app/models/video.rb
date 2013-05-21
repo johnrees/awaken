@@ -31,10 +31,6 @@ class Video < ActiveRecord::Base
     )
   end
 
-  def ready?
-    zencoder_output_id.present?
-  end
-
   def self.published
     # where{(kind != "") && (client != "") && (name != "")}.order('ordinal')
     # where("kind <> '' AND client <> '' AND name <> '' AND ordinal > 0").order('ordinal')

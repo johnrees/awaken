@@ -20,6 +20,7 @@ Awaken::Application.routes.draw do
         get :edit_order
         get :upload
         put :sort
+        post :fileupload
         put :disable
         post :update_homepage
       end

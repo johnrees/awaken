@@ -1,23 +1,45 @@
 .row
   .columns.large-12
-    %h1 Upload Video(s)
-    %p.hint
-      \- Use the button below to add the videos that you want to upload, then wait for them to disappear from the area below.
-      %br/
-      %br/
-      \- You can cancel any upload using the 'Cancel Upload' link to the right of the page.
-      %br/
-      %br/
-      \- Please don't leave this page whilst videos are being uploaded or transferred.
+    - unless browser.windows? and (browser.ie? or browser.safari?)
+      %h1 Upload Video
+      %p.hint
+        \- Use the button below to add the video that you want to upload.
+        %br/
+        %br/
+        \- Please only click upload once, and don't leave this page whilst the video is being uploaded.
+        %br/
+        %br/
+        \- For a better uploading tool please use Chrome or Firefox.
 
-    %hr/
+      %hr/
 
-    #upload-new-videos
-      / %p.hint Pick the videos you want to add using the button below, allow them to fully upload then after about 10-20 seconds they should transfer into the All Videos column.
-      = form_for [:admin,Video.new], :multipart => true do |f|
-        = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
-        / = f.submit
+      #upload-new-videos
+        = form_for [:admin,Video.new] do |f|
+          .field
+            = f.label :attachment, "Video File"
+            = f.file_field :attachment
+          .field{style: 'margin-top: 20px'}
+            = f.submit "Upload Video", class: 'button', id: 'upload-button'
 
-        %hr/
+    - else
+      %h1 Upload Video(s)
+      %p.hint
+        \- Use the button below to add the videos that you want to upload, then wait for them to disappear from the area below.
+        %br/
+        %br/
+        \- You can cancel any upload using the 'Cancel Upload' link to the right of the page.
+        %br/
+        %br/
+        \- Please don't leave this page whilst videos are being uploaded or transferred.
+
+      %hr/
+
+      #upload-new-videos
+        / %p.hint Pick the videos you want to add using the button below, allow them to fully upload then after about 10-20 seconds they should transfer into the All Videos column.
+        = form_tag fileupload_admin_videos_path, :multipart => true, :class => 'js', :id => 'new_video' do
+          = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
+          / = f.submit
+
+          %hr/
 
 

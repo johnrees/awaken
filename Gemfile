@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'zencoder'
 gem 'mini_magick'
 gem 'redactor-rails'
-
+gem 'browser'
 gem 'jquery-fileupload-rails'
 gem 'simple_form'
 

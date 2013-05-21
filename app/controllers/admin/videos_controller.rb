@@ -79,14 +79,22 @@ class Admin::VideosController < ApplicationController
     end
   end
 
-  def create
+  def fileupload
     @video = Video.create(params[:video])
-    # @video = Video.new(params[:video])
-    # if @video.save!
-    #   redirect_to admin_videos_url, notice: "Video Added"
+    render :create
+  end
+
+  def create
+    # if request.xhr?
+      #
     # else
-    #   # render :new
-    #   render text: params.inspect
+      @video = Video.new(params[:video])
+      if @video.save!
+        redirect_to admin_videos_url, notice: "Video Added"
+      else
+        render :upload
+        # render text: params.inspect
+      end
     # end
   end
 

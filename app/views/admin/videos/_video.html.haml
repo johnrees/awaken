@@ -1,9 +1,11 @@
 = content_tag_for :li, video do
   .thumbnail
-    .img
-      = link_to edit_admin_video_path(video) do
-        = image_tag video.thumbnail
-      / .waiting= image_tag "loader.gif"
+    = link_to edit_admin_video_path(video) do
+      .img
+        - if video.processed?
+          = image_tag video.thumbnail
+
+        / .waiting= image_tag "loader.gif"
   .details
     .id{style: 'display: none'}= video.id
     .name{style: 'display: none'}= video.name

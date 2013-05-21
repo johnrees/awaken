@@ -89,7 +89,7 @@ jQuery ->
   # $('select#multi').change ->
   #   $('form#update_frontpage_items').submit()
 
-  $('#new_video').fileupload
+  $('#new_video.js').fileupload
     paramName: 'video[attachment]'
     maxFileSize: 1073741824
     acceptFileTypes: /(\.|\/)(avi|wmv|mpg|mpeg|flv|m4v|dat|m1v|m2v|mov|ogg)$/i
@@ -104,10 +104,10 @@ jQuery ->
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
+        $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
         if progress >= 100
           $(".upload[data-name='#{data.files[0].name}'] .bar").css('background-color', '#BBB').html("Transferring to Video Server...")
-        else
-          $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
+
     # done: (e, data) ->
 
 
@@ -191,3 +191,6 @@ jQuery ->
 
   window.onbeforeunload = ->
     "Have all your videos been uploaded?" if $('.upload').is(':visible')
+
+  # $('#upload-button').click ->
+  #   $(this).attr('disabled', 'disabled')
