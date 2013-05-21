@@ -418,6 +418,11 @@ li {
   position: relative;
 }
 
+.popup {
+
+  border: 1px solid black;
+  background: black;
+}
 
 
 #video-modal {
@@ -481,4 +486,8 @@ li {
   // float: left;
    // text-align: center;
    vertical-align: middle;
+}
+
+.redactor_box .redactor_editor {
+  min-height: 200px;
 }

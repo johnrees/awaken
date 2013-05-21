@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  attr_accessible :content, :name, :permalink
+  attr_accessible :content, :name, :permalink, :ordinal
   validates_presence_of :content, :name, :permalink
   validates_uniqueness_of :name, :permalink
 
@@ -10,4 +10,13 @@ class Page < ActiveRecord::Base
   def to_s
     name
   end
+
+
+  def self.do_order(ids)
+    update_all(
+      ["ordinal = STRPOS(?, ','||id||',')", ",#{ids.join(',')},"],
+      { :id => ids }
+    )
+  end
+
 end

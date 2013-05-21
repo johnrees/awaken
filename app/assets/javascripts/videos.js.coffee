@@ -18,7 +18,8 @@ class Reel
     $(window).bind 'statechange', =>
       State = window.History.getState()
       $('#pages > div,#video').hide()
-      if /[^=]\/(awards|biography|contact)/.test(State.url)
+      r = new RegExp "[^=]\/(#{window.pageNames})", "i"
+      if r.test(State.url)
         @launch State.url.split('/').pop()
       else if /[^=]\/videos\/(\d+)/.test(State.url)
         @launch 'video'

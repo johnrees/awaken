@@ -6,23 +6,29 @@ class Admin::PagesController < ApplicationController
     @pages = Page.all
   end
 
-  # def new
-  #   @page = Page.new
-  # end
+  def sort
+    order = params[:page]
+    Page.do_order(order)
+    render :text => order.inspect
+  end
+
+  def new
+    @page = Page.new
+  end
 
   def edit
     @page = Page.find_by_permalink(params[:id])
   end
 
-  # def create
-  #   @page = Page.new(params[:page])
+  def create
+    @page = Page.new(params[:page])
 
-  #   if @page.save
-  #     redirect_to admin_pages_url, notice: 'Page added'
-  #   else
-  #     render action: "new"
-  #   end
-  # end
+    if @page.save
+      redirect_to admin_pages_url, notice: 'Page added'
+    else
+      render action: "new"
+    end
+  end
 
   def update
     @page = Page.find_by_permalink(params[:id])
@@ -33,11 +39,11 @@ class Admin::PagesController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @page = Page.find_by_permalink(params[:id])
-  #   @page.destroy
+  def destroy
+    @page = Page.find_by_permalink(params[:id])
+    @page.destroy
 
-  #   redirect_to admin_pages_url
-  # end
+    redirect_to admin_pages_url, notice: 'Page Destroyed'
+  end
 
 end

@@ -6,12 +6,22 @@
         - @page.errors.full_messages.each do |msg|
           %li= msg
 
-  / .field
-  /   = f.label :name
-  /   = f.text_field :name
-  / .field
-  /   = f.label :permalink
-  /   = f.text_field :permalink
+  %fieldset
+    %legend Page Details
+    .field
+      = f.label :name, 'Page Title'
+      = f.text_field :name
+
+    .field
+      = f.label :permalink
+      .row.collapse
+        .large-3.columns
+          %span.prefix{style: 'text-align: right'} http://www.rousefilm.com/
+        .large-9.columns
+          = f.text_field :permalink, placeholder: "Enter URL..."
+        / %p.hint>
+        /   %span> i.e. http://www.rousefilm.com/
+        /   %span.permalink< PERMALINK
   .field
     /= f.label :content
     = f.text_area :content, class: "redactor"

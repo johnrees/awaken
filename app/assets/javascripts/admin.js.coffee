@@ -146,17 +146,31 @@ jQuery ->
     # containment:'parent'
     # axis:'y'
     update: ->
-      # console.log '_method=put&'+$(this).sortable('serialize')
-      console.log "_method=put&##{$('#published-videos').sortable('serialize')}"
       $.post '/admin/videos/sort', "_method=put&#{$('#published-videos').sortable('serialize')}"
 
   $('#unpublished-videos').disableSelection().sortable
     items:'li.video'
     connectWith: '.list'
     update: ->
-      # console.log '_method=put&'+$(this).sortable('serialize')
-      # console.log "_method=put&##{$('#published-videos').sortable('serialize')}"
       $.post '/admin/videos/disable', "_method=put&#{$('#unpublished-videos').sortable('serialize')}"
+
+  $('#pages').disableSelection().sortable
+    items:'li.page'
+    axis:'y'
+    update: ->
+      $.post '/admin/pages/sort', "_method=put&#{$('#pages').sortable('serialize')}"
+
+  # $('#page_permalink').keyup ->
+  #   v = $(this).val() || "PERMALINK"
+  #   $('span.permalink').text(v)
+  # .trigger('keyup')
+
+  $('#page_name').change ->
+    $('#page_permalink').val($(this).val()).trigger('change') unless $('#page_permalink').val()
+
+  $('#page_permalink').change ->
+    clean = $(this).val().trim().toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9\-]/g, '')
+    $(this).val(clean)
 
   # $('#capture').click (e) ->
   #   e.preventDefault()

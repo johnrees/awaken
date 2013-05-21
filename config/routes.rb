@@ -24,13 +24,15 @@ Awaken::Application.routes.draw do
         post :update_homepage
       end
     end
-    resources :pages
+    resources :pages do
+      put :sort, on: :collection
+    end
     mount RedactorRails::Engine => '/redactor_rails'
 
   end
 
   post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
-  get ':id', to: 'pages#show', as: :page
+  get ':permalink', to: 'pages#show', as: :page
 
   root to: 'videos#index'
 
