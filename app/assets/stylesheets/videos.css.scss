@@ -249,6 +249,7 @@
 
 #popup {
   margin: 0 auto;
+  height: 312px;
 }
 
 #polaroid {
@@ -315,10 +316,10 @@
   html.touch & {
     pointer-events: none;
   }
-  background: white !important;
+  // background: white !important;
   margin: 0 auto;
   position: relative;
-  z-index: 8;
+  z-index: 180;
   display: none;
   padding-top: 10px;
   padding-bottom: 50px;
