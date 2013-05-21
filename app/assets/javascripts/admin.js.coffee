@@ -22,7 +22,7 @@ resetThumbnails = ->
       scrollTop: parseInt($('#video_thumbnail').val().match(/_(\d+).jpg/)[1]) * $('.active.thumbnail').height()
     })
 
-VideoPoller =
+window.VideoPoller =
   poll: ->
     setTimeout @request, 5000
   request: ->
@@ -34,7 +34,7 @@ VideoPoller =
       else
         console.log 'check'
         $('.waiting').show()
-        VideoPoller.poll()
+        window.VideoPoller.poll()
 
 
 window.abortUpload = (e) ->
@@ -61,9 +61,9 @@ jQuery ->
   # $(".knob").knob()
 
   if $('body.a_edit.admin.c_videos').length or $('body.a_update.admin.c_videos').length
-    # $('.waiting').hide()
+    $('.waiting').hide()
     $('.processed').hide()
-    VideoPoller.request()
+    window.VideoPoller.request()
 
   $(window).resize ->
     resetThumbnails()
