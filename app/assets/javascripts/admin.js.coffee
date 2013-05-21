@@ -58,7 +58,7 @@ jQuery ->
     valueNames: [ 'name', 'id', 'c', 'k' ]
 
   $('form').h5Validate()
-  $(".knob").knob()
+  # $(".knob").knob()
 
   if $('body.a_edit.admin.c_videos').length or $('body.a_update.admin.c_videos').length
     $('.waiting').hide()
@@ -82,12 +82,12 @@ jQuery ->
     $('#my_video_1').get(0).pause()
     $(this).addClass('active')
 
-  $("#multi").bsmSelect
-    plugins: [ $.bsmSelect.plugins.sortable() ]
-    removeClass: 'btn'
+  # $("#multi").bsmSelect
+  #   plugins: [ $.bsmSelect.plugins.sortable() ]
+  #   removeClass: 'btn'
 
-  $('select#multi').change ->
-    $('form#update_frontpage_items').submit()
+  # $('select#multi').change ->
+  #   $('form#update_frontpage_items').submit()
 
   $('#new_video').fileupload
     paramName: 'video[attachment]'
@@ -105,7 +105,7 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         if progress >= 100
-          $(".upload[data-name='#{data.files[0].name}'] .progress").html("Transferring to Video Server...")
+          $(".upload[data-name='#{data.files[0].name}'] .bar").css('background-color', '#BBB').html("Transferring to Video Server...")
         else
           $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
     # done: (e, data) ->

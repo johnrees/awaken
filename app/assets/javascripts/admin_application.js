@@ -14,12 +14,10 @@
 //= require jquery-ui
 //= require jquery_ujs
 
-//= require jquery.bsmselect
-//= require jquery.bsmselect.sortable
-//= require jquery.knob
-
+//= require jquery-fileupload/jquery.iframe-transport
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+
 //= require modernizr
 //= require underscore
 //= require foundation
