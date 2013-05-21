@@ -450,6 +450,7 @@ li {
   height: 90%;
   display: table;
   width: 100%;
+  table-layout: fixed;
 }
 
 .inner {
@@ -476,7 +477,7 @@ li {
   // vertical-align: middle;
   // width: 100%;
   display: table-cell;
-  float: left;
+  // float: left;
    // text-align: center;
    vertical-align: middle;
 }

@@ -39,11 +39,13 @@ VideoPoller =
 
 window.abortUpload = (e) ->
   e.preventDefault()
-  template = $(e.currentTarget).parents('.upload').get(0)
+  div = $(e.currentTarget).parents('.upload')
+  template = div.get(0)
   console.log template
   data = $(template).data() || {}
   if data.jqXHR
     data.jqXHR.abort()
+    div.fadeOut('fast')
   else
     data.errorThrown = 'abort'
     this._trigger('fail', e, data)

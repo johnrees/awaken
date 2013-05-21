@@ -49,6 +49,7 @@
     %script#template-upload{type: 'text/x-tmpl'}
       .upload{data: {name: "{%=o.name%}", xhr: "{%=o.xhr%}"}}
         %a.abort{href: '#'} abort
-        {%=o.name%}
+        %span.name {%=o.name%}
+        %span.percentage
         .progress.success.round
           %span.meter.bar{style: 'width: 0%'}
