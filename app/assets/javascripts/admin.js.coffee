@@ -61,7 +61,7 @@ jQuery ->
   # $(".knob").knob()
 
   if $('body.a_edit.admin.c_videos').length or $('body.a_update.admin.c_videos').length
-    $('.waiting').hide()
+    # $('.waiting').hide()
     $('.processed').hide()
     VideoPoller.request()
 
