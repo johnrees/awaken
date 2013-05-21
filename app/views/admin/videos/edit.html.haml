@@ -50,8 +50,8 @@
           %fieldset
             %legend Video (Coming Soon)
             %p.hint
-              = image_tag "ajax-loader.gif", style: 'margin-right: 10px;'
-              This video is currently being processed, once it is ready it will automatically appear here. It should only take a few minutes.
+              .columns.large-1= image_tag "ajax-loader.gif", style: 'margin-right: 10px;'
+              .columns.large-11.hint This video is currently being encoded, once it is ready it will automatically appear here. Depending on the length of the video this process should only take 3-10 minutes after uploading.
 
             / %p This graphic will show loading progress soon...
             / %input.knob{value: 35, data: {fgColor: '#37A5CF'}}
