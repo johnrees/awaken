@@ -25,6 +25,7 @@
 //= require foundation
 //= require jquery.colorbox
 //= require redactor-rails
+//= require redactor-rails/config
 //= require TweenMax.min
 //= require list.min
 //= require jquery.h5validate
