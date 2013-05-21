@@ -26,13 +26,14 @@ window.VideoPoller =
   poll: ->
     setTimeout @request, 5000
   request: ->
+
     $.getJSON $('#video-section').data('url'), (data) ->
       if data
-        console.log 'got'
+        # console.log 'got'
         $('.waiting').remove()
         $('.processed').show()
       else
-        console.log 'check'
+        # console.log 'check'
         $('.waiting').show()
         window.VideoPoller.poll()
 
@@ -41,7 +42,7 @@ window.abortUpload = (e) ->
   e.preventDefault()
   div = $(e.currentTarget).parents('.upload')
   template = div.get(0)
-  console.log template
+  # console.log template
   data = $(template).data() || {}
   if data.jqXHR
     data.jqXHR.abort()
