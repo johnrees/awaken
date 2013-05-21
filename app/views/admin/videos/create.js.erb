@@ -3,5 +3,4 @@
 <% else %>
   $("#videos").prepend("<%= j render(@video) %>")
   $(".upload[data-name='<%= @video.attachment.filename %>']").fadeOut()
-  console.log(".upload[data-name='<%= @video.attachment.filename %>']")
 <% end %>

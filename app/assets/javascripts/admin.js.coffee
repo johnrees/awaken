@@ -38,10 +38,10 @@ VideoPoller =
 
 
 window.abortUpload = (e) ->
-  alert 'ABORT'
   e.preventDefault()
-  template = $(e.currentTarget).closest('.upload')
-  data = template.data('data') || {}
+  template = $(e.currentTarget).parents('.upload').get(0)
+  console.log template
+  data = $(template).data() || {}
   if data.jqXHR
     data.jqXHR.abort()
   else
@@ -49,6 +49,8 @@ window.abortUpload = (e) ->
     this._trigger('fail', e, data)
 
 jQuery ->
+
+  $(document).on 'click', '.abort', window.abortUpload
 
   featureList = new List 'manage-videos',
     valueNames: [ 'name', 'id', 'c', 'k' ]
@@ -90,17 +92,16 @@ jQuery ->
     dataType: "script"
     add: (e, data) ->
       data.context = tmpl("template-upload", data.files[0]).trim()
-      console.log $(data.context).find('.abort')
 
       $('#new_video').append(data.context)
-
-      xhr = data.submit()
-      $(data.context).data('data', {jqXHR: xhr})
+      # $('.upload:last').data('p','ee')
+      # $(data.context)
+      $('.upload:last').data('jqXHR', data.submit())
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         if progress >= 100
-          $(".upload[data-name='#{data.files[0].name}']").html("Processing...")
+          $(".upload[data-name='#{data.files[0].name}'] .progress").html("Processing...")
         else
           $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
     # done: (e, data) ->
@@ -124,8 +125,7 @@ jQuery ->
   # console.log video
   # $('#video-holder').html(video)
 
-  $('.abort').on 'click', ->
-    alert 'ABOOOORT'
+
 
 
   $(document).foundation()
