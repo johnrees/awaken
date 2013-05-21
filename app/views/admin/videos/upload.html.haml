@@ -1,6 +1,6 @@
 .row
   .columns.large-12
-    - unless browser.windows? and (browser.ie? or browser.safari?)
+    - if browser.windows? and (browser.ie? or browser.safari?)
       %h1 Upload Video
       %p.hint
         \- Use the button below to add the video that you want to upload.

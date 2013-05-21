@@ -42,7 +42,10 @@
                     %param{name: 'movie', value: asset_path('flashmediaelement.swf')}
                     %param{name: 'flashvars', value: "controls=true&file=#{video.video}"}
                     %param{name: 'allowFullScreen', value: "true"}
-
+                    .fallback
+                      %p Adobe Flash Player or Quicktime is required for video playback
+                      %p= link_to "Get the latest version of quicktime", "http://www.apple.com/quicktime/download"
+                      %p= link_to "Get the latest flash player", "http://get.adobe.com/flashplayer"
 
   #left.bar
   #right.bar
