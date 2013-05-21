@@ -186,7 +186,7 @@ jQuery ->
   #     alert("Data Loaded: " + data)
   #   # window.capture()
   #   # console.log document.getElementById('canvas').toDataURL()
-  $('.alert').delay(1000).fadeOut()
+  $('.alert.message').delay(1000).fadeOut()
 
 
   window.onbeforeunload = ->

@@ -48,8 +48,10 @@
 
         .large-12.columns.waiting
           %fieldset
-            %legend Video Coming Soon
-            %h2 This video is currently being processed, once it is ready it will automatically appear here.
+            %legend Video (Coming Soon)
+            %p.hint
+              = image_tag "ajax-loader.gif", style: 'margin-right: 10px;'
+              This video is currently being processed, once it is ready it will automatically appear here. It should only take a few minutes.
 
             / %p This graphic will show loading progress soon...
             / %input.knob{value: 35, data: {fgColor: '#37A5CF'}}

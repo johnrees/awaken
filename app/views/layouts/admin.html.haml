@@ -40,7 +40,7 @@
     - flash.each do |name, msg|
       .row
         .columns.large-12
-          %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
+          %div{:class => "alert message alert-#{name == :notice ? "success" : "error"}"}
             / %a.close{"data-dismiss" => "alert"} ×
             = msg
 
