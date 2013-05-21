@@ -3,6 +3,8 @@ class Page < ActiveRecord::Base
   validates_presence_of :content, :name, :permalink
   validates_uniqueness_of :name, :permalink
 
+  default_scope order('ordinal ASC')
+
   def to_param
     permalink
   end
