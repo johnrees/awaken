@@ -214,11 +214,11 @@ img { -webkit-filter: grayscale(100%);  }
 strong a { color: #999;}
 }
 
-// ul#published-videos {
-//   li:nth-child(4) {
-//     background: #F9FFB5;
-//   }
-// }
+ul#published-videos {
+  li.active {
+    background: #F9FFB5;
+  }
+}
 
 a.delete {
   float: right;

@@ -189,6 +189,9 @@ jQuery ->
   #   # console.log document.getElementById('canvas').toDataURL()
   $('.alert.message').delay(1000).fadeOut()
 
+  $('#initial_position').change ->
+    $('li.video').removeClass('active')
+    $("li.video:eq(#{parseInt $(this).val()})").addClass('active')
 
   window.onbeforeunload = ->
     "Have all your videos been uploaded?" if $('.upload').is(':visible')
