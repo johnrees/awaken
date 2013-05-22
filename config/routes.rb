@@ -28,9 +28,9 @@ Awaken::Application.routes.draw do
     resources :pages do
       put :sort, on: :collection
     end
-    mount RedactorRails::Engine => '/redactor_rails'
-
   end
+
+  mount RedactorRails::Engine => '/redactor_rails'
 
   post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
   get ':permalink', to: 'pages#show', as: :page

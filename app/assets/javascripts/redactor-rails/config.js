@@ -8,12 +8,12 @@ $(document).ready(
   }
   $('.redactor').redactor(
     {
-      "buttons": ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'table', 'link', '|', 'fontcolor', 'backcolor', '|', 'horizontalrule'],
-      // "imageUpload":"/redactor_rails/pictures?" + params,
-      // "imageGetJson":"/redactor_rails/pictures",
+      // "buttons": ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'table', 'link', '|', 'fontcolor', 'backcolor', '|', 'horizontalrule'],
+      "imageUpload":"/redactor_rails/pictures?" + params,
+      "imageGetJson":"/redactor_rails/pictures",
       // "fileUpload":"/redactor_rails/documents?" + params,
       // "fileGetJson":"/redactor_rails/documents",
-      // "path":"/assets/redactor-rails",
+      "path":"/assets/redactor-rails",
       "css":"style.css"
     }
   );
