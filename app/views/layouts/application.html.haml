@@ -30,3 +30,4 @@
             %ul
               - Page.order(:ordinal).each do |page|
                 %li= link_to page.name, page_path(page.permalink), data: { popup: true }
+

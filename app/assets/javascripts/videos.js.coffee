@@ -171,6 +171,13 @@ class Reel
             top: 0
             overwrite: 0
             onComplete: =>
+              $('#video-modal video').mediaelementplayer
+                iPadUseNativeControls: true
+                iPhoneUseNativeControls: true
+                AndroidUseNativeControls: true
+                success: (mediaElement, domObject) ->
+                  mediaElement.play()
+
               $('#close').fadeIn(100).css('display', 'block')
               @scrollTo $('a.video-link').index(current)
           }
@@ -178,10 +185,13 @@ class Reel
           $('footer').css('visibility', 'hidden')
           $('#video-modal').append current.parents('li').find('.popup')
 
-          setTimeout (->
-            if $('#video-modal video').length > 0
-              $('#video-modal video')[0].play()
-          ), 100
+          # setTimeout (->
+          #   # if $('#video-modal video').length > 0
+          #   #   $('#video-modal video')[0].play()
+          #   $('#video-modal video').mediaelementplayer();
+          # ), 100
+
+          # $('#video-modal video').mediaelementplayer();
 
 
           $('#video-modal video').on 'webkitendfullscreen', =>
