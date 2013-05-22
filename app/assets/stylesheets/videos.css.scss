@@ -422,6 +422,15 @@ li {
 
   border: 1px solid black;
   background: black;
+  position: relative;
+  img.poster {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8000;
+  }
 }
 
 
@@ -486,4 +495,9 @@ li {
   // float: left;
    // text-align: center;
    vertical-align: middle;
+}
+
+.mejs-container {
+  width: 100% !important;
+  height: 100% !important;
 }

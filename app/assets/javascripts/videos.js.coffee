@@ -165,25 +165,25 @@ class Reel
         current = $("a[href*='#{window.History.getState().url.split('/').pop()}']").first()
         if current
 
+
+          $('footer').css('visibility', 'hidden')
+          $('#video-modal').append current.parents('li').find('.popup')
+
           TweenLite.to $('#popup'), 0.5, {
             width: 700
             height: 400
             top: 0
             overwrite: 0
             onComplete: =>
-              $('#video-modal video').mediaelementplayer
-                iPadUseNativeControls: true
-                iPhoneUseNativeControls: true
-                AndroidUseNativeControls: true
-                success: (mediaElement, domObject) ->
-                  mediaElement.play()
+              v = $('#video-modal .popup').data('mediaElement')
+              v.play()
+              $('img.poster').hide()
 
+              # $('#video-modal .mejs-overlay-button').mouseout()
               $('#close').fadeIn(100).css('display', 'block')
               @scrollTo $('a.video-link').index(current)
           }
 
-          $('footer').css('visibility', 'hidden')
-          $('#video-modal').append current.parents('li').find('.popup')
 
           # setTimeout (->
           #   # if $('#video-modal video').length > 0
@@ -211,6 +211,7 @@ class Reel
         }
 
   close: ->
+    $('img.poster').show()
     $('#video-modal .popup').hide()
     $('#overlay,#close').hide()
     $('footer').css('visibility', 'visible')
@@ -224,6 +225,7 @@ class Reel
     #     console.log error
     #   $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
 
+
     TweenLite.to $('#popup'), 0.5, {
       width: $('#polaroid').width()
       height: $('#polaroid').height()
@@ -232,12 +234,14 @@ class Reel
       onComplete: ->
         $('#popup').hide()
         $('#video-modal .popup').show()
-        if $('#video-modal video').length > 0
+        # if $('#video-modal video').length > 0
+        if $('#video-modal .popup').data('mediaElement')
           try
-            $('#video-modal video').get(0).pause()
+            # $('#video-modal video').get(0).pause()
+            $('#video-modal .popup').data('mediaElement').pause()
           catch error
             console.log error
-          $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
+        $('li.thumb:not(:has(.popup))').append $('#video-modal .popup')
     }
 
 
@@ -246,3 +250,20 @@ jQuery ->
   $('#main .inner').hide().load '/videos', ->
     $(this).fadeIn()
     window.reel = new Reel $('#video-thumbs')
+
+    $('video').mediaelementplayer
+      iPadUseNativeControls: true
+      iPhoneUseNativeControls: true
+      AndroidUseNativeControls: true
+      videoWidth: -1
+      videoHeight: -1
+      defaultVideoWidth: 690
+      defaultVideoHeight: 400
+      hideVideoControlsOnLoad: true
+      success: (mediaElement, domObject) =>
+        $(domObject).closest('.popup').data('mediaElement', mediaElement)
+        mediaElement.addEventListener "ended", (e) ->
+          thisMediaElement = if (mediaElement.id) then $("#"+mediaElement.id) else $(mediaElement)
+          thisMediaElement.parents(".mejs-inner").find(".mejs-poster").show()
+
+    # setTimeout (-> $('#video-modal .mejs-overlay-button').trigger 'click'), 100
