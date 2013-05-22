@@ -358,6 +358,10 @@
 
 @media (max-width: 730px) {
 
+  img.poster {
+    display: none !important;
+  }
+
   // #pages > div {
   //   height: auto;
   //   overflow: hidden;
@@ -500,4 +504,8 @@ li {
 .mejs-container {
   width: 100% !important;
   height: 100% !important;
+}
+
+.mejs-overlay-loading {
+  background: none !important;
 }

@@ -29,8 +29,8 @@
               .input{style: 'width: 100%'}
                 / #video-holder{data: { url: @video.attachment.url}}
                 - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
-                  %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "320", :poster => @video.poster, :preload => "auto", :width => "100%", :style => 'width: 100%'}
-                    %source{'cross-origin' => 'anonymous', :src => "#{@video.video.gsub('.mp4','-small.mp4')}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+                  %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "320", :poster => "#{@video.poster}?#{@video.created_at.to_i}", :preload => "auto", :width => "100%", :style => 'width: 100%'}
+                    %source{'cross-origin' => 'anonymous', :src => "#{@video.video.gsub('.mp4','-small.mp4')}?#{@video.created_at.to_i}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
                 - else
                   %p Please be patient while we process this video
           .large-4.columns#thumbnail-column
@@ -41,7 +41,7 @@
               %ul#thumbnails{data: {current: @video.thumbnail.match(/_(\d+).jpg/)[1]}}
                 - @video.thumbnails.each do |thumbnail|
                   %li.thumbnail{class: ('active' if thumbnail == @video.thumbnail)}
-                    = image_tag thumbnail
+                    = image_tag "#{thumbnail}?#{@video.created_at.to_i}"
               / / %img#thumb{style: 'width: 400px; height: 400px;'}
               / %canvas#canvas{style: 'width: 100%; height: 200px;'}
               / = button_tag "Capture", class: 'button', id: 'capture'

@@ -34,7 +34,7 @@
                 = image_tag video.thumbnail
               .popup
                 = image_tag video.poster, class: 'poster'
-                = content_tag_for :video, video, width: 710, height: 400, allowFullScreen: true, poster: video.poster, controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
+                = content_tag_for :video, video, width: 710, height: 400, allowFullScreen: true, poster: "#{video.poster}?#{video.created_at.to_i}", controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
                   - if browser.tablet? or browser.mobile?
                     %source{src: video.video.gsub('.mp4','-small.mp4'), type: "video/mp4"}
                   - else

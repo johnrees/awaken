@@ -3,7 +3,7 @@
     = link_to edit_admin_video_path(video) do
       .img
         - if video.processed?
-          = image_tag video.thumbnail
+          = image_tag "#{video.thumbnail}?#{video.created_at.to_i}}"
 
         / .waiting= image_tag "loader.gif"
   .details
