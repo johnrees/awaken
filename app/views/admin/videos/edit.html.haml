@@ -41,7 +41,7 @@
               %ul#thumbnails{data: {current: @video.thumbnail.match(/_(\d+).jpg/)[1]}}
                 - @video.thumbnails.each do |thumbnail|
                   %li.thumbnail{class: ('active' if thumbnail == @video.thumbnail)}
-                    = image_tag "#{thumbnail}?#{@video.created_at.to_i}"
+                    = image_tag thumbnail
               / / %img#thumb{style: 'width: 400px; height: 400px;'}
               / %canvas#canvas{style: 'width: 100%; height: 200px;'}
               / = button_tag "Capture", class: 'button', id: 'capture'
