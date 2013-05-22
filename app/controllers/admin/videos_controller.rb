@@ -81,7 +81,6 @@ class Admin::VideosController < ApplicationController
 
   def fileupload
     @video = Video.create(params[:video])
-    render :create
   end
 
   def create

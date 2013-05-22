@@ -106,7 +106,7 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
-        if progress >= 100
+        if progress >= 99
           $(".upload[data-name='#{data.files[0].name}'] .bar").css('background-color', '#BBB').html("Transferring to Video Server...")
 
     # done: (e, data) ->
