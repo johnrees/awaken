@@ -1,3 +1,6 @@
+window.updateInitialPosition = ->
+  $('li.video').removeClass('active')
+  $("#published li.video:eq(#{Math.ceil($('#published li.video').length/2)-1})").addClass('active')
 
 window.capture = (video, scaleFactor = 1) ->
   video = document.getElementById('my_video_1')
@@ -83,13 +86,6 @@ jQuery ->
     $('#my_video_1').get(0).pause()
     $(this).addClass('active')
 
-  # $("#multi").bsmSelect
-  #   plugins: [ $.bsmSelect.plugins.sortable() ]
-  #   removeClass: 'btn'
-
-  # $('select#multi').change ->
-  #   $('form#update_frontpage_items').submit()
-
   $('#new_video.js').fileupload
     paramName: 'video[attachment]'
     maxFileSize: 1073741824
@@ -131,15 +127,7 @@ jQuery ->
   # $('#video-holder').html(video)
 
 
-
-
   $(document).foundation()
-
-  # $('#videos').sortable
-  #   axis: 'y'
-  #   update: ->
-  #     $.post($(this).data('url'), $(this).sortable('serialize'))
-  #     console.log $(this).sortable('serialize')
 
   $('#published-videos').disableSelection().sortable
     items:'li.video'
@@ -147,6 +135,7 @@ jQuery ->
     # containment:'parent'
     # axis:'y'
     update: ->
+      window.updateInitialPosition()
       $.post '/admin/videos/sort', "_method=put&#{$('#published-videos').sortable('serialize')}"
 
   $('#unpublished-videos').disableSelection().sortable
@@ -160,11 +149,6 @@ jQuery ->
     axis:'y'
     update: ->
       $.post '/admin/pages/sort', "_method=put&#{$('#pages').sortable('serialize')}"
-
-  # $('#page_permalink').keyup ->
-  #   v = $(this).val() || "PERMALINK"
-  #   $('span.permalink').text(v)
-  # .trigger('keyup')
 
   $('#page_name').change ->
     $('#page_permalink').val($(this).val()).trigger('change') unless $('#page_permalink').val()
@@ -189,12 +173,11 @@ jQuery ->
   #   # console.log document.getElementById('canvas').toDataURL()
   $('.alert.message').delay(1000).fadeOut()
 
-  $('#initial_position').change ->
-    $('li.video').removeClass('active')
-    $("li.video:eq(#{parseInt $(this).val()})").addClass('active')
+
 
   window.onbeforeunload = ->
     "Have all your videos been uploaded?" if $('.upload').is(':visible')
 
   # $('#upload-button').click ->
   #   $(this).attr('disabled', 'disabled')
+  window.updateInitialPosition()

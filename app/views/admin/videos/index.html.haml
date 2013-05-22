@@ -11,20 +11,16 @@
         %br/
         \- The yellow slot is the first position that will be active by default on the homepage.
 
-    %input{type: 'number', id: 'initial_position'}
-
   .row
     .large-8.columns
-      .row
-        .large-10.columns
-          %h4 Published Videos
-          / %p.hint
-          /   This is the archive of every video uploaded. In order for videos to be added to the frontpage, change the settings on the
-          /   = link_to 'Edit Order of Videos', edit_order_admin_videos_path
-          /   page
-          #published.video-list
-            %ul#published-videos.list{data: { url: sort_admin_videos_url }}
-              = render Video.published
+      %h4 Published Videos
+      / %p.hint
+      /   This is the archive of every video uploaded. In order for videos to be added to the frontpage, change the settings on the
+      /   = link_to 'Edit Order of Videos', edit_order_admin_videos_path
+      /   page
+      #published.video-list
+        %ul#published-videos.list{data: { url: sort_admin_videos_url }}
+          = render Video.published
 
     .large-4.columns
       %h4 Inactive Videos

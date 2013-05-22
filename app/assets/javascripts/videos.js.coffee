@@ -9,7 +9,7 @@ class Reel
     @positions = []
     @acceleration = 0
     thumb = @element.find('.thumb')
-    @scrollTo Math.min(3, thumb.length - 1)
+    @scrollTo Math.ceil($('li.thumb').length/2 - 1)#Math.min(3, thumb.length - 1)
     @setupHistory()
     @bindEvents()
 
