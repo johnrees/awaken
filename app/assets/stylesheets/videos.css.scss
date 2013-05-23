@@ -510,3 +510,8 @@ li {
 .mejs-overlay-loading {
   background: none !important;
 }
+
+#video-modal img {
+  max-width: 100%;
+  height: auto;
+}
