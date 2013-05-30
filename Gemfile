@@ -15,7 +15,7 @@ gem 'zencoder'
 gem 'mini_magick'
 gem 'redactor-rails'
 gem 'browser'
-gem 'jquery-fileupload-rails'
+gem 'jquery-fileupload-rails'#, github: 'swistaczek/jquery-fileupload-rails'
 gem 'simple_form'
 
 

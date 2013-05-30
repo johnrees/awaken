@@ -35,7 +35,7 @@
       %hr/
 
       #upload-new-videos
-        = form_tag [:admin,Video.new], :multipart => true, :class => 'js', :id => 'new_video' do
+        = form_tag fileupload_admin_videos_path, :multipart => true, :class => 'js', :id => 'new_video' do
           = hidden_field_tag :hello, "world"
           = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
 

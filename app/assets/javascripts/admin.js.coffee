@@ -89,7 +89,7 @@ jQuery ->
   $('#new_video.js').fileupload
     paramName: 'video[attachment]'
     maxFileSize: 1073741824
-    acceptFileTypes: /(\.|\/)(avi|wmv|mpg|mpeg|flv|m4v|dat|m1v|m2v|mov|ogg)$/i
+    # acceptFileTypes: /(\.|\/)(avi|wmv|mpg|mpeg|flv|m4v|dat|m1v|m2v|mov|ogg)$/i
     dataType: "script"
     add: (e, data) ->
       data.context = tmpl("template-upload", data.files[0]).trim()
