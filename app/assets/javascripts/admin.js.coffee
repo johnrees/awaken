@@ -1,3 +1,4 @@
+
 window.updateInitialPosition = ->
   $('li.video').removeClass('active')
   $("#published li.video:eq(#{Math.ceil($('#published li.video').length/2)-1})").addClass('active')
@@ -35,6 +36,11 @@ window.VideoPoller =
         # console.log 'got'
         $('.waiting').remove()
         $('.processed').show()
+        # $('video').mediaelementplayer
+        #   videoWidth: -1
+        #   videoHeight: -1
+        #   # defaultVideoWidth: 300
+        #   # defaultVideoHeight: 100
       else
         # console.log 'check'
         $('.waiting').show()
@@ -82,8 +88,8 @@ jQuery ->
     img =$(this).find('img').attr('src')
     $('#video_thumbnail').val(img)
     $('li.thumbnail').removeClass('active')
-    $('#my_video_1').attr('poster', img.replace('thumbnail','poster'))
-    $('#my_video_1').get(0).pause()
+    $('video').attr('poster', img.replace('thumbnail','poster'))
+    $('video').get(0).pause()
     $(this).addClass('active')
 
   $('#new_video.js').fileupload

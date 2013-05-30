@@ -29,8 +29,26 @@
               .input{style: 'width: 100%'}
                 / #video-holder{data: { url: @video.attachment.url}}
                 - if @video.attachment_url.present? && @video.zencoder_output_id.present?# && @video.processed?
-                  %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :height => "320", :poster => "#{@video.poster}?#{@video.created_at.to_i}", :preload => "auto", :width => "100%", :style => 'width: 100%'}
-                    %source{'cross-origin' => 'anonymous', :src => "#{@video.video.gsub('.mp4','-small.mp4')}?#{@video.created_at.to_i}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
+
+                  = content_tag_for :video, @video, allowFullScreen: true, poster: "#{@video.poster}?#{@video.created_at.to_i}", controls: 'controls', preload: 'none', style: 'width:100%; height:100%;' do
+                    - if browser.tablet? or browser.mobile?
+                      %source{src: @video.video.gsub('.mp4','-small.mp4'), type: "video/mp4"}
+                    - else
+                      %source{src: @video.video, type: "video/mp4"}
+
+                    %source{src: @video.video.gsub('mp4','webm'), type: "video/webm"}
+                    %source{src: @video.video.gsub('mp4','ogg'), type: "video/ogg"}
+                    %object{type: 'application/x-shockwave-flash', data: asset_path('flashmediaelement.swf')}
+                      %param{name: 'movie', value: asset_path('flashmediaelement.swf')}
+                      %param{name: 'flashvars', value: "controls=true&poster=#{@video.poster}&file=#{@video.video.gsub('.mp4','-small.mp4')}"}
+                      %param{name: 'allowFullScreen', value: "true"}
+                      .fallback
+                        %p Adobe Flash Player or Quicktime is required for video playback
+                        %p= link_to "Get the latest version of quicktime", "http://www.apple.com/quicktime/download"
+                        %p= link_to "Get the latest flash player", "http://get.adobe.com/flashplayer"
+
+                    %video#my_video_1.video-js.vjs-default-skin{'cross-origin' => 'anonymous', :controls => "", "data-setup" => "{}", :poster => "#{@video.poster}?#{@video.created_at.to_i}", :preload => "auto"}
+                      %source{'cross-origin' => 'anonymous', :src => "#{@video.video.gsub('.mp4','-small.mp4')}?#{@video.created_at.to_i}", :type => "video/mp4; codecs='avc1.42E01E, mp4a.40.2'"}
                 - else
                   %p Please be patient while we process this video
           .large-4.columns#thumbnail-column

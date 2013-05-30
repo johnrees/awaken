@@ -17,7 +17,7 @@
 //= require jquery-fileupload/jquery.iframe-transport
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-
+//= require mediaelement-and-player
 //= require modernizr
 //= require underscore
 //= require foundation
