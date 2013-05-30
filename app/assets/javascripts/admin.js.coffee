@@ -99,8 +99,10 @@ jQuery ->
       # $(data.context)
       $('.upload:last').data('jqXHR', data.submit())
     progress: (e, data) ->
+      console.log data
       if data.context
         progress = parseInt( Math.ceil(data.loaded / data.total) * 100, 10 )
+        console.log progress
         $(".upload[data-name='#{data.files[0].name}'] .bar").css('width', progress + '%')
         if progress >= 99
           $(".upload[data-name='#{data.files[0].name}'] .bar").css('background-color', '#BBB').html("Transferring to Video Server...")

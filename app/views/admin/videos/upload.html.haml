@@ -35,10 +35,9 @@
       %hr/
 
       #upload-new-videos
-        / %p.hint Pick the videos you want to add using the button below, allow them to fully upload then after about 10-20 seconds they should transfer into the All Videos column.
-        = form_for [:admin,Video.new], :multipart => true, :html => { :class => 'js', :id => 'new_video' }, :remote => true do |f|
+        = form_tag [:admin,Video.new], :multipart => true, :class => 'js', :id => 'new_video' do
+          = hidden_field_tag :hello, "world"
           = file_field_tag(:attachment, multiple: true, name: "video[attachment]")
-          / = f.submit
 
           %hr/
 

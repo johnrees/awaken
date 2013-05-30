@@ -2,6 +2,8 @@ class VideoUploader < CarrierWave::Uploader::Base
   include Rails.application.routes.url_helpers
   Rails.application.routes.default_url_options = ActionMailer::Base.default_url_options
 
+  storage :fog
+
   unless Rails.env.test?
     after :store, :zencode
   end
@@ -27,6 +29,7 @@ class VideoUploader < CarrierWave::Uploader::Base
     notification_url = Rails.env.production? ? "http://rouse.johnre.es/zencoder-callback" : "http://rouse.pagekite.me/zencoder-callback"
 
     zencoder_response = Zencoder::Job.create({
+      :test => !Rails.env.production?,
       :input => input,
       :outputs => [
         {
