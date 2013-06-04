@@ -285,6 +285,7 @@
 
 .page {
   padding: 18px;
+
 }
 
 #video {
@@ -441,6 +442,9 @@ li {
 #video-modal {
   height: 100%;
   overflow: hidden;
+  p {
+    margin-bottom: 1em;
+  }
 }
 
 #video-modal .popup {
